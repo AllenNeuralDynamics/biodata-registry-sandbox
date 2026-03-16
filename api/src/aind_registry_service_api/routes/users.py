@@ -9,8 +9,8 @@ from aind_registry_service_api.session import get_session
 
 router = APIRouter()
 
-@router.get("/user", tags=["user"])
-async def get_user(
+@router.get("/users", tags=["users"])
+async def get_users(
     user_id: Optional[int] = Query(
         None,
         alias="user_id",
@@ -55,8 +55,8 @@ async def get_user(
         rows.append({"id": row.id, "name": row.name, "contact": row.contact})
     return rows
 
-@router.post("/user", tags=["user"])
-async def create_user(
+@router.post("/users", tags=["users"])
+async def create_users(
     name: str = Query(
         alias="name",
     ),
@@ -74,8 +74,8 @@ async def create_user(
         rows.append({"id": row.id, "name": row.name, "contact": row.contact})
     return rows
 
-@router.delete("/user", tags=["user"])
-async def delete_user(
+@router.delete("/users", tags=["users"])
+async def delete_users(
     user_id: int = Query(
         alias="user_id",
     ),
@@ -90,8 +90,8 @@ async def delete_user(
         rows.append({"id": row.id, "name": row.name, "contact": row.contact})
     return rows
 
-@router.put("/user", tags=["user"])
-async def update_user(
+@router.put("/users", tags=["users"])
+async def update_users(
     user_id: int = Query(
         alias="user_id",
     ),
