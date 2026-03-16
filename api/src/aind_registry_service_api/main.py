@@ -12,6 +12,8 @@ from aind_registry_service_api.routes.collections import router as co_router
 from aind_registry_service_api.routes.healthcheck import router as hc_router
 from aind_registry_service_api.routes.organization_admins import router as oa_router
 from aind_registry_service_api.routes.organizations import router as or_router
+from aind_registry_service_api.routes.schema_entities import router as se_router
+from aind_registry_service_api.routes.schemas import router as sc_router
 from aind_registry_service_api.routes.space_admins import router as sa_router
 from aind_registry_service_api.routes.spaces import router as sp_router
 from aind_registry_service_api.routes.users import router as us_router
@@ -45,6 +47,8 @@ app.include_router(co_router)
 app.include_router(hc_router)
 app.include_router(oa_router)
 app.include_router(or_router)
+app.include_router(se_router)
+app.include_router(sc_router)
 app.include_router(sa_router)
 app.include_router(sp_router)
 app.include_router(us_router)
