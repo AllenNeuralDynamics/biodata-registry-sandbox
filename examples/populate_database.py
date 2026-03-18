@@ -46,7 +46,7 @@ SCHEMA_DEFINITIONS = {
         "schema_entity_id": 6,
     },
     "quality_control": {
-        "filename": "quality_control_schema.json",
+        "filename": "quality_control_metric_schema.json",
         "version": "2.4.1",
         "schema_entity_id": 7,
     },
@@ -118,7 +118,18 @@ def register_documents(session: requests.Session, space_id: int = 1) -> None:
     data_asset_schema_id = get_schema_id(session, "data_description")
     instrument_schema_id = get_schema_id(session, "instrument")
     acquisition_schema_id = get_schema_id(session, "acquisition")
+    processing_schema_id = get_schema_id(session, "processing")
+    quality_control_schema_id = get_schema_id(session, "quality_control")
     subject_procedure_schema_id = get_schema_id(session, "subject_procedures")
+    existing_processes = get(
+        session,
+        "/processes",
+        params={"schema_id": processing_schema_id},
+    )
+    registered_processes = {
+        (row["output_data_asset_id"], canonicalize_data(row["data"]))
+        for row in existing_processes
+    }
     existing_subject_procedures = get(
         session,
         "/subject_procedures",
@@ -174,6 +185,55 @@ def register_documents(session: requests.Session, space_id: int = 1) -> None:
                 data=data_asset,
             )
             data_asset_id = data_asset_row["id"]
+
+            processing = record.get("processing")
+            if isinstance(processing, dict):
+                payload_key = (data_asset_id, canonicalize_data(processing))
+                if payload_key not in registered_processes:
+                    register(
+                        session,
+                        "/processes",
+                        params={
+                            "schema_id": processing_schema_id,
+                            "space_id": space_id,
+                            "output_data_asset_id": data_asset_id,
+                        },
+                        json=processing,
+                    )
+                    registered_processes.add(payload_key)
+
+            quality_control = record.get("quality_control")
+            if isinstance(quality_control, dict):
+                existing_quality_control_rows = get(
+                    session,
+                    "/quality_control",
+                    params={"data_asset_id": data_asset_id},
+                )
+                registered_quality_control_metrics = {
+                    canonicalize_data(row["data"])
+                    for row in existing_quality_control_rows
+                    if row["schema_id"] == quality_control_schema_id
+                }
+
+                for metric in quality_control.get("metrics", []):
+                    if not isinstance(metric, dict):
+                        continue
+
+                    payload_key = canonicalize_data(metric)
+                    if payload_key in registered_quality_control_metrics:
+                        continue
+
+                    register(
+                        session,
+                        "/quality_control",
+                        params={
+                            "schema_id": quality_control_schema_id,
+                            "space_id": space_id,
+                            "data_asset_id": data_asset_id,
+                        },
+                        json=metric,
+                    )
+                    registered_quality_control_metrics.add(payload_key)
 
         instrument = record.get("instrument")
         instrument_id: int | None = None

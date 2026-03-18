@@ -19,7 +19,6 @@ from aind_registry_service_api.routes.instruments import router as in_router
 from aind_registry_service_api.routes.organization_admins import router as oa_router
 from aind_registry_service_api.routes.organizations import router as or_router
 from aind_registry_service_api.routes.process_inputs import router as pi_router
-from aind_registry_service_api.routes.process_outputs import router as po_router
 from aind_registry_service_api.routes.processes import router as pr_router
 from aind_registry_service_api.routes.quality_control import router as qc_router
 from aind_registry_service_api.routes.schema_entities import router as se_router
@@ -71,7 +70,6 @@ app.include_router(in_router)
 app.include_router(oa_router)
 app.include_router(or_router)
 app.include_router(pi_router)
-app.include_router(po_router)
 app.include_router(pr_router)
 app.include_router(qc_router)
 app.include_router(se_router)
