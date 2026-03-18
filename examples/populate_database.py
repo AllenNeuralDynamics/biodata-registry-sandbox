@@ -9,6 +9,10 @@ import requests
 BASE_URL = "http://localhost:5000"
 SCHEMA_DIR = Path(__file__).resolve().parent / "schema_definitions"
 RECORDS_PATH = Path(__file__).resolve().parent / "records" / "docdb_records.json"
+SCHEMA_VERSION_FALLBACKS = {
+    "subject_procedures.json": "procedures_schema.json",
+    "specimen_procedures.json": "procedures_schema.json",
+}
 
 
 def register(session: requests.Session, endpoint: str, **kwargs) -> None:
@@ -53,13 +57,28 @@ def load_docdb_records() -> list[dict[str, Any]]:
         return json.load(file)
 
 
+def get_schema_version(schema_filename: str) -> str:
+    schema = load_schema(schema_filename)
+    properties = schema.get("properties", {})
+    schema_version = properties.get("schema_version", {}).get("const")
+    if schema_version is not None:
+        return str(schema_version)
+
+    fallback_schema_filename = SCHEMA_VERSION_FALLBACKS.get(schema_filename)
+    if fallback_schema_filename is None:
+        raise ValueError(f"Could not determine schema version for {schema_filename}.")
+
+    fallback_schema = load_schema(fallback_schema_filename)
+    fallback_version = fallback_schema["properties"]["schema_version"]["const"]
+    return str(fallback_version)
+
+
 def get_schema_id(
     session: requests.Session,
     schema_name: str,
     schema_filename: str,
 ) -> int:
-    schema = load_schema(schema_filename)
-    schema_version = schema["properties"]["schema_version"]["const"]
+    schema_version = get_schema_version(schema_filename)
     schemas = get(session, "/schemas", params={"name": schema_name})
 
     for row in schemas:
@@ -104,6 +123,23 @@ def get_instrument_id(session: requests.Session, *, name: str) -> int:
         f"Could not find instrument for name={name}. "
         "Register instruments before acquisitions."
     )
+
+
+def get_subject_row_id(session: requests.Session, *, name: str) -> int:
+    subjects = get(session, "/subjects", params={"name": name})
+
+    for row in subjects:
+        if row["name"] == name:
+            return row["id"]
+
+    raise ValueError(
+        f"Could not find subject for name={name}. "
+        "Register subjects before subject procedures."
+    )
+
+
+def canonicalize_data(data: dict[str, Any]) -> str:
+    return json.dumps(data, sort_keys=True)
 
 
 def register_subjects(session: requests.Session, space_id: int = 1) -> None:
@@ -284,15 +320,124 @@ def register_acquisitions(session: requests.Session, space_id: int = 1) -> None:
         )
 
 
+def register_subject_procedures(
+    session: requests.Session,
+    space_id: int = 1,
+) -> None:
+    subject_procedure_schema_id = get_schema_id(
+        session,
+        "subject_procedures",
+        "subject_procedures.json",
+    )
+    existing_rows = get(
+        session,
+        "/subject_procedures",
+        params={"schema_id": subject_procedure_schema_id},
+    )
+    existing_payloads = {
+        (row["subject_id"], canonicalize_data(row["data"]))
+        for row in existing_rows
+    }
+    records = load_docdb_records()
+    unique_subject_procedures: dict[tuple[int, str], dict[str, Any]] = {}
+
+    for record in records:
+        procedures = record.get("procedures")
+        if not isinstance(procedures, dict):
+            continue
+
+        subject_name = procedures.get("subject_id")
+        if not subject_name:
+            continue
+
+        subject_id = get_subject_row_id(session, name=str(subject_name))
+
+        for subject_procedure in procedures.get("subject_procedures", []):
+            if not isinstance(subject_procedure, dict):
+                continue
+
+            unique_subject_procedures.setdefault(
+                (subject_id, canonicalize_data(subject_procedure)),
+                subject_procedure,
+            )
+
+    for payload_key, subject_procedure in unique_subject_procedures.items():
+        subject_id, _ = payload_key
+        if payload_key in existing_payloads:
+            continue
+
+        register(
+            session,
+            "/subject_procedures",
+            params={
+                "schema_id": subject_procedure_schema_id,
+                "space_id": space_id,
+                "subject_id": subject_id,
+            },
+            json=subject_procedure,
+        )
+
+
+def register_specimen_procedures(
+    session: requests.Session,
+    space_id: int = 1,
+) -> None:
+    specimen_procedure_schema_id = get_schema_id(
+        session,
+        "specimen_procedures",
+        "specimen_procedures.json",
+    )
+    existing_rows = get(
+        session,
+        "/specimen_procedures",
+        params={"schema_id": specimen_procedure_schema_id},
+    )
+    existing_payloads = {
+        canonicalize_data(row["data"])
+        for row in existing_rows
+    }
+    records = load_docdb_records()
+    unique_specimen_procedures: dict[str, dict[str, Any]] = {}
+
+    for record in records:
+        procedures = record.get("procedures")
+        if not isinstance(procedures, dict):
+            continue
+
+        for specimen_procedure in procedures.get("specimen_procedures", []):
+            if not isinstance(specimen_procedure, dict):
+                continue
+
+            unique_specimen_procedures.setdefault(
+                canonicalize_data(specimen_procedure),
+                specimen_procedure,
+            )
+
+    for payload_key, specimen_procedure in unique_specimen_procedures.items():
+        if payload_key in existing_payloads:
+            continue
+
+        register(
+            session,
+            "/specimen_procedures",
+            params={
+                "schema_id": specimen_procedure_schema_id,
+                "space_id": space_id,
+            },
+            json=specimen_procedure,
+        )
+
+
 def create_schemas(session: requests.Session) -> None:
     schema_definitions = [
         ("acquisition", "acquisition_schema.json", 1),
         ("data_description", "data_description_schema.json", 2),
         ("instrument", "instrument_schema.json", 3),
-        ("procedures", "procedures_schema.json", 4),
-        ("processing", "processing_schema.json", 5),
-        ("quality_control", "quality_control_schema.json", 6),
-        ("subject", "subject_schema.json", 7),
+        ("subject_procedures", "subject_procedures.json", 4),
+        ("specimen_procedures", "specimen_procedures.json", 5),
+        ("processing", "processing_schema.json", 6),
+        ("quality_control", "quality_control_schema.json", 7),
+        ("subject", "subject_schema.json", 8),
     ]
 
     for name, schema_filename, schema_entity_id in schema_definitions:
@@ -302,7 +447,7 @@ def create_schemas(session: requests.Session) -> None:
             "/schemas",
             params={
                 "name": name,
-                "version": data["properties"]["schema_version"]["const"],
+                "version": get_schema_version(schema_filename),
                 "schema_entity_id": schema_entity_id,
             },
             json=data,
@@ -351,7 +496,8 @@ def register_core_data(session: requests.Session) -> None:
         "acquisition",
         "data_description",
         "instrument",
-        "procedures",
+        "subject_procedures",
+        "specimen_procedures",
         "processing",
         "quality_control",
         "subject",
@@ -375,6 +521,8 @@ def main() -> None:
         register_subjects(session, space_id=args.space_id)
         register_data_assets(session, space_id=args.space_id)
         register_acquisitions(session, space_id=args.space_id)
+        register_subject_procedures(session, space_id=args.space_id)
+        register_specimen_procedures(session, space_id=args.space_id)
 
 
 if __name__ == "__main__":
