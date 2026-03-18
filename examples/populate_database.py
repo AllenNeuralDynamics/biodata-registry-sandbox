@@ -5,29 +5,57 @@ from typing import Any
 
 import requests
 
+from api_helpers import (
+    find_record,
+    get,
+    get_or_register_record,
+    register,
+)
 
-BASE_URL = "http://localhost:5000"
 SCHEMA_DIR = Path(__file__).resolve().parent / "schema_definitions"
 RECORDS_PATH = Path(__file__).resolve().parent / "records" / "docdb_records.json"
-SCHEMA_VERSION_FALLBACKS = {
-    "subject_procedures.json": "procedures_schema.json",
-    "specimen_procedures.json": "procedures_schema.json",
+SCHEMA_DEFINITIONS = {
+    "acquisition": {
+        "filename": "acquisition_schema.json",
+        "version": "2.4.0",
+        "schema_entity_id": 1,
+    },
+    "data_description": {
+        "filename": "data_description_schema.json",
+        "version": "2.3.3",
+        "schema_entity_id": 2,
+    },
+    "instrument": {
+        "filename": "instrument_schema.json",
+        "version": "2.2.3",
+        "schema_entity_id": 3,
+    },
+    "subject_procedures": {
+        "filename": "subject_procedures.json",
+        "version": "2.1.1",
+        "schema_entity_id": 4,
+    },
+    "specimen_procedures": {
+        "filename": "specimen_procedures.json",
+        "version": "2.1.1",
+        "schema_entity_id": 5,
+    },
+    "processing": {
+        "filename": "processing_schema.json",
+        "version": "2.2.5",
+        "schema_entity_id": 6,
+    },
+    "quality_control": {
+        "filename": "quality_control_schema.json",
+        "version": "2.4.1",
+        "schema_entity_id": 7,
+    },
+    "subject": {
+        "filename": "subject_schema.json",
+        "version": "2.2.1",
+        "schema_entity_id": 8,
+    },
 }
-
-
-def register(session: requests.Session, endpoint: str, **kwargs) -> Any:
-    response = session.post(f"{BASE_URL}{endpoint}", **kwargs)
-    print(response.status_code)
-    response.raise_for_status()
-    if not response.content:
-        return None
-    return response.json()
-
-
-def get(session: requests.Session, endpoint: str, **kwargs) -> Any:
-    response = session.get(f"{BASE_URL}{endpoint}", **kwargs)
-    response.raise_for_status()
-    return response.json()
 
 
 def parse_args() -> argparse.Namespace:
@@ -61,35 +89,18 @@ def load_docdb_records() -> list[dict[str, Any]]:
         return json.load(file)
 
 
-def get_schema_version(schema_filename: str) -> str:
-    schema = load_schema(schema_filename)
-    properties = schema.get("properties", {})
-    schema_version = properties.get("schema_version", {}).get("const")
-    if schema_version is not None:
-        return str(schema_version)
-
-    fallback_schema_filename = SCHEMA_VERSION_FALLBACKS.get(schema_filename)
-    if fallback_schema_filename is None:
-        raise ValueError(f"Could not determine schema version for {schema_filename}.")
-
-    fallback_schema = load_schema(fallback_schema_filename)
-    fallback_version = fallback_schema["properties"]["schema_version"]["const"]
-    return str(fallback_version)
+def get_schema_definition(schema_name: str) -> dict[str, Any]:
+    if schema_name not in SCHEMA_DEFINITIONS:
+        raise ValueError(f"Unknown schema definition for {schema_name}.")
+    return SCHEMA_DEFINITIONS[schema_name]
 
 
-def get_schema_id(
-    session: requests.Session,
-    schema_name: str,
-    schema_filename: str,
-) -> int:
-    schema_version = get_schema_version(schema_filename)
+def get_schema_id(session: requests.Session, schema_name: str) -> int:
+    schema_version = get_schema_definition(schema_name)["version"]
     schemas = get(session, "/schemas", params={"name": schema_name})
 
     for row in schemas:
-        if (
-            row["name"] == schema_name
-            and row["version"] == schema_version
-        ):
+        if row["name"] == schema_name and row["version"] == schema_version:
             return row["id"]
 
     raise ValueError(
@@ -103,27 +114,11 @@ def canonicalize_data(data: dict[str, Any]) -> str:
 
 
 def register_documents(session: requests.Session, space_id: int = 1) -> None:
-    subject_schema_id = get_schema_id(session, "subject", "subject_schema.json")
-    data_asset_schema_id = get_schema_id(
-        session,
-        "data_description",
-        "data_description_schema.json",
-    )
-    instrument_schema_id = get_schema_id(
-        session,
-        "instrument",
-        "instrument_schema.json",
-    )
-    acquisition_schema_id = get_schema_id(
-        session,
-        "acquisition",
-        "acquisition_schema.json",
-    )
-    subject_procedure_schema_id = get_schema_id(
-        session,
-        "subject_procedures",
-        "subject_procedures.json",
-    )
+    subject_schema_id = get_schema_id(session, "subject")
+    data_asset_schema_id = get_schema_id(session, "data_description")
+    instrument_schema_id = get_schema_id(session, "instrument")
+    acquisition_schema_id = get_schema_id(session, "acquisition")
+    subject_procedure_schema_id = get_schema_id(session, "subject_procedures")
     existing_subject_procedures = get(
         session,
         "/subject_procedures",
@@ -136,31 +131,24 @@ def register_documents(session: requests.Session, space_id: int = 1) -> None:
 
     for record in load_docdb_records():
         subject = record.get("subject")
-        subject_name: str | None = None
         subject_id: int | None = None
         if isinstance(subject, dict):
             raw_subject_name = subject.get("subject_id")
             if raw_subject_name:
                 subject_name = str(raw_subject_name)
-                existing_subjects = get(
+                subject_row = get_or_register_record(
                     session,
-                    "/subjects",
-                    params={"name": subject_name},
+                    endpoint="/subjects",
+                    lookup_params={"name": subject_name},
+                    match_fields={"name": subject_name},
+                    create_params={
+                        "schema_id": subject_schema_id,
+                        "space_id": space_id,
+                        "name": subject_name,
+                    },
+                    data=subject,
                 )
-                if existing_subjects:
-                    subject_id = existing_subjects[0]["id"]
-                else:
-                    created_subjects = register(
-                        session,
-                        "/subjects",
-                        params={
-                            "schema_id": subject_schema_id,
-                            "space_id": space_id,
-                            "name": subject_name,
-                        },
-                        json=subject,
-                    )
-                    subject_id = created_subjects[0]["id"]
+                subject_id = subject_row["id"]
 
         data_asset = record.get("data_description")
         location = record.get("location")
@@ -169,32 +157,23 @@ def register_documents(session: requests.Session, space_id: int = 1) -> None:
         if isinstance(data_asset, dict) and location and name:
             data_asset_name = str(name)
             data_asset_location = str(location)
-            existing_data_assets = get(
+            data_asset_row = get_or_register_record(
                 session,
-                "/data_assets",
-                params={"location": data_asset_location},
+                endpoint="/data_assets",
+                lookup_params={"location": data_asset_location},
+                match_fields={
+                    "location": data_asset_location,
+                    "name": data_asset_name,
+                },
+                create_params={
+                    "schema_id": data_asset_schema_id,
+                    "space_id": space_id,
+                    "name": data_asset_name,
+                    "location": data_asset_location,
+                },
+                data=data_asset,
             )
-            matching_data_assets = [
-                row
-                for row in existing_data_assets
-                if row["location"] == data_asset_location
-                and row["name"] == data_asset_name
-            ]
-            if matching_data_assets:
-                data_asset_id = matching_data_assets[0]["id"]
-            else:
-                created_data_assets = register(
-                    session,
-                    "/data_assets",
-                    params={
-                        "schema_id": data_asset_schema_id,
-                        "space_id": space_id,
-                        "name": data_asset_name,
-                        "location": data_asset_location,
-                    },
-                    json=data_asset,
-                )
-                data_asset_id = created_data_assets[0]["id"]
+            data_asset_id = data_asset_row["id"]
 
         instrument = record.get("instrument")
         instrument_id: int | None = None
@@ -202,25 +181,19 @@ def register_documents(session: requests.Session, space_id: int = 1) -> None:
             raw_instrument_name = instrument.get("instrument_id")
             if raw_instrument_name:
                 instrument_name = str(raw_instrument_name)
-                existing_instruments = get(
+                instrument_row = get_or_register_record(
                     session,
-                    "/instruments",
-                    params={"name": instrument_name},
+                    endpoint="/instruments",
+                    lookup_params={"name": instrument_name},
+                    match_fields={"name": instrument_name},
+                    create_params={
+                        "schema_id": instrument_schema_id,
+                        "space_id": space_id,
+                        "name": instrument_name,
+                    },
+                    data=instrument,
                 )
-                if existing_instruments:
-                    instrument_id = existing_instruments[0]["id"]
-                else:
-                    created_instruments = register(
-                        session,
-                        "/instruments",
-                        params={
-                            "schema_id": instrument_schema_id,
-                            "space_id": space_id,
-                            "name": instrument_name,
-                        },
-                        json=instrument,
-                    )
-                    instrument_id = created_instruments[0]["id"]
+                instrument_id = instrument_row["id"]
 
         acquisition = record.get("acquisition")
         if (
@@ -229,37 +202,31 @@ def register_documents(session: requests.Session, space_id: int = 1) -> None:
             and instrument_id is not None
             and subject_id is not None
         ):
-            existing_acquisitions = get(
+            acquisition_row = get_or_register_record(
                 session,
-                "/acquisitions",
-                params={"data_asset_id": data_asset_id},
+                endpoint="/acquisitions",
+                lookup_params={"data_asset_id": data_asset_id},
+                match_fields={"data_asset_id": data_asset_id},
+                create_params={
+                    "schema_id": acquisition_schema_id,
+                    "space_id": space_id,
+                    "data_asset_id": data_asset_id,
+                    "instrument_id": instrument_id,
+                },
+                data=acquisition,
             )
-            if existing_acquisitions:
-                acquisition_id = existing_acquisitions[0]["id"]
-            else:
-                created_acquisitions = register(
-                    session,
-                    "/acquisitions",
-                    params={
-                        "schema_id": acquisition_schema_id,
-                        "space_id": space_id,
-                        "data_asset_id": data_asset_id,
-                        "instrument_id": instrument_id,
-                    },
-                    json=acquisition,
-                )
-                acquisition_id = created_acquisitions[0]["id"]
+            acquisition_id = acquisition_row["id"]
 
-            acquisition_subjects = get(
-                session,
-                "/acquisition_subjects",
-                params={"acquisition_id": acquisition_id},
+            acquisition_subject_row = find_record(
+                get(
+                    session,
+                    "/acquisition_subjects",
+                    params={"acquisition_id": acquisition_id},
+                ),
+                acquisition_id=acquisition_id,
+                subject_id=subject_id,
             )
-            if not any(
-                row["acquisition_id"] == acquisition_id
-                and row["subject_id"] == subject_id
-                for row in acquisition_subjects
-            ):
+            if acquisition_subject_row is None:
                 register(
                     session,
                     "/acquisition_subjects",
@@ -298,11 +265,7 @@ def register_specimen_procedures(
     session: requests.Session,
     space_id: int = 1,
 ) -> None:
-    specimen_procedure_schema_id = get_schema_id(
-        session,
-        "specimen_procedures",
-        "specimen_procedures.json",
-    )
+    specimen_procedure_schema_id = get_schema_id(session, "specimen_procedures")
     existing_rows = get(
         session,
         "/specimen_procedures",
@@ -345,26 +308,15 @@ def register_specimen_procedures(
 
 
 def create_schemas(session: requests.Session) -> None:
-    schema_definitions = [
-        ("acquisition", "acquisition_schema.json", 1),
-        ("data_description", "data_description_schema.json", 2),
-        ("instrument", "instrument_schema.json", 3),
-        ("subject_procedures", "subject_procedures.json", 4),
-        ("specimen_procedures", "specimen_procedures.json", 5),
-        ("processing", "processing_schema.json", 6),
-        ("quality_control", "quality_control_schema.json", 7),
-        ("subject", "subject_schema.json", 8),
-    ]
-
-    for name, schema_filename, schema_entity_id in schema_definitions:
-        data = load_schema(schema_filename)
+    for name, schema_definition in SCHEMA_DEFINITIONS.items():
+        data = load_schema(schema_definition["filename"])
         register(
             session,
             "/schemas",
             params={
                 "name": name,
-                "version": get_schema_version(schema_filename),
-                "schema_entity_id": schema_entity_id,
+                "version": schema_definition["version"],
+                "schema_entity_id": schema_definition["schema_entity_id"],
             },
             json=data,
         )
