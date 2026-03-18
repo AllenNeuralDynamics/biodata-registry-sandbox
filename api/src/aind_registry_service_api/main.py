@@ -39,7 +39,7 @@ log_level = os.getenv("LOG_LEVEL", "INFO")
 logging.basicConfig(level=log_level)
 
 description = """
-## aind-registry-service
+## biodata-registry-service
 
 Service to fetch data from Registry.
 
@@ -47,7 +47,7 @@ Service to fetch data from Registry.
 
 # noinspection PyTypeChecker
 app = FastAPI(
-    title="aind-registry-service",
+    title="biodata-registry-service",
     description=description,
     summary="Serves data from Registry.",
     version=service_version,
