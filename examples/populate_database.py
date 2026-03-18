@@ -75,6 +75,37 @@ def get_schema_id(
     )
 
 
+def get_data_asset_id(
+    session: requests.Session,
+    *,
+    location: str,
+    name: str,
+) -> int:
+    data_assets = get(session, "/data_assets", params={"location": location})
+
+    for row in data_assets:
+        if row["location"] == location and row["name"] == name:
+            return row["id"]
+
+    raise ValueError(
+        f"Could not find data asset for name={name} location={location}. "
+        "Register data assets before acquisitions."
+    )
+
+
+def get_instrument_id(session: requests.Session, *, name: str) -> int:
+    instruments = get(session, "/instruments", params={"name": name})
+
+    for row in instruments:
+        if row["name"] == name:
+            return row["id"]
+
+    raise ValueError(
+        f"Could not find instrument for name={name}. "
+        "Register instruments before acquisitions."
+    )
+
+
 def register_subjects(session: requests.Session, space_id: int = 1) -> None:
     subject_schema_id = get_schema_id(session, "subject", "subject_schema.json")
     records = load_docdb_records()
@@ -159,6 +190,97 @@ def register_data_assets(session: requests.Session, space_id: int = 1) -> None:
                 "location": data_asset["location"],
             },
             json=data_asset["data"],
+        )
+
+
+def register_instruments(session: requests.Session, space_id: int = 1) -> None:
+    instrument_schema_id = get_schema_id(
+        session,
+        "instrument",
+        "instrument_schema.json",
+    )
+    records = load_docdb_records()
+    unique_instruments: dict[str, dict[str, Any]] = {}
+
+    for record in records:
+        instrument = record.get("instrument")
+        if not isinstance(instrument, dict):
+            continue
+
+        instrument_id = instrument.get("instrument_id")
+        if not instrument_id:
+            continue
+
+        unique_instruments.setdefault(str(instrument_id), instrument)
+
+    for instrument_id, instrument in unique_instruments.items():
+        existing_instruments = get(
+            session,
+            "/instruments",
+            params={"name": instrument_id},
+        )
+        if any(row["name"] == instrument_id for row in existing_instruments):
+            continue
+
+        register(
+            session,
+            "/instruments",
+            params={
+                "schema_id": instrument_schema_id,
+                "space_id": space_id,
+                "name": instrument_id,
+            },
+            json=instrument,
+        )
+
+
+def register_acquisitions(session: requests.Session, space_id: int = 1) -> None:
+    acquisition_schema_id = get_schema_id(
+        session,
+        "acquisition",
+        "acquisition_schema.json",
+    )
+    register_instruments(session, space_id=space_id)
+    records = load_docdb_records()
+
+    for record in records:
+        acquisition = record.get("acquisition")
+        if not isinstance(acquisition, dict):
+            continue
+
+        instrument_name = acquisition.get("instrument_id")
+        if not instrument_name:
+            continue
+
+        location = record.get("location")
+        name = record.get("name")
+        if not location or not name:
+            continue
+
+        data_asset_id = get_data_asset_id(
+            session,
+            location=str(location),
+            name=str(name),
+        )
+        instrument_id = get_instrument_id(session, name=str(instrument_name))
+        existing_acquisitions = get(
+            session,
+            "/acquisitions",
+            params={"data_asset_id": data_asset_id},
+        )
+        if any(row["data_asset_id"] == data_asset_id for row in existing_acquisitions):
+            continue
+
+        register(
+            session,
+            "/acquisitions",
+            params={
+                "schema_id": acquisition_schema_id,
+                "space_id": space_id,
+                "data_asset_id": data_asset_id,
+                "instrument_id": instrument_id,
+            },
+            json=acquisition,
         )
 
 
@@ -252,6 +374,7 @@ def main() -> None:
 
         register_subjects(session, space_id=args.space_id)
         register_data_assets(session, space_id=args.space_id)
+        register_acquisitions(session, space_id=args.space_id)
 
 
 if __name__ == "__main__":

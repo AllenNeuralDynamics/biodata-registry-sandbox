@@ -28,9 +28,13 @@ async def get_acquisitions(
         None,
         alias="data_asset_id",
     ),
+    instrument_id: Optional[int] = Query(
+        None,
+        alias="instrument_id",
+    ),
     session: AsyncSession = Depends(get_session),
 ):
-    if all(item is None for item in [acquisition_id, schema_id, space_id, data_asset_id]):
+    if all(item is None for item in [acquisition_id, schema_id, space_id, data_asset_id, instrument_id]):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
@@ -58,12 +62,18 @@ async def get_acquisitions(
     elif data_asset_id is not None:
         or_statement = or_statement + " OR data_asset_id = :data_asset_id"
         param_dict["data_asset_id"] = data_asset_id
+    if instrument_id is not None and not param_dict:
+        or_statement = " WHERE instrument_id = :instrument_id"
+        param_dict["instrument_id"] = instrument_id
+    elif instrument_id is not None:
+        or_statement = or_statement + " OR instrument_id = :instrument_id"
+        param_dict["instrument_id"] = instrument_id
     new_statement = f"{base_statement} {or_statement};"
     statement = text(new_statement)
     result = await session.execute(statement, param_dict)
     rows = []
     for row in result:
-        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "data_asset_id": row.data_asset_id, "data": row.data})
+        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "data_asset_id": row.data_asset_id, "instrument_id": row.instrument_id, "data": row.data})
     return rows
 
 @router.post("/acquisitions", tags=["acquisitions"])
@@ -77,18 +87,21 @@ async def create_acquisitions(
     data_asset_id: int = Query(
         alias="data_asset_id",
     ),
+    instrument_id: int = Query(
+        alias="instrument_id",
+    ),
     data: Dict[str, Any] = Body(
         alias="data",
     ),
     session: AsyncSession = Depends(get_session),
 ):
-    base_statement = "INSERT INTO acquisitions (schema_id, space_id, data_asset_id, data) VALUES (:schema_id, :space_id, :data_asset_id, :data) RETURNING *;"
-    param_dict = {"schema_id": schema_id, "space_id": space_id, "data_asset_id": data_asset_id, "data": json.dumps(data)}
+    base_statement = "INSERT INTO acquisitions (schema_id, space_id, data_asset_id, instrument_id, data) VALUES (:schema_id, :space_id, :data_asset_id, :instrument_id, :data) RETURNING *;"
+    param_dict = {"schema_id": schema_id, "space_id": space_id, "data_asset_id": data_asset_id, "instrument_id": instrument_id, "data": json.dumps(data)}
     statement = text(base_statement)
     result = await session.execute(statement, param_dict)
     rows = []
     for row in result:
-        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "data_asset_id": row.data_asset_id, "data": row.data})
+        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "data_asset_id": row.data_asset_id, "instrument_id": row.instrument_id, "data": row.data})
     return rows
 
 @router.delete("/acquisitions", tags=["acquisitions"])
@@ -125,13 +138,17 @@ async def update_acquisitions(
         None,
         alias="data_asset_id",
     ),
+    instrument_id: Optional[int] = Query(
+        None,
+        alias="instrument_id",
+    ),
     data: Optional[Dict[str, Any]] = Body(
         None,
         alias="data",
     ),
     session: AsyncSession = Depends(get_session),
 ):
-    if all(item is None for item in [schema_id, space_id, data_asset_id, data]):
+    if all(item is None for item in [schema_id, space_id, data_asset_id, instrument_id, data]):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
@@ -153,6 +170,12 @@ async def update_acquisitions(
     elif data_asset_id is not None:
         set_statement = set_statement + ", data_asset_id = :data_asset_id"
         param_dict["data_asset_id"] = data_asset_id
+    if instrument_id is not None and not param_dict:
+        set_statement = " SET instrument_id = :instrument_id"
+        param_dict["instrument_id"] = instrument_id
+    elif instrument_id is not None:
+        set_statement = set_statement + ", instrument_id = :instrument_id"
+        param_dict["instrument_id"] = instrument_id
     if data is not None and not param_dict:
         set_statement = " SET data = :data"
         param_dict["data"] = json.dumps(data)
@@ -165,5 +188,5 @@ async def update_acquisitions(
     result = await session.execute(statement, param_dict)
     rows = []
     for row in result:
-        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "data_asset_id": row.data_asset_id, "data": row.data})
+        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "data_asset_id": row.data_asset_id, "instrument_id": row.instrument_id, "data": row.data})
     return rows
