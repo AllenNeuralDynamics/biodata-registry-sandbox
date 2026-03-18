@@ -151,6 +151,7 @@ CREATE TABLE IF NOT EXISTS subject_procedures (
     data JSONB NOT NULL,
     schema_id INT NOT NULL,
     space_id INT NOT NULL,
+    subject_id INT NOT NULL,
     CONSTRAINT fk_schema_id
         FOREIGN KEY (schema_id)
         REFERENCES schemas(id)
@@ -159,6 +160,11 @@ CREATE TABLE IF NOT EXISTS subject_procedures (
     CONSTRAINT fk_space_id
         FOREIGN KEY (space_id)
         REFERENCES spaces(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+    CONSTRAINT fk_subject_id
+        FOREIGN KEY (subject_id)
+        REFERENCES subjects(id)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 );

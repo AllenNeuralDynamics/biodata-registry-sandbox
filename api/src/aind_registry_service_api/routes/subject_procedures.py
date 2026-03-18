@@ -24,9 +24,13 @@ async def get_subject_procedures(
         None,
         alias="space_id",
     ),
+    subject_id: Optional[int] = Query(
+        None,
+        alias="subject_id",
+    ),
     session: AsyncSession = Depends(get_session),
 ):
-    if all(item is None for item in [subject_procedure_id, schema_id, space_id]):
+    if all(item is None for item in [subject_procedure_id, schema_id, space_id, subject_id]):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
@@ -48,12 +52,18 @@ async def get_subject_procedures(
     elif space_id is not None:
         or_statement = or_statement + " OR space_id = :space_id"
         param_dict["space_id"] = space_id
+    if subject_id is not None and not param_dict:
+        or_statement = " WHERE subject_id = :subject_id"
+        param_dict["subject_id"] = subject_id
+    elif subject_id is not None:
+        or_statement = or_statement + " OR subject_id = :subject_id"
+        param_dict["subject_id"] = subject_id
     new_statement = f"{base_statement} {or_statement};"
     statement = text(new_statement)
     result = await session.execute(statement, param_dict)
     rows = []
     for row in result:
-        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "data": row.data})
+        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "subject_id": row.subject_id, "data": row.data})
     return rows
 
 @router.post("/subject_procedures", tags=["subject_procedures"])
@@ -64,18 +74,21 @@ async def create_subject_procedures(
     space_id: int = Query(
         alias="space_id",
     ),
+    subject_id: int = Query(
+        alias="subject_id",
+    ),
     data: Dict[str, Any] = Body(
         alias="data",
     ),
     session: AsyncSession = Depends(get_session),
 ):
-    base_statement = "INSERT INTO subject_procedures (schema_id, space_id, data) VALUES (:schema_id, :space_id, :data) RETURNING *;"
-    param_dict = {"schema_id": schema_id, "space_id": space_id, "data": json.dumps(data)}
+    base_statement = "INSERT INTO subject_procedures (schema_id, space_id, subject_id, data) VALUES (:schema_id, :space_id, :subject_id, :data) RETURNING *;"
+    param_dict = {"schema_id": schema_id, "space_id": space_id, "subject_id": subject_id, "data": json.dumps(data)}
     statement = text(base_statement)
     result = await session.execute(statement, param_dict)
     rows = []
     for row in result:
-        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "data": row.data})
+        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "subject_id": row.subject_id, "data": row.data})
     return rows
 
 @router.delete("/subject_procedures", tags=["subject_procedures"])
@@ -108,13 +121,17 @@ async def update_subject_procedures(
         None,
         alias="schema_entity_id",
     ),
+    subject_id: Optional[int] = Query(
+        None,
+        alias="subject_id",
+    ),
     data: Optional[Dict[str, Any]] = Body(
         None,
         alias="data",
     ),
     session: AsyncSession = Depends(get_session),
 ):
-    if all(item is None for item in [schema_id, space_id, data]):
+    if all(item is None for item in [schema_id, space_id, subject_id, data]):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         )
@@ -130,6 +147,12 @@ async def update_subject_procedures(
     elif space_id is not None:
         set_statement = set_statement + ", space_id = :space_id"
         param_dict["space_id"] = space_id
+    if subject_id is not None and not param_dict:
+        set_statement = " SET subject_id = :subject_id"
+        param_dict["subject_id"] = subject_id
+    elif subject_id is not None:
+        set_statement = set_statement + ", subject_id = :subject_id"
+        param_dict["subject_id"] = subject_id
     if data is not None and not param_dict:
         set_statement = " SET data = :data"
         param_dict["data"] = json.dumps(data)
@@ -142,5 +165,5 @@ async def update_subject_procedures(
     result = await session.execute(statement, param_dict)
     rows = []
     for row in result:
-        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "data": row.data})
+        rows.append({"id": row.id, "schema_id": row.schema_id, "space_id": row.space_id, "subject_id": row.subject_id, "data": row.data})
     return rows
