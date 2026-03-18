@@ -15,9 +15,13 @@ SCHEMA_VERSION_FALLBACKS = {
 }
 
 
-def register(session: requests.Session, endpoint: str, **kwargs) -> None:
+def register(session: requests.Session, endpoint: str, **kwargs) -> Any:
     response = session.post(f"{BASE_URL}{endpoint}", **kwargs)
     print(response.status_code)
+    response.raise_for_status()
+    if not response.content:
+        return None
+    return response.json()
 
 
 def get(session: requests.Session, endpoint: str, **kwargs) -> Any:
@@ -94,288 +98,200 @@ def get_schema_id(
     )
 
 
-def get_data_asset_id(
-    session: requests.Session,
-    *,
-    location: str,
-    name: str,
-) -> int:
-    data_assets = get(session, "/data_assets", params={"location": location})
-
-    for row in data_assets:
-        if row["location"] == location and row["name"] == name:
-            return row["id"]
-
-    raise ValueError(
-        f"Could not find data asset for name={name} location={location}. "
-        "Register data assets before acquisitions."
-    )
-
-
-def get_instrument_id(session: requests.Session, *, name: str) -> int:
-    instruments = get(session, "/instruments", params={"name": name})
-
-    for row in instruments:
-        if row["name"] == name:
-            return row["id"]
-
-    raise ValueError(
-        f"Could not find instrument for name={name}. "
-        "Register instruments before acquisitions."
-    )
-
-
-def get_subject_row_id(session: requests.Session, *, name: str) -> int:
-    subjects = get(session, "/subjects", params={"name": name})
-
-    for row in subjects:
-        if row["name"] == name:
-            return row["id"]
-
-    raise ValueError(
-        f"Could not find subject for name={name}. "
-        "Register subjects before subject procedures."
-    )
-
-
 def canonicalize_data(data: dict[str, Any]) -> str:
     return json.dumps(data, sort_keys=True)
 
 
-def register_subjects(session: requests.Session, space_id: int = 1) -> None:
+def register_documents(session: requests.Session, space_id: int = 1) -> None:
     subject_schema_id = get_schema_id(session, "subject", "subject_schema.json")
-    records = load_docdb_records()
-    unique_subjects: dict[str, dict[str, Any]] = {}
-
-    for record in records:
-        subject = record.get("subject")
-        if not isinstance(subject, dict):
-            continue
-
-        subject_id = subject.get("subject_id")
-        if not subject_id:
-            continue
-
-        unique_subjects.setdefault(str(subject_id), subject)
-
-    for subject_id, subject in unique_subjects.items():
-        existing_subjects = get(session, "/subjects", params={"name": subject_id})
-        if existing_subjects:
-            continue
-
-        register(
-            session,
-            "/subjects",
-            params={
-                "schema_id": subject_schema_id,
-                "space_id": space_id,
-                "name": subject_id,
-            },
-            json=subject,
-        )
-
-
-def register_data_assets(session: requests.Session, space_id: int = 1) -> None:
     data_asset_schema_id = get_schema_id(
         session,
         "data_description",
         "data_description_schema.json",
     )
-    records = load_docdb_records()
-    unique_data_assets: dict[str, dict[str, Any]] = {}
-
-    for record in records:
-        data_description = record.get("data_description")
-        if not isinstance(data_description, dict):
-            continue
-
-        location = record.get("location")
-        name = record.get("name") or data_description.get("name")
-        if not location or not name:
-            continue
-
-        unique_data_assets.setdefault(
-            str(location),
-            {
-                "name": str(name),
-                "location": str(location),
-                "data": data_description,
-            },
-        )
-
-    for data_asset in unique_data_assets.values():
-        existing_data_assets = get(
-            session,
-            "/data_assets",
-            params={"location": data_asset["location"]},
-        )
-        if any(
-            row["location"] == data_asset["location"]
-            and row["name"] == data_asset["name"]
-            for row in existing_data_assets
-        ):
-            continue
-
-        register(
-            session,
-            "/data_assets",
-            params={
-                "schema_id": data_asset_schema_id,
-                "space_id": space_id,
-                "name": data_asset["name"],
-                "location": data_asset["location"],
-            },
-            json=data_asset["data"],
-        )
-
-
-def register_instruments(session: requests.Session, space_id: int = 1) -> None:
     instrument_schema_id = get_schema_id(
         session,
         "instrument",
         "instrument_schema.json",
     )
-    records = load_docdb_records()
-    unique_instruments: dict[str, dict[str, Any]] = {}
-
-    for record in records:
-        instrument = record.get("instrument")
-        if not isinstance(instrument, dict):
-            continue
-
-        instrument_id = instrument.get("instrument_id")
-        if not instrument_id:
-            continue
-
-        unique_instruments.setdefault(str(instrument_id), instrument)
-
-    for instrument_id, instrument in unique_instruments.items():
-        existing_instruments = get(
-            session,
-            "/instruments",
-            params={"name": instrument_id},
-        )
-        if any(row["name"] == instrument_id for row in existing_instruments):
-            continue
-
-        register(
-            session,
-            "/instruments",
-            params={
-                "schema_id": instrument_schema_id,
-                "space_id": space_id,
-                "name": instrument_id,
-            },
-            json=instrument,
-        )
-
-
-def register_acquisitions(session: requests.Session, space_id: int = 1) -> None:
     acquisition_schema_id = get_schema_id(
         session,
         "acquisition",
         "acquisition_schema.json",
     )
-    register_instruments(session, space_id=space_id)
-    records = load_docdb_records()
-
-    for record in records:
-        acquisition = record.get("acquisition")
-        if not isinstance(acquisition, dict):
-            continue
-
-        instrument_name = acquisition.get("instrument_id")
-        if not instrument_name:
-            continue
-
-        location = record.get("location")
-        name = record.get("name")
-        if not location or not name:
-            continue
-
-        data_asset_id = get_data_asset_id(
-            session,
-            location=str(location),
-            name=str(name),
-        )
-        instrument_id = get_instrument_id(session, name=str(instrument_name))
-        existing_acquisitions = get(
-            session,
-            "/acquisitions",
-            params={"data_asset_id": data_asset_id},
-        )
-        if any(row["data_asset_id"] == data_asset_id for row in existing_acquisitions):
-            continue
-
-        register(
-            session,
-            "/acquisitions",
-            params={
-                "schema_id": acquisition_schema_id,
-                "space_id": space_id,
-                "data_asset_id": data_asset_id,
-                "instrument_id": instrument_id,
-            },
-            json=acquisition,
-        )
-
-
-def register_subject_procedures(
-    session: requests.Session,
-    space_id: int = 1,
-) -> None:
     subject_procedure_schema_id = get_schema_id(
         session,
         "subject_procedures",
         "subject_procedures.json",
     )
-    existing_rows = get(
+    existing_subject_procedures = get(
         session,
         "/subject_procedures",
         params={"schema_id": subject_procedure_schema_id},
     )
-    existing_payloads = {
+    registered_subject_procedures = {
         (row["subject_id"], canonicalize_data(row["data"]))
-        for row in existing_rows
+        for row in existing_subject_procedures
     }
-    records = load_docdb_records()
-    unique_subject_procedures: dict[tuple[int, str], dict[str, Any]] = {}
 
-    for record in records:
+    for record in load_docdb_records():
+        subject = record.get("subject")
+        subject_name: str | None = None
+        subject_id: int | None = None
+        if isinstance(subject, dict):
+            raw_subject_name = subject.get("subject_id")
+            if raw_subject_name:
+                subject_name = str(raw_subject_name)
+                existing_subjects = get(
+                    session,
+                    "/subjects",
+                    params={"name": subject_name},
+                )
+                if existing_subjects:
+                    subject_id = existing_subjects[0]["id"]
+                else:
+                    created_subjects = register(
+                        session,
+                        "/subjects",
+                        params={
+                            "schema_id": subject_schema_id,
+                            "space_id": space_id,
+                            "name": subject_name,
+                        },
+                        json=subject,
+                    )
+                    subject_id = created_subjects[0]["id"]
+
+        data_asset = record.get("data_description")
+        location = record.get("location")
+        name = record.get("name") or (data_asset or {}).get("name")
+        data_asset_id: int | None = None
+        if isinstance(data_asset, dict) and location and name:
+            data_asset_name = str(name)
+            data_asset_location = str(location)
+            existing_data_assets = get(
+                session,
+                "/data_assets",
+                params={"location": data_asset_location},
+            )
+            matching_data_assets = [
+                row
+                for row in existing_data_assets
+                if row["location"] == data_asset_location
+                and row["name"] == data_asset_name
+            ]
+            if matching_data_assets:
+                data_asset_id = matching_data_assets[0]["id"]
+            else:
+                created_data_assets = register(
+                    session,
+                    "/data_assets",
+                    params={
+                        "schema_id": data_asset_schema_id,
+                        "space_id": space_id,
+                        "name": data_asset_name,
+                        "location": data_asset_location,
+                    },
+                    json=data_asset,
+                )
+                data_asset_id = created_data_assets[0]["id"]
+
+        instrument = record.get("instrument")
+        instrument_id: int | None = None
+        if isinstance(instrument, dict):
+            raw_instrument_name = instrument.get("instrument_id")
+            if raw_instrument_name:
+                instrument_name = str(raw_instrument_name)
+                existing_instruments = get(
+                    session,
+                    "/instruments",
+                    params={"name": instrument_name},
+                )
+                if existing_instruments:
+                    instrument_id = existing_instruments[0]["id"]
+                else:
+                    created_instruments = register(
+                        session,
+                        "/instruments",
+                        params={
+                            "schema_id": instrument_schema_id,
+                            "space_id": space_id,
+                            "name": instrument_name,
+                        },
+                        json=instrument,
+                    )
+                    instrument_id = created_instruments[0]["id"]
+
+        acquisition = record.get("acquisition")
+        if (
+            isinstance(acquisition, dict)
+            and data_asset_id is not None
+            and instrument_id is not None
+            and subject_id is not None
+        ):
+            existing_acquisitions = get(
+                session,
+                "/acquisitions",
+                params={"data_asset_id": data_asset_id},
+            )
+            if existing_acquisitions:
+                acquisition_id = existing_acquisitions[0]["id"]
+            else:
+                created_acquisitions = register(
+                    session,
+                    "/acquisitions",
+                    params={
+                        "schema_id": acquisition_schema_id,
+                        "space_id": space_id,
+                        "data_asset_id": data_asset_id,
+                        "instrument_id": instrument_id,
+                    },
+                    json=acquisition,
+                )
+                acquisition_id = created_acquisitions[0]["id"]
+
+            acquisition_subjects = get(
+                session,
+                "/acquisition_subjects",
+                params={"acquisition_id": acquisition_id},
+            )
+            if not any(
+                row["acquisition_id"] == acquisition_id
+                and row["subject_id"] == subject_id
+                for row in acquisition_subjects
+            ):
+                register(
+                    session,
+                    "/acquisition_subjects",
+                    params={
+                        "acquisition_id": acquisition_id,
+                        "subject_id": subject_id,
+                    },
+                )
+
         procedures = record.get("procedures")
-        if not isinstance(procedures, dict):
+        if not isinstance(procedures, dict) or subject_id is None:
             continue
-
-        subject_name = procedures.get("subject_id")
-        if not subject_name:
-            continue
-
-        subject_id = get_subject_row_id(session, name=str(subject_name))
 
         for subject_procedure in procedures.get("subject_procedures", []):
             if not isinstance(subject_procedure, dict):
                 continue
 
-            unique_subject_procedures.setdefault(
-                (subject_id, canonicalize_data(subject_procedure)),
-                subject_procedure,
+            payload_key = (subject_id, canonicalize_data(subject_procedure))
+            if payload_key in registered_subject_procedures:
+                continue
+
+            register(
+                session,
+                "/subject_procedures",
+                params={
+                    "schema_id": subject_procedure_schema_id,
+                    "space_id": space_id,
+                    "subject_id": subject_id,
+                },
+                json=subject_procedure,
             )
-
-    for payload_key, subject_procedure in unique_subject_procedures.items():
-        subject_id, _ = payload_key
-        if payload_key in existing_payloads:
-            continue
-
-        register(
-            session,
-            "/subject_procedures",
-            params={
-                "schema_id": subject_procedure_schema_id,
-                "space_id": space_id,
-                "subject_id": subject_id,
-            },
-            json=subject_procedure,
-        )
+            registered_subject_procedures.add(payload_key)
 
 
 def register_specimen_procedures(
@@ -518,11 +434,7 @@ def main() -> None:
         if args.register_core_data:
             register_core_data(session)
 
-        register_subjects(session, space_id=args.space_id)
-        register_data_assets(session, space_id=args.space_id)
-        register_acquisitions(session, space_id=args.space_id)
-        register_subject_procedures(session, space_id=args.space_id)
-        register_specimen_procedures(session, space_id=args.space_id)
+        register_documents(session, space_id=args.space_id)
 
 
 if __name__ == "__main__":
