@@ -1,199 +1,258 @@
-import requests
+import argparse
 import json
 from pathlib import Path
+from typing import Any
 
-# Add Users
-response = requests.post(
-    'http://localhost:5000/users',
-    params={'name': 'Joe Smith', 'contact': 'joe.smith@example.com'}
-)
-print(response.status_code)
-
-response = requests.post(
-    'http://localhost:5000/users',
-    params={'name': 'Anna Apple', 'contact': 'anna.apple@example.com'}
-)
-print(response.status_code)
+import requests
 
 
-# Add Organizations
-response = requests.post(
-    'http://localhost:5000/organizations',
-    params={'name': 'AIND'}
-)
-print(response.status_code)
-
-response = requests.post(
-    'http://localhost:5000/organizations',
-    params={'name': 'AIBS'}
-)
-print(response.status_code)
+BASE_URL = "http://localhost:5000"
+SCHEMA_DIR = Path(__file__).resolve().parent / "schema_definitions"
+RECORDS_PATH = Path(__file__).resolve().parent / "records" / "docdb_records.json"
 
 
-# Create Spaces
-response = requests.post(
-    'http://localhost:5000/spaces',
-    params={'name': 'Space1', 'organization_id': 1}
-)
-print(response.status_code)
+def register(session: requests.Session, endpoint: str, **kwargs) -> None:
+    response = session.post(f"{BASE_URL}{endpoint}", **kwargs)
+    print(response.status_code)
 
 
-# Create Space Admins
-response = requests.post(
-    'http://localhost:5000/space_admins',
-    params={'user_id': 2, "space_id": 1}
-)
-print(response.status_code)
+def get(session: requests.Session, endpoint: str, **kwargs) -> Any:
+    response = session.get(f"{BASE_URL}{endpoint}", **kwargs)
+    response.raise_for_status()
+    return response.json()
 
 
-# Create Organization Admins
-response = requests.post(
-    'http://localhost:5000/organization_admins',
-    params={'user_id': 2, "organization_id": 1}
-)
-print(response.status_code)
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Populate aind-registry-sandbox with example records."
+    )
+    parser.add_argument(
+        "--register-core-data",
+        action="store_true",
+        help=(
+            "Also register users, organizations, spaces, collections, and "
+            "non-subject schema metadata."
+        ),
+    )
+    parser.add_argument(
+        "--space-id",
+        type=int,
+        default=1,
+        help="Space id to use when registering subjects.",
+    )
+    return parser.parse_args()
 
 
-# Create Collections
-response = requests.post(
-    'http://localhost:5000/collections',
-    params={'name': "test_collection", "description": "Test Collection", "owner_id": 1}
-)
-print(response.status_code)
+def load_schema(schema_filename: str) -> dict:
+    with (SCHEMA_DIR / schema_filename).open("r", encoding="utf-8") as file:
+        return json.load(file)
 
 
-# Create Schema Entities
-response = requests.post(
-    'http://localhost:5000/schema_entities',
-    params={'name': "acquisition"}
-)
-print(response.status_code)
-
-response = requests.post(
-    'http://localhost:5000/schema_entities',
-    params={'name': "data_description"}
-)
-print(response.status_code)
-
-response = requests.post(
-    'http://localhost:5000/schema_entities',
-    params={'name': "instrument"}
-)
-print(response.status_code)
-
-response = requests.post(
-    'http://localhost:5000/schema_entities',
-    params={'name': "procedures"}
-)
-print(response.status_code)
-
-response = requests.post(
-    'http://localhost:5000/schema_entities',
-    params={'name': "processing"}
-)
-print(response.status_code)
-
-response = requests.post(
-    'http://localhost:5000/schema_entities',
-    params={'name': "quality_control"}
-)
-print(response.status_code)
-
-response = requests.post(
-    'http://localhost:5000/schema_entities',
-    params={'name': "subject"}
-)
-print(response.status_code)
+def load_docdb_records() -> list[dict[str, Any]]:
+    with RECORDS_PATH.open("r", encoding="utf-8") as file:
+        return json.load(file)
 
 
-# Create Schemas
-with open(Path("schema_definitions") / "acquisition_schema.json", "r") as f:
-    data = json.load(f)
-response = requests.post(
-    'http://localhost:5000/schemas',
-    params={
-        'name': "acquisition",
-        "version": data["properties"]["schema_version"]["const"],
-        "schema_entity_id": 1
-    },
-    json=data
-)
-print(response.status_code)
+def get_schema_id(
+    session: requests.Session,
+    schema_name: str,
+    schema_filename: str,
+) -> int:
+    schema = load_schema(schema_filename)
+    schema_version = schema["properties"]["schema_version"]["const"]
+    schemas = get(session, "/schemas", params={"name": schema_name})
 
-with open(Path("schema_definitions") / "data_description_schema.json", "r") as f:
-    data = json.load(f)
-response = requests.post(
-    'http://localhost:5000/schemas',
-    params={
-        'name': "data_description",
-        "version": data["properties"]["schema_version"]["const"],
-        "schema_entity_id": 2
-    },
-    json=data
-)
-print(response.status_code)
+    for row in schemas:
+        if (
+            row["name"] == schema_name
+            and row["version"] == schema_version
+        ):
+            return row["id"]
 
-with open(Path("schema_definitions") / "instrument_schema.json", "r") as f:
-    data = json.load(f)
-response = requests.post(
-    'http://localhost:5000/schemas',
-    params={
-        'name': "instrument",
-        "version": data["properties"]["schema_version"]["const"],
-        "schema_entity_id": 3
-    },
-    json=data
-)
-print(response.status_code)
+    raise ValueError(
+        f"Could not find schema id for {schema_name} {schema_version}. "
+        "Create schemas before registering records."
+    )
 
-with open(Path("schema_definitions") / "procedures_schema.json", "r") as f:
-    data = json.load(f)
-response = requests.post(
-    'http://localhost:5000/schemas',
-    params={
-        'name': "procedures",
-        "version": data["properties"]["schema_version"]["const"],
-        "schema_entity_id": 4
-    },
-    json=data
-)
-print(response.status_code)
 
-with open(Path("schema_definitions") / "processing_schema.json", "r") as f:
-    data = json.load(f)
-response = requests.post(
-    'http://localhost:5000/schemas',
-    params={
-        'name': "processing",
-        "version": data["properties"]["schema_version"]["const"],
-        "schema_entity_id": 5
-    },
-    json=data
-)
-print(response.status_code)
+def register_subjects(session: requests.Session, space_id: int = 1) -> None:
+    subject_schema_id = get_schema_id(session, "subject", "subject_schema.json")
+    records = load_docdb_records()
+    unique_subjects: dict[str, dict[str, Any]] = {}
 
-with open(Path("schema_definitions") / "quality_control_schema.json", "r") as f:
-    data = json.load(f)
-response = requests.post(
-    'http://localhost:5000/schemas',
-    params={
-        'name': "quality_control",
-        "version": data["properties"]["schema_version"]["const"],
-        "schema_entity_id": 6
-    },
-    json=data
-)
-print(response.status_code)
+    for record in records:
+        subject = record.get("subject")
+        if not isinstance(subject, dict):
+            continue
 
-with open(Path("schema_definitions") / "subject_schema.json", "r") as f:
-    data = json.load(f)
-response = requests.post(
-    'http://localhost:5000/schemas',
-    params={
-        'name': "subject",
-        "version": data["properties"]["schema_version"]["const"],
-        "schema_entity_id": 7
-    },
-    json=data
-)
-print(response.status_code)
+        subject_id = subject.get("subject_id")
+        if not subject_id:
+            continue
+
+        unique_subjects.setdefault(str(subject_id), subject)
+
+    for subject_id, subject in unique_subjects.items():
+        existing_subjects = get(session, "/subjects", params={"name": subject_id})
+        if existing_subjects:
+            continue
+
+        register(
+            session,
+            "/subjects",
+            params={
+                "schema_id": subject_schema_id,
+                "space_id": space_id,
+                "name": subject_id,
+            },
+            json=subject,
+        )
+
+
+def register_data_assets(session: requests.Session, space_id: int = 1) -> None:
+    data_asset_schema_id = get_schema_id(
+        session,
+        "data_description",
+        "data_description_schema.json",
+    )
+    records = load_docdb_records()
+    unique_data_assets: dict[str, dict[str, Any]] = {}
+
+    for record in records:
+        data_description = record.get("data_description")
+        if not isinstance(data_description, dict):
+            continue
+
+        location = record.get("location")
+        name = record.get("name") or data_description.get("name")
+        if not location or not name:
+            continue
+
+        unique_data_assets.setdefault(
+            str(location),
+            {
+                "name": str(name),
+                "location": str(location),
+                "data": data_description,
+            },
+        )
+
+    for data_asset in unique_data_assets.values():
+        existing_data_assets = get(
+            session,
+            "/data_assets",
+            params={"location": data_asset["location"]},
+        )
+        if any(
+            row["location"] == data_asset["location"]
+            and row["name"] == data_asset["name"]
+            for row in existing_data_assets
+        ):
+            continue
+
+        register(
+            session,
+            "/data_assets",
+            params={
+                "schema_id": data_asset_schema_id,
+                "space_id": space_id,
+                "name": data_asset["name"],
+                "location": data_asset["location"],
+            },
+            json=data_asset["data"],
+        )
+
+
+def create_schemas(session: requests.Session) -> None:
+    schema_definitions = [
+        ("acquisition", "acquisition_schema.json", 1),
+        ("data_description", "data_description_schema.json", 2),
+        ("instrument", "instrument_schema.json", 3),
+        ("procedures", "procedures_schema.json", 4),
+        ("processing", "processing_schema.json", 5),
+        ("quality_control", "quality_control_schema.json", 6),
+        ("subject", "subject_schema.json", 7),
+    ]
+
+    for name, schema_filename, schema_entity_id in schema_definitions:
+        data = load_schema(schema_filename)
+        register(
+            session,
+            "/schemas",
+            params={
+                "name": name,
+                "version": data["properties"]["schema_version"]["const"],
+                "schema_entity_id": schema_entity_id,
+            },
+            json=data,
+        )
+
+
+def register_core_data(session: requests.Session) -> None:
+    for params in [
+        {"name": "Joe Smith", "contact": "joe.smith@example.com"},
+        {"name": "Anna Apple", "contact": "anna.apple@example.com"},
+    ]:
+        register(session, "/users", params=params)
+
+    for params in [{"name": "AIND"}, {"name": "AIBS"}]:
+        register(session, "/organizations", params=params)
+
+    register(
+        session,
+        "/spaces",
+        params={"name": "Space1", "organization_id": 1},
+    )
+
+    register(
+        session,
+        "/space_admins",
+        params={"user_id": 2, "space_id": 1},
+    )
+
+    register(
+        session,
+        "/organization_admins",
+        params={"user_id": 2, "organization_id": 1},
+    )
+
+    register(
+        session,
+        "/collections",
+        params={
+            "name": "test_collection",
+            "description": "Test Collection",
+            "owner_id": 1,
+        },
+    )
+
+    for schema_entity_name in [
+        "acquisition",
+        "data_description",
+        "instrument",
+        "procedures",
+        "processing",
+        "quality_control",
+        "subject",
+    ]:
+        register(
+            session,
+            "/schema_entities",
+            params={"name": schema_entity_name},
+        )
+
+    create_schemas(session)
+
+
+def main() -> None:
+    args = parse_args()
+
+    with requests.Session() as session:
+        if args.register_core_data:
+            register_core_data(session)
+
+        register_subjects(session, space_id=args.space_id)
+        register_data_assets(session, space_id=args.space_id)
+
+
+if __name__ == "__main__":
+    main()
