@@ -1,23 +1,23 @@
 services:
   postgres:
     image: postgres:latest
-    container_name: my_postgres_db
+    container_name: registry_db
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: registry
     ports:
       - "5432:5432"
     volumes:
-      - ./initdb:/docker-entrypoint-initdb.d/
       - postgres_data:/var/lib/postgresql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U myuser -d mydatabase" ]
+      test: [ "CMD-SHELL", "pg_isready -U user -d registry" ]
       interval: 5s
       timeout: 5s
       retries: 5
   api:
     build: ./api
+    container_name: registry_api
     depends_on:
       postgres:
         condition: service_healthy

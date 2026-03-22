@@ -3,10 +3,10 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "biodata-registry-service-api"
+name = "biodata-registry-api"
 description = "Package to serve data from registry."
 license = {text = "MIT"}
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 authors = [
     {name = "Allen Institute for Neural Dynamics"}
 ]
@@ -37,14 +37,15 @@ dev = [
     'pytest',
     'pytest-env',
     'pytest_asyncio',
-    'fastapi-cache2[redis]>=0.2.2',
+    'toml',
+    'Jinja2'
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.dynamic]
-version = {attr = "aind_registry_service_api.__version__"}
+version = {attr = "biodata_registry_api.__version__"}
 
 [tool.black]
 line-length = 79
@@ -70,7 +71,7 @@ exclude = '''
 
 [tool.coverage.run]
 omit = ["*__init__*"]
-source = ["aind_registry_service_api", "tests"]
+source = ["biodata_registry_api", "tests"]
 
 [tool.coverage.report]
 exclude_lines = [
