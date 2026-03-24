@@ -14,15 +14,23 @@ from biodata_registry_api.models.core import *
 
 from biodata_registry_api import __version__ as service_version
 from biodata_registry_api.routes import (
+    acquisitions,
     collections,
     data_assets,
     healthcheck,
+    instruments,
     organization_admins,
     organizations,
+    processes,
+    quality_controls,
     schema_entities,
     schemas,
     space_admins,
     spaces,
+    specimen_procedures,
+    specimens,
+    subject_procedures,
+    subjects,
     users,
 )
 from biodata_registry_api.session import engine
@@ -60,15 +68,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(collections.router)
-app.include_router(data_assets.router)
+# app.include_router(acquisitions.router)
+# app.include_router(collections.router)
+# app.include_router(data_assets.router)
 app.include_router(healthcheck.router)
-app.include_router(organization_admins.router)
-app.include_router(organizations.router)
-app.include_router(schema_entities.router)
-app.include_router(schemas.router)
-app.include_router(space_admins.router)
-app.include_router(spaces.router)
+# app.include_router(instruments.router)
+# app.include_router(organization_admins.router)
+# app.include_router(organizations.router)
+# app.include_router(processes.router)
+# app.include_router(quality_controls.router)
+# app.include_router(schema_entities.router)
+# app.include_router(schemas.router)
+# app.include_router(space_admins.router)
+# app.include_router(spaces.router)
+# app.include_router(specimen_procedures.router)
+# app.include_router(specimens.router)
+# app.include_router(subject_procedures.router)
+# app.include_router(subjects.router)
 app.include_router(users.router)
 
 

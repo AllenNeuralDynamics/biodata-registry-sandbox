@@ -25,6 +25,8 @@ for c in base_admin_class_names:
     route_name = to_snake_case(c)
     if c.endswith("ty"):
         class_name = c.replace("ty", "ties")
+    elif c.endswith("s"):
+        class_name = f"{c}es"
     else:
         class_name = f"{c}s"
     plural_route_name = to_snake_case(class_name)
@@ -49,6 +51,8 @@ for c in base_core_class_names:
     route_name = to_snake_case(c)
     if c.endswith("ty"):
         class_name = c.replace("ty", "ties")
+    elif c.endswith("s"):
+        class_name = f"{c}es"
     else:
         class_name = f"{c}s"
     plural_route_name = to_snake_case(class_name)

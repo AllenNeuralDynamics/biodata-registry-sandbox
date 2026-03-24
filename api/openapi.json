@@ -1,0 +1,6100 @@
+{
+   "openapi": "3.1.0",
+   "info": {
+      "title": "biodata-registry-service",
+      "description": "\n## biodata-registry-service\n\nService to fetch data from Registry.\n\n",
+      "version": "0.0.0"
+   },
+   "paths": {
+      "/acquisition": {
+         "post": {
+            "tags": [
+               "acquisitions"
+            ],
+            "summary": "Create Acquisition",
+            "operationId": "create_acquisition",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/AcquisitionCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Acquisitions"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "acquisitions"
+            ],
+            "summary": "Get Acquisition",
+            "operationId": "get_acquisition",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Acquisitions"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "acquisitions"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "acquisitions"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/AcquisitionUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Acquisitions"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/acquisitions": {
+         "get": {
+            "tags": [
+               "acquisitions"
+            ],
+            "summary": "Get Acquisitions",
+            "operationId": "get_acquisitions",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Acquisitions"
+                           },
+                           "title": "Response Get Acquisitions Acquisitions Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/collection": {
+         "post": {
+            "tags": [
+               "collections"
+            ],
+            "summary": "Create Collection",
+            "operationId": "create_collection",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/CollectionCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Collections"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "collections"
+            ],
+            "summary": "Get Collection",
+            "operationId": "get_collection",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Collections"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "collections"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "collections"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/CollectionUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Collections"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/collections": {
+         "get": {
+            "tags": [
+               "collections"
+            ],
+            "summary": "Get Collections",
+            "operationId": "get_collections",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Collections"
+                           },
+                           "title": "Response Get Collections Collections Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/data_asset": {
+         "post": {
+            "tags": [
+               "data_assets"
+            ],
+            "summary": "Create Data Asset",
+            "operationId": "create_data_asset",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/DataAssetCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/DataAssets"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "data_assets"
+            ],
+            "summary": "Get Data Asset",
+            "operationId": "get_data_asset",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/DataAssets"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "data_assets"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "data_assets"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/DataAssetUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/DataAssets"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/data_assets": {
+         "get": {
+            "tags": [
+               "data_assets"
+            ],
+            "summary": "Get Data Assets",
+            "operationId": "get_data_assets",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/DataAssets"
+                           },
+                           "title": "Response Get Data Assets Data Assets Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/healthcheck": {
+         "get": {
+            "tags": [
+               "healthcheck"
+            ],
+            "summary": "Perform a Health Check",
+            "description": "Endpoint to perform a healthcheck on.\n\nReturns:\n    HealthCheck: Returns a JSON response with the health status",
+            "operationId": "get_health",
+            "responses": {
+               "200": {
+                  "description": "Return HTTP Status Code 200 (OK)",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HealthCheck"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/instrument": {
+         "post": {
+            "tags": [
+               "instruments"
+            ],
+            "summary": "Create Instrument",
+            "operationId": "create_instrument",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/InstrumentCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Instruments"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "instruments"
+            ],
+            "summary": "Get Instrument",
+            "operationId": "get_instrument",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Instruments"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "instruments"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "instruments"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/InstrumentUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Instruments"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/instruments": {
+         "get": {
+            "tags": [
+               "instruments"
+            ],
+            "summary": "Get Instruments",
+            "operationId": "get_instruments",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Instruments"
+                           },
+                           "title": "Response Get Instruments Instruments Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/organization_admin": {
+         "post": {
+            "tags": [
+               "organization_admins"
+            ],
+            "summary": "Create Organization Admin",
+            "operationId": "create_organization_admin",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/OrganizationAdminCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/OrganizationAdmins"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "organization_admins"
+            ],
+            "summary": "Get Organization Admin",
+            "operationId": "get_organization_admin",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/OrganizationAdmins"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "organization_admins"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "organization_admins"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/OrganizationAdminUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/OrganizationAdmins"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/organization_admins": {
+         "get": {
+            "tags": [
+               "organization_admins"
+            ],
+            "summary": "Get Organization Admins",
+            "operationId": "get_organization_admins",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/OrganizationAdmins"
+                           },
+                           "title": "Response Get Organization Admins Organization Admins Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/organization": {
+         "post": {
+            "tags": [
+               "organizations"
+            ],
+            "summary": "Create Organization",
+            "operationId": "create_organization",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/OrganizationCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Organizations"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "organizations"
+            ],
+            "summary": "Get Organization",
+            "operationId": "get_organization",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Organizations"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "organizations"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "organizations"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/OrganizationUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Organizations"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/organizations": {
+         "get": {
+            "tags": [
+               "organizations"
+            ],
+            "summary": "Get Organizations",
+            "operationId": "get_organizations",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Organizations"
+                           },
+                           "title": "Response Get Organizations Organizations Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/process": {
+         "post": {
+            "tags": [
+               "processes"
+            ],
+            "summary": "Create Process",
+            "operationId": "create_process",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/ProcessCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Processes"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "processes"
+            ],
+            "summary": "Get Process",
+            "operationId": "get_process",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Processes"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "processes"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "processes"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/ProcessUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Processes"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/processes": {
+         "get": {
+            "tags": [
+               "processes"
+            ],
+            "summary": "Get Processes",
+            "operationId": "get_processes",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Processes"
+                           },
+                           "title": "Response Get Processes Processes Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/quality_control": {
+         "post": {
+            "tags": [
+               "quality_controls"
+            ],
+            "summary": "Create Quality Control",
+            "operationId": "create_quality_control",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/QualityControlCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/QualityControls"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "quality_controls"
+            ],
+            "summary": "Get Quality Control",
+            "operationId": "get_quality_control",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/QualityControls"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "quality_controls"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "quality_controls"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/QualityControlUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/QualityControls"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/quality_controls": {
+         "get": {
+            "tags": [
+               "quality_controls"
+            ],
+            "summary": "Get Quality Controls",
+            "operationId": "get_quality_controls",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/QualityControls"
+                           },
+                           "title": "Response Get Quality Controls Quality Controls Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/schema_entity": {
+         "post": {
+            "tags": [
+               "schema_entities"
+            ],
+            "summary": "Create Schema Entity",
+            "operationId": "create_schema_entity",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SchemaEntityCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SchemaEntities"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "schema_entities"
+            ],
+            "summary": "Get Schema Entity",
+            "operationId": "get_schema_entity",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SchemaEntities"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "schema_entities"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "schema_entities"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SchemaEntityUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SchemaEntities"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/schema_entities": {
+         "get": {
+            "tags": [
+               "schema_entities"
+            ],
+            "summary": "Get Schema Entities",
+            "operationId": "get_schema_entities",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/SchemaEntities"
+                           },
+                           "title": "Response Get Schema Entities Schema Entities Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/schema": {
+         "post": {
+            "tags": [
+               "schemas"
+            ],
+            "summary": "Create Schema",
+            "operationId": "create_schema",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SchemaCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Schemas"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "schemas"
+            ],
+            "summary": "Get Schema",
+            "operationId": "get_schema",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Schemas"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "schemas"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "schemas"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SchemaUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Schemas"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/schemas": {
+         "get": {
+            "tags": [
+               "schemas"
+            ],
+            "summary": "Get Schemas",
+            "operationId": "get_schemas",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Schemas"
+                           },
+                           "title": "Response Get Schemas Schemas Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/space_admin": {
+         "post": {
+            "tags": [
+               "space_admins"
+            ],
+            "summary": "Create Space Admin",
+            "operationId": "create_space_admin",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SpaceAdminCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SpaceAdmins"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "space_admins"
+            ],
+            "summary": "Get Space Admin",
+            "operationId": "get_space_admin",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SpaceAdmins"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "space_admins"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "space_admins"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SpaceAdminUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SpaceAdmins"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/space_admins": {
+         "get": {
+            "tags": [
+               "space_admins"
+            ],
+            "summary": "Get Space Admins",
+            "operationId": "get_space_admins",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/SpaceAdmins"
+                           },
+                           "title": "Response Get Space Admins Space Admins Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/space": {
+         "post": {
+            "tags": [
+               "spaces"
+            ],
+            "summary": "Create Space",
+            "operationId": "create_space",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SpaceCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Spaces"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "spaces"
+            ],
+            "summary": "Get Space",
+            "operationId": "get_space",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Spaces"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "spaces"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "spaces"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SpaceUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Spaces"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/spaces": {
+         "get": {
+            "tags": [
+               "spaces"
+            ],
+            "summary": "Get Spaces",
+            "operationId": "get_spaces",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Spaces"
+                           },
+                           "title": "Response Get Spaces Spaces Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_procedure": {
+         "post": {
+            "tags": [
+               "specimen_procedures"
+            ],
+            "summary": "Create Specimen Procedure",
+            "operationId": "create_specimen_procedure",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SpecimenProcedureCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SpecimenProcedures"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "specimen_procedures"
+            ],
+            "summary": "Get Specimen Procedure",
+            "operationId": "get_specimen_procedure",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SpecimenProcedures"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "specimen_procedures"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "specimen_procedures"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SpecimenProcedureUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SpecimenProcedures"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_procedures": {
+         "get": {
+            "tags": [
+               "specimen_procedures"
+            ],
+            "summary": "Get Specimen Procedures",
+            "operationId": "get_specimen_procedures",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/SpecimenProcedures"
+                           },
+                           "title": "Response Get Specimen Procedures Specimen Procedures Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen": {
+         "post": {
+            "tags": [
+               "specimens"
+            ],
+            "summary": "Create Specimen",
+            "operationId": "create_specimen",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SpecimenCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Specimens"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "specimens"
+            ],
+            "summary": "Get Specimen",
+            "operationId": "get_specimen",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Specimens"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "specimens"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "specimens"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SpecimenUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Specimens"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimens": {
+         "get": {
+            "tags": [
+               "specimens"
+            ],
+            "summary": "Get Specimens",
+            "operationId": "get_specimens",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Specimens"
+                           },
+                           "title": "Response Get Specimens Specimens Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/subject_procedure": {
+         "post": {
+            "tags": [
+               "subject_procedures"
+            ],
+            "summary": "Create Subject Procedure",
+            "operationId": "create_subject_procedure",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SubjectProcedureCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SubjectProcedures"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "subject_procedures"
+            ],
+            "summary": "Get Subject Procedure",
+            "operationId": "get_subject_procedure",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SubjectProcedures"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "subject_procedures"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "subject_procedures"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SubjectProcedureUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/SubjectProcedures"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/subject_procedures": {
+         "get": {
+            "tags": [
+               "subject_procedures"
+            ],
+            "summary": "Get Subject Procedures",
+            "operationId": "get_subject_procedures",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/SubjectProcedures"
+                           },
+                           "title": "Response Get Subject Procedures Subject Procedures Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/subject": {
+         "post": {
+            "tags": [
+               "subjects"
+            ],
+            "summary": "Create Subject",
+            "operationId": "create_subject",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SubjectCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Subjects"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "subjects"
+            ],
+            "summary": "Get Subject",
+            "operationId": "get_subject",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Subjects"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "subjects"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "subjects"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/SubjectUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Subjects"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/subjects": {
+         "get": {
+            "tags": [
+               "subjects"
+            ],
+            "summary": "Get Subjects",
+            "operationId": "get_subjects",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Subjects"
+                           },
+                           "title": "Response Get Subjects Subjects Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/user": {
+         "post": {
+            "tags": [
+               "users"
+            ],
+            "summary": "Create User",
+            "operationId": "create_user",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/UserCreate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Users"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "get": {
+            "tags": [
+               "users"
+            ],
+            "summary": "Get User",
+            "operationId": "get_user",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Users"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": [
+               "users"
+            ],
+            "summary": "Delete",
+            "operationId": "delete",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "users"
+            ],
+            "summary": "Update",
+            "operationId": "update",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "$ref": "#/components/schemas/UserUpdate"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/Users"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/users": {
+         "get": {
+            "tags": [
+               "users"
+            ],
+            "summary": "Get Users",
+            "operationId": "get_users",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Users"
+                           },
+                           "title": "Response Get Users Users Get"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   },
+   "components": {
+      "schemas": {
+         "AcquisitionCreate": {
+            "properties": {
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Id"
+               },
+               "instrument_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Instrument Id"
+               }
+            },
+            "type": "object",
+            "title": "AcquisitionCreate"
+         },
+         "AcquisitionUpdate": {
+            "properties": {
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Id"
+               },
+               "instrument_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Instrument Id"
+               }
+            },
+            "type": "object",
+            "title": "AcquisitionUpdate"
+         },
+         "Acquisitions": {
+            "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Id"
+               },
+               "instrument_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Instrument Id"
+               }
+            },
+            "type": "object",
+            "title": "Acquisitions"
+         },
+         "CollectionCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "description": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Description"
+               },
+               "owner_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Owner Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name",
+               "description"
+            ],
+            "title": "CollectionCreate"
+         },
+         "CollectionUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               },
+               "description": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Description"
+               },
+               "owner_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Owner Id"
+               }
+            },
+            "type": "object",
+            "title": "CollectionUpdate"
+         },
+         "Collections": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "description": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Description"
+               },
+               "owner_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Owner Id"
+               },
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name",
+               "description"
+            ],
+            "title": "Collections"
+         },
+         "DataAssetCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "location": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Location"
+               },
+               "external_links": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "External Links"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name",
+               "location"
+            ],
+            "title": "DataAssetCreate"
+         },
+         "DataAssetUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               },
+               "location": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Location"
+               },
+               "external_links": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "External Links"
+               },
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "title": "DataAssetUpdate"
+         },
+         "DataAssets": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "location": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Location"
+               },
+               "external_links": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "External Links"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name",
+               "location"
+            ],
+            "title": "DataAssets"
+         },
+         "HTTPValidationError": {
+            "properties": {
+               "detail": {
+                  "items": {
+                     "$ref": "#/components/schemas/ValidationError"
+                  },
+                  "type": "array",
+                  "title": "Detail"
+               }
+            },
+            "type": "object",
+            "title": "HTTPValidationError"
+         },
+         "HealthCheck": {
+            "properties": {
+               "status": {
+                  "type": "string",
+                  "const": "OK",
+                  "title": "Status",
+                  "default": "OK"
+               },
+               "service_version": {
+                  "type": "string",
+                  "title": "Service Version",
+                  "default": "0.0.0"
+               }
+            },
+            "type": "object",
+            "title": "HealthCheck",
+            "description": "Response model to validate and return when performing a health check."
+         },
+         "InstrumentCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "InstrumentCreate"
+         },
+         "InstrumentUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               },
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "title": "InstrumentUpdate"
+         },
+         "Instruments": {
+            "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "Instruments"
+         },
+         "OrganizationAdminCreate": {
+            "properties": {
+               "user_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "User Id"
+               },
+               "organization_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Organization Id"
+               }
+            },
+            "type": "object",
+            "title": "OrganizationAdminCreate"
+         },
+         "OrganizationAdminUpdate": {
+            "properties": {
+               "user_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "User Id"
+               },
+               "organization_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Organization Id"
+               }
+            },
+            "type": "object",
+            "title": "OrganizationAdminUpdate"
+         },
+         "OrganizationAdmins": {
+            "properties": {
+               "user_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "User Id"
+               },
+               "organization_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Organization Id"
+               },
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               }
+            },
+            "type": "object",
+            "title": "OrganizationAdmins"
+         },
+         "OrganizationCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "OrganizationCreate"
+         },
+         "OrganizationUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               }
+            },
+            "type": "object",
+            "title": "OrganizationUpdate"
+         },
+         "Organizations": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "Organizations"
+         },
+         "ProcessCreate": {
+            "properties": {
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "output_data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Output Data Asset Id"
+               }
+            },
+            "type": "object",
+            "title": "ProcessCreate"
+         },
+         "ProcessUpdate": {
+            "properties": {
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "output_data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Output Data Asset Id"
+               }
+            },
+            "type": "object",
+            "title": "ProcessUpdate"
+         },
+         "Processes": {
+            "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "output_data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Output Data Asset Id"
+               }
+            },
+            "type": "object",
+            "title": "Processes"
+         },
+         "QualityControlCreate": {
+            "properties": {
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Id"
+               }
+            },
+            "type": "object",
+            "title": "QualityControlCreate"
+         },
+         "QualityControlUpdate": {
+            "properties": {
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Id"
+               }
+            },
+            "type": "object",
+            "title": "QualityControlUpdate"
+         },
+         "QualityControls": {
+            "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Id"
+               }
+            },
+            "type": "object",
+            "title": "QualityControls"
+         },
+         "SchemaCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 50,
+                  "title": "Name"
+               },
+               "version": {
+                  "type": "string",
+                  "maxLength": 50,
+                  "title": "Version"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_entity_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Entity Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name",
+               "version"
+            ],
+            "title": "SchemaCreate"
+         },
+         "SchemaEntities": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 50,
+                  "title": "Name"
+               },
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "SchemaEntities"
+         },
+         "SchemaEntityCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 50,
+                  "title": "Name"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "SchemaEntityCreate"
+         },
+         "SchemaEntityUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 50
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               }
+            },
+            "type": "object",
+            "title": "SchemaEntityUpdate"
+         },
+         "SchemaUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 50
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               },
+               "version": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 50
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Version"
+               },
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_entity_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Entity Id"
+               }
+            },
+            "type": "object",
+            "title": "SchemaUpdate"
+         },
+         "Schemas": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 50,
+                  "title": "Name"
+               },
+               "version": {
+                  "type": "string",
+                  "maxLength": 50,
+                  "title": "Version"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_entity_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Entity Id"
+               },
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name",
+               "version"
+            ],
+            "title": "Schemas"
+         },
+         "SpaceAdminCreate": {
+            "properties": {
+               "user_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "User Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "title": "SpaceAdminCreate"
+         },
+         "SpaceAdminUpdate": {
+            "properties": {
+               "user_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "User Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "title": "SpaceAdminUpdate"
+         },
+         "SpaceAdmins": {
+            "properties": {
+               "user_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "User Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               }
+            },
+            "type": "object",
+            "title": "SpaceAdmins"
+         },
+         "SpaceCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "organization_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Organization Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "SpaceCreate"
+         },
+         "SpaceUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               },
+               "organization_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Organization Id"
+               }
+            },
+            "type": "object",
+            "title": "SpaceUpdate"
+         },
+         "Spaces": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "organization_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Organization Id"
+               },
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "Spaces"
+         },
+         "SpecimenCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "subject_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "SpecimenCreate"
+         },
+         "SpecimenProcedureCreate": {
+            "properties": {
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "title": "SpecimenProcedureCreate"
+         },
+         "SpecimenProcedureUpdate": {
+            "properties": {
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "title": "SpecimenProcedureUpdate"
+         },
+         "SpecimenProcedures": {
+            "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "title": "SpecimenProcedures"
+         },
+         "SpecimenUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               },
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "subject_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Id"
+               }
+            },
+            "type": "object",
+            "title": "SpecimenUpdate"
+         },
+         "Specimens": {
+            "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "subject_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "Specimens"
+         },
+         "SubjectCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "SubjectCreate"
+         },
+         "SubjectProcedureCreate": {
+            "properties": {
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "subject_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Id"
+               }
+            },
+            "type": "object",
+            "title": "SubjectProcedureCreate"
+         },
+         "SubjectProcedureUpdate": {
+            "properties": {
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "subject_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Id"
+               }
+            },
+            "type": "object",
+            "title": "SubjectProcedureUpdate"
+         },
+         "SubjectProcedures": {
+            "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               },
+               "subject_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Id"
+               }
+            },
+            "type": "object",
+            "title": "SubjectProcedures"
+         },
+         "SubjectUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               },
+               "data": {
+                  "anyOf": [
+                     {
+                        "additionalProperties": true,
+                        "type": "object"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "title": "SubjectUpdate"
+         },
+         "Subjects": {
+            "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data"
+               },
+               "schema_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Schema Id"
+               },
+               "space_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Space Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name"
+            ],
+            "title": "Subjects"
+         },
+         "UserCreate": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "contact": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Contact"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name",
+               "contact"
+            ],
+            "title": "UserCreate"
+         },
+         "UserUpdate": {
+            "properties": {
+               "name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Name"
+               },
+               "contact": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Contact"
+               }
+            },
+            "type": "object",
+            "title": "UserUpdate"
+         },
+         "Users": {
+            "properties": {
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "contact": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Contact"
+               },
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               }
+            },
+            "type": "object",
+            "required": [
+               "name",
+               "contact"
+            ],
+            "title": "Users"
+         },
+         "ValidationError": {
+            "properties": {
+               "loc": {
+                  "items": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "integer"
+                        }
+                     ]
+                  },
+                  "type": "array",
+                  "title": "Location"
+               },
+               "msg": {
+                  "type": "string",
+                  "title": "Message"
+               },
+               "type": {
+                  "type": "string",
+                  "title": "Error Type"
+               },
+               "input": {
+                  "title": "Input"
+               },
+               "ctx": {
+                  "type": "object",
+                  "title": "Context"
+               }
+            },
+            "type": "object",
+            "required": [
+               "loc",
+               "msg",
+               "type"
+            ],
+            "title": "ValidationError"
+         }
+      }
+   }
+}
