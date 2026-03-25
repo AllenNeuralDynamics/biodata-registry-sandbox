@@ -20,6 +20,7 @@ router = APIRouter()
     response_description="Return HTTP Status Code 200 (OK)",
     status_code=status.HTTP_200_OK,
     response_model=HealthCheck,
+    include_in_schema=False
 )
 def get_health() -> HealthCheck:
     """

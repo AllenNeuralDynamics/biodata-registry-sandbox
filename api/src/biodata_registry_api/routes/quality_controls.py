@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/quality_control", tags=["quality_controls"], response_model=QualityControls)
+@router.post(
+    "/quality_control",
+    tags=["core"],
+    response_model=QualityControls,
+    operation_id="create_quality_control"
+)
 async def create_quality_control(
         quality_control: QualityControlCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_quality_control(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/quality_control", tags=["quality_controls"], response_model=QualityControls)
+@router.get(
+    "/quality_control",
+    tags=["core"],
+    response_model=QualityControls,
+    operation_id="get_quality_control"
+)
 async def get_quality_control(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_quality_control(
         )
     return row
 
-@router.get("/quality_controls", tags=["quality_controls"], response_model=List[QualityControls])
+@router.get(
+    "/quality_controls",
+    tags=["core"],
+    response_model=List[QualityControls],
+    operation_id="get_quality_controls"
+)
 async def get_quality_controls(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_quality_controls(
     )
     return rows.all()
 
-@router.delete("/quality_control", tags=["quality_controls"])
+@router.delete(
+    "/quality_control",
+    tags=["core"],
+    operation_id="delete_quality_control"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/quality_control", tags=["quality_controls"], response_model=QualityControls)
+@router.put(
+    "/quality_control",
+    tags=["core"],
+    response_model=QualityControls,
+    operation_id="update_quality_control"
+)
 async def update(
         id: int,
         quality_control: QualityControlUpdate,

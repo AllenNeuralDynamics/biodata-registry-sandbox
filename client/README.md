@@ -71,16 +71,16 @@ configuration = biodata_registry_api_client.Configuration(
 # Enter a context with an instance of the API client
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = biodata_registry_api_client.CollectionsApi(api_client)
+    api_instance = biodata_registry_api_client.AdminApi(api_client)
     collection_create = biodata_registry_api_client.CollectionCreate() # CollectionCreate | 
 
     try:
         # Create Collection
         api_response = api_instance.create_collection(collection_create)
-        print("The response of CollectionsApi->create_collection:\n")
+        print("The response of AdminApi->create_collection:\n")
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling CollectionsApi->create_collection: %s\n" % e)
+        print("Exception when calling AdminApi->create_collection: %s\n" % e)
 
 ```
 
@@ -90,56 +90,98 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CollectionsApi* | [**create_collection**](docs/CollectionsApi.md#create_collection) | **POST** /collection | Create Collection
-*CollectionsApi* | [**delete**](docs/CollectionsApi.md#delete) | **DELETE** /collection | Delete
-*CollectionsApi* | [**get_collection**](docs/CollectionsApi.md#get_collection) | **GET** /collection | Get Collection
-*CollectionsApi* | [**get_collections**](docs/CollectionsApi.md#get_collections) | **GET** /collections | Get Collections
-*CollectionsApi* | [**update**](docs/CollectionsApi.md#update) | **PUT** /collection | Update
-*DataAssetsApi* | [**create_data_asset**](docs/DataAssetsApi.md#create_data_asset) | **POST** /data_asset | Create Data Asset
-*DataAssetsApi* | [**delete**](docs/DataAssetsApi.md#delete) | **DELETE** /data_asset | Delete
-*DataAssetsApi* | [**get_data_asset**](docs/DataAssetsApi.md#get_data_asset) | **GET** /data_asset | Get Data Asset
-*DataAssetsApi* | [**get_data_assets**](docs/DataAssetsApi.md#get_data_assets) | **GET** /data_assets | Get Data Assets
-*DataAssetsApi* | [**update**](docs/DataAssetsApi.md#update) | **PUT** /data_asset | Update
-*HealthcheckApi* | [**get_health**](docs/HealthcheckApi.md#get_health) | **GET** /healthcheck | Perform a Health Check
-*OrganizationAdminsApi* | [**create_organization_admin**](docs/OrganizationAdminsApi.md#create_organization_admin) | **POST** /organization_admin | Create Organization Admin
-*OrganizationAdminsApi* | [**delete**](docs/OrganizationAdminsApi.md#delete) | **DELETE** /organization_admin | Delete
-*OrganizationAdminsApi* | [**get_organization_admin**](docs/OrganizationAdminsApi.md#get_organization_admin) | **GET** /organization_admin | Get Organization Admin
-*OrganizationAdminsApi* | [**get_organization_admins**](docs/OrganizationAdminsApi.md#get_organization_admins) | **GET** /organization_admins | Get Organization Admins
-*OrganizationAdminsApi* | [**update**](docs/OrganizationAdminsApi.md#update) | **PUT** /organization_admin | Update
-*OrganizationsApi* | [**create_organization**](docs/OrganizationsApi.md#create_organization) | **POST** /organization | Create Organization
-*OrganizationsApi* | [**delete**](docs/OrganizationsApi.md#delete) | **DELETE** /organization | Delete
-*OrganizationsApi* | [**get_organization**](docs/OrganizationsApi.md#get_organization) | **GET** /organization | Get Organization
-*OrganizationsApi* | [**get_organizations**](docs/OrganizationsApi.md#get_organizations) | **GET** /organizations | Get Organizations
-*OrganizationsApi* | [**update**](docs/OrganizationsApi.md#update) | **PUT** /organization | Update
-*SchemaEntitiesApi* | [**create_schema_entity**](docs/SchemaEntitiesApi.md#create_schema_entity) | **POST** /schema_entity | Create Schema Entity
-*SchemaEntitiesApi* | [**delete**](docs/SchemaEntitiesApi.md#delete) | **DELETE** /schema_entity | Delete
-*SchemaEntitiesApi* | [**get_schema_entities**](docs/SchemaEntitiesApi.md#get_schema_entities) | **GET** /schema_entities | Get Schema Entities
-*SchemaEntitiesApi* | [**get_schema_entity**](docs/SchemaEntitiesApi.md#get_schema_entity) | **GET** /schema_entity | Get Schema Entity
-*SchemaEntitiesApi* | [**update**](docs/SchemaEntitiesApi.md#update) | **PUT** /schema_entity | Update
-*SchemasApi* | [**create_schema**](docs/SchemasApi.md#create_schema) | **POST** /schema | Create Schema
-*SchemasApi* | [**delete**](docs/SchemasApi.md#delete) | **DELETE** /schema | Delete
-*SchemasApi* | [**get_schema**](docs/SchemasApi.md#get_schema) | **GET** /schema | Get Schema
-*SchemasApi* | [**get_schemas**](docs/SchemasApi.md#get_schemas) | **GET** /schemas | Get Schemas
-*SchemasApi* | [**update**](docs/SchemasApi.md#update) | **PUT** /schema | Update
-*SpaceAdminsApi* | [**create_space_admin**](docs/SpaceAdminsApi.md#create_space_admin) | **POST** /space_admin | Create Space Admin
-*SpaceAdminsApi* | [**delete**](docs/SpaceAdminsApi.md#delete) | **DELETE** /space_admin | Delete
-*SpaceAdminsApi* | [**get_space_admin**](docs/SpaceAdminsApi.md#get_space_admin) | **GET** /space_admin | Get Space Admin
-*SpaceAdminsApi* | [**get_space_admins**](docs/SpaceAdminsApi.md#get_space_admins) | **GET** /space_admins | Get Space Admins
-*SpaceAdminsApi* | [**update**](docs/SpaceAdminsApi.md#update) | **PUT** /space_admin | Update
-*SpacesApi* | [**create_space**](docs/SpacesApi.md#create_space) | **POST** /space | Create Space
-*SpacesApi* | [**delete**](docs/SpacesApi.md#delete) | **DELETE** /space | Delete
-*SpacesApi* | [**get_space**](docs/SpacesApi.md#get_space) | **GET** /space | Get Space
-*SpacesApi* | [**get_spaces**](docs/SpacesApi.md#get_spaces) | **GET** /spaces | Get Spaces
-*SpacesApi* | [**update**](docs/SpacesApi.md#update) | **PUT** /space | Update
-*UsersApi* | [**create_user**](docs/UsersApi.md#create_user) | **POST** /user | Create User
-*UsersApi* | [**delete**](docs/UsersApi.md#delete) | **DELETE** /user | Delete
-*UsersApi* | [**get_user**](docs/UsersApi.md#get_user) | **GET** /user | Get User
-*UsersApi* | [**get_users**](docs/UsersApi.md#get_users) | **GET** /users | Get Users
-*UsersApi* | [**update**](docs/UsersApi.md#update) | **PUT** /user | Update
+*AdminApi* | [**create_collection**](docs/AdminApi.md#create_collection) | **POST** /collection | Create Collection
+*AdminApi* | [**create_organization**](docs/AdminApi.md#create_organization) | **POST** /organization | Create Organization
+*AdminApi* | [**create_organization_admin**](docs/AdminApi.md#create_organization_admin) | **POST** /organization_admin | Create Organization Admin
+*AdminApi* | [**create_space**](docs/AdminApi.md#create_space) | **POST** /space | Create Space
+*AdminApi* | [**create_space_admin**](docs/AdminApi.md#create_space_admin) | **POST** /space_admin | Create Space Admin
+*AdminApi* | [**create_user**](docs/AdminApi.md#create_user) | **POST** /user | Create User
+*AdminApi* | [**delete_collection**](docs/AdminApi.md#delete_collection) | **DELETE** /collection | Delete
+*AdminApi* | [**delete_organization**](docs/AdminApi.md#delete_organization) | **DELETE** /organization | Delete
+*AdminApi* | [**delete_organization_admin**](docs/AdminApi.md#delete_organization_admin) | **DELETE** /organization_admin | Delete
+*AdminApi* | [**delete_space**](docs/AdminApi.md#delete_space) | **DELETE** /space | Delete
+*AdminApi* | [**delete_space_admin**](docs/AdminApi.md#delete_space_admin) | **DELETE** /space_admin | Delete
+*AdminApi* | [**delete_user**](docs/AdminApi.md#delete_user) | **DELETE** /user | Delete
+*AdminApi* | [**get_collection**](docs/AdminApi.md#get_collection) | **GET** /collection | Get Collection
+*AdminApi* | [**get_collections**](docs/AdminApi.md#get_collections) | **GET** /collections | Get Collections
+*AdminApi* | [**get_organization**](docs/AdminApi.md#get_organization) | **GET** /organization | Get Organization
+*AdminApi* | [**get_organization_admin**](docs/AdminApi.md#get_organization_admin) | **GET** /organization_admin | Get Organization Admin
+*AdminApi* | [**get_organization_admins**](docs/AdminApi.md#get_organization_admins) | **GET** /organization_admins | Get Organization Admins
+*AdminApi* | [**get_organizations**](docs/AdminApi.md#get_organizations) | **GET** /organizations | Get Organizations
+*AdminApi* | [**get_space**](docs/AdminApi.md#get_space) | **GET** /space | Get Space
+*AdminApi* | [**get_space_admin**](docs/AdminApi.md#get_space_admin) | **GET** /space_admin | Get Space Admin
+*AdminApi* | [**get_space_admins**](docs/AdminApi.md#get_space_admins) | **GET** /space_admins | Get Space Admins
+*AdminApi* | [**get_spaces**](docs/AdminApi.md#get_spaces) | **GET** /spaces | Get Spaces
+*AdminApi* | [**get_user**](docs/AdminApi.md#get_user) | **GET** /user | Get User
+*AdminApi* | [**get_users**](docs/AdminApi.md#get_users) | **GET** /users | Get Users
+*AdminApi* | [**update_collection**](docs/AdminApi.md#update_collection) | **PUT** /collection | Update
+*AdminApi* | [**update_organization**](docs/AdminApi.md#update_organization) | **PUT** /organization | Update
+*AdminApi* | [**update_organization_admin**](docs/AdminApi.md#update_organization_admin) | **PUT** /organization_admin | Update
+*AdminApi* | [**update_space**](docs/AdminApi.md#update_space) | **PUT** /space | Update
+*AdminApi* | [**update_space_admin**](docs/AdminApi.md#update_space_admin) | **PUT** /space_admin | Update
+*AdminApi* | [**update_user**](docs/AdminApi.md#update_user) | **PUT** /user | Update
+*CoreApi* | [**create_acquisition**](docs/CoreApi.md#create_acquisition) | **POST** /acquisition | Create Acquisition
+*CoreApi* | [**create_data_asset**](docs/CoreApi.md#create_data_asset) | **POST** /data_asset | Create Data Asset
+*CoreApi* | [**create_instrument**](docs/CoreApi.md#create_instrument) | **POST** /instrument | Create Instrument
+*CoreApi* | [**create_process**](docs/CoreApi.md#create_process) | **POST** /process | Create Process
+*CoreApi* | [**create_quality_control**](docs/CoreApi.md#create_quality_control) | **POST** /quality_control | Create Quality Control
+*CoreApi* | [**create_schema**](docs/CoreApi.md#create_schema) | **POST** /schema | Create Schema
+*CoreApi* | [**create_schema_entity**](docs/CoreApi.md#create_schema_entity) | **POST** /schema_entity | Create Schema Entity
+*CoreApi* | [**create_specimen**](docs/CoreApi.md#create_specimen) | **POST** /specimen | Create Specimen
+*CoreApi* | [**create_specimen_procedure**](docs/CoreApi.md#create_specimen_procedure) | **POST** /specimen_procedure | Create Specimen Procedure
+*CoreApi* | [**create_subject**](docs/CoreApi.md#create_subject) | **POST** /subject | Create Subject
+*CoreApi* | [**create_subject_procedure**](docs/CoreApi.md#create_subject_procedure) | **POST** /subject_procedure | Create Subject Procedure
+*CoreApi* | [**delete_acquisition**](docs/CoreApi.md#delete_acquisition) | **DELETE** /acquisition | Delete
+*CoreApi* | [**delete_data_asset**](docs/CoreApi.md#delete_data_asset) | **DELETE** /data_asset | Delete
+*CoreApi* | [**delete_instrument**](docs/CoreApi.md#delete_instrument) | **DELETE** /instrument | Delete
+*CoreApi* | [**delete_process**](docs/CoreApi.md#delete_process) | **DELETE** /process | Delete
+*CoreApi* | [**delete_quality_control**](docs/CoreApi.md#delete_quality_control) | **DELETE** /quality_control | Delete
+*CoreApi* | [**delete_schema**](docs/CoreApi.md#delete_schema) | **DELETE** /schema | Delete
+*CoreApi* | [**delete_schema_entity**](docs/CoreApi.md#delete_schema_entity) | **DELETE** /schema_entity | Delete
+*CoreApi* | [**delete_specimen**](docs/CoreApi.md#delete_specimen) | **DELETE** /specimen | Delete
+*CoreApi* | [**delete_specimen_procedure**](docs/CoreApi.md#delete_specimen_procedure) | **DELETE** /specimen_procedure | Delete
+*CoreApi* | [**delete_subject**](docs/CoreApi.md#delete_subject) | **DELETE** /subject | Delete
+*CoreApi* | [**delete_subject_procedure**](docs/CoreApi.md#delete_subject_procedure) | **DELETE** /subject_procedure | Delete
+*CoreApi* | [**get_acquisition**](docs/CoreApi.md#get_acquisition) | **GET** /acquisition | Get Acquisition
+*CoreApi* | [**get_acquisitions**](docs/CoreApi.md#get_acquisitions) | **GET** /acquisitions | Get Acquisitions
+*CoreApi* | [**get_data_asset**](docs/CoreApi.md#get_data_asset) | **GET** /data_asset | Get Data Asset
+*CoreApi* | [**get_data_assets**](docs/CoreApi.md#get_data_assets) | **GET** /data_assets | Get Data Assets
+*CoreApi* | [**get_instrument**](docs/CoreApi.md#get_instrument) | **GET** /instrument | Get Instrument
+*CoreApi* | [**get_instruments**](docs/CoreApi.md#get_instruments) | **GET** /instruments | Get Instruments
+*CoreApi* | [**get_process**](docs/CoreApi.md#get_process) | **GET** /process | Get Process
+*CoreApi* | [**get_processes**](docs/CoreApi.md#get_processes) | **GET** /processes | Get Processes
+*CoreApi* | [**get_quality_control**](docs/CoreApi.md#get_quality_control) | **GET** /quality_control | Get Quality Control
+*CoreApi* | [**get_quality_controls**](docs/CoreApi.md#get_quality_controls) | **GET** /quality_controls | Get Quality Controls
+*CoreApi* | [**get_schema**](docs/CoreApi.md#get_schema) | **GET** /schema | Get Schema
+*CoreApi* | [**get_schema_entities**](docs/CoreApi.md#get_schema_entities) | **GET** /schema_entities | Get Schema Entities
+*CoreApi* | [**get_schema_entity**](docs/CoreApi.md#get_schema_entity) | **GET** /schema_entity | Get Schema Entity
+*CoreApi* | [**get_schemas**](docs/CoreApi.md#get_schemas) | **GET** /schemas | Get Schemas
+*CoreApi* | [**get_specimen**](docs/CoreApi.md#get_specimen) | **GET** /specimen | Get Specimen
+*CoreApi* | [**get_specimen_procedure**](docs/CoreApi.md#get_specimen_procedure) | **GET** /specimen_procedure | Get Specimen Procedure
+*CoreApi* | [**get_specimen_procedures**](docs/CoreApi.md#get_specimen_procedures) | **GET** /specimen_procedures | Get Specimen Procedures
+*CoreApi* | [**get_specimens**](docs/CoreApi.md#get_specimens) | **GET** /specimens | Get Specimens
+*CoreApi* | [**get_subject**](docs/CoreApi.md#get_subject) | **GET** /subject | Get Subject
+*CoreApi* | [**get_subject_procedure**](docs/CoreApi.md#get_subject_procedure) | **GET** /subject_procedure | Get Subject Procedure
+*CoreApi* | [**get_subject_procedures**](docs/CoreApi.md#get_subject_procedures) | **GET** /subject_procedures | Get Subject Procedures
+*CoreApi* | [**get_subjects**](docs/CoreApi.md#get_subjects) | **GET** /subjects | Get Subjects
+*CoreApi* | [**update_acquisition**](docs/CoreApi.md#update_acquisition) | **PUT** /acquisition | Update
+*CoreApi* | [**update_data_asset**](docs/CoreApi.md#update_data_asset) | **PUT** /data_asset | Update
+*CoreApi* | [**update_instrument**](docs/CoreApi.md#update_instrument) | **PUT** /instrument | Update
+*CoreApi* | [**update_process**](docs/CoreApi.md#update_process) | **PUT** /process | Update
+*CoreApi* | [**update_quality_control**](docs/CoreApi.md#update_quality_control) | **PUT** /quality_control | Update
+*CoreApi* | [**update_schema**](docs/CoreApi.md#update_schema) | **PUT** /schema | Update
+*CoreApi* | [**update_schema_entity**](docs/CoreApi.md#update_schema_entity) | **PUT** /schema_entity | Update
+*CoreApi* | [**update_specimen**](docs/CoreApi.md#update_specimen) | **PUT** /specimen | Update
+*CoreApi* | [**update_specimen_procedure**](docs/CoreApi.md#update_specimen_procedure) | **PUT** /specimen_procedure | Update
+*CoreApi* | [**update_subject**](docs/CoreApi.md#update_subject) | **PUT** /subject | Update
+*CoreApi* | [**update_subject_procedure**](docs/CoreApi.md#update_subject_procedure) | **PUT** /subject_procedure | Update
 
 
 ## Documentation For Models
 
+ - [AcquisitionCreate](docs/AcquisitionCreate.md)
+ - [AcquisitionUpdate](docs/AcquisitionUpdate.md)
+ - [Acquisitions](docs/Acquisitions.md)
  - [CollectionCreate](docs/CollectionCreate.md)
  - [CollectionUpdate](docs/CollectionUpdate.md)
  - [Collections](docs/Collections.md)
@@ -147,7 +189,9 @@ Class | Method | HTTP request | Description
  - [DataAssetUpdate](docs/DataAssetUpdate.md)
  - [DataAssets](docs/DataAssets.md)
  - [HTTPValidationError](docs/HTTPValidationError.md)
- - [HealthCheck](docs/HealthCheck.md)
+ - [InstrumentCreate](docs/InstrumentCreate.md)
+ - [InstrumentUpdate](docs/InstrumentUpdate.md)
+ - [Instruments](docs/Instruments.md)
  - [LocationInner](docs/LocationInner.md)
  - [OrganizationAdminCreate](docs/OrganizationAdminCreate.md)
  - [OrganizationAdminUpdate](docs/OrganizationAdminUpdate.md)
@@ -155,6 +199,12 @@ Class | Method | HTTP request | Description
  - [OrganizationCreate](docs/OrganizationCreate.md)
  - [OrganizationUpdate](docs/OrganizationUpdate.md)
  - [Organizations](docs/Organizations.md)
+ - [ProcessCreate](docs/ProcessCreate.md)
+ - [ProcessUpdate](docs/ProcessUpdate.md)
+ - [Processes](docs/Processes.md)
+ - [QualityControlCreate](docs/QualityControlCreate.md)
+ - [QualityControlUpdate](docs/QualityControlUpdate.md)
+ - [QualityControls](docs/QualityControls.md)
  - [SchemaCreate](docs/SchemaCreate.md)
  - [SchemaEntities](docs/SchemaEntities.md)
  - [SchemaEntityCreate](docs/SchemaEntityCreate.md)
@@ -167,6 +217,18 @@ Class | Method | HTTP request | Description
  - [SpaceCreate](docs/SpaceCreate.md)
  - [SpaceUpdate](docs/SpaceUpdate.md)
  - [Spaces](docs/Spaces.md)
+ - [SpecimenCreate](docs/SpecimenCreate.md)
+ - [SpecimenProcedureCreate](docs/SpecimenProcedureCreate.md)
+ - [SpecimenProcedureUpdate](docs/SpecimenProcedureUpdate.md)
+ - [SpecimenProcedures](docs/SpecimenProcedures.md)
+ - [SpecimenUpdate](docs/SpecimenUpdate.md)
+ - [Specimens](docs/Specimens.md)
+ - [SubjectCreate](docs/SubjectCreate.md)
+ - [SubjectProcedureCreate](docs/SubjectProcedureCreate.md)
+ - [SubjectProcedureUpdate](docs/SubjectProcedureUpdate.md)
+ - [SubjectProcedures](docs/SubjectProcedures.md)
+ - [SubjectUpdate](docs/SubjectUpdate.md)
+ - [Subjects](docs/Subjects.md)
  - [UserCreate](docs/UserCreate.md)
  - [UserUpdate](docs/UserUpdate.md)
  - [Users](docs/Users.md)

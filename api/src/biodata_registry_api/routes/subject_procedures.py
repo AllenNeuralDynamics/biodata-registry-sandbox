@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/subject_procedure", tags=["subject_procedures"], response_model=SubjectProcedures)
+@router.post(
+    "/subject_procedure",
+    tags=["core"],
+    response_model=SubjectProcedures,
+    operation_id="create_subject_procedure"
+)
 async def create_subject_procedure(
         subject_procedure: SubjectProcedureCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_subject_procedure(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/subject_procedure", tags=["subject_procedures"], response_model=SubjectProcedures)
+@router.get(
+    "/subject_procedure",
+    tags=["core"],
+    response_model=SubjectProcedures,
+    operation_id="get_subject_procedure"
+)
 async def get_subject_procedure(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_subject_procedure(
         )
     return row
 
-@router.get("/subject_procedures", tags=["subject_procedures"], response_model=List[SubjectProcedures])
+@router.get(
+    "/subject_procedures",
+    tags=["core"],
+    response_model=List[SubjectProcedures],
+    operation_id="get_subject_procedures"
+)
 async def get_subject_procedures(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_subject_procedures(
     )
     return rows.all()
 
-@router.delete("/subject_procedure", tags=["subject_procedures"])
+@router.delete(
+    "/subject_procedure",
+    tags=["core"],
+    operation_id="delete_subject_procedure"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/subject_procedure", tags=["subject_procedures"], response_model=SubjectProcedures)
+@router.put(
+    "/subject_procedure",
+    tags=["core"],
+    response_model=SubjectProcedures,
+    operation_id="update_subject_procedure"
+)
 async def update(
         id: int,
         subject_procedure: SubjectProcedureUpdate,

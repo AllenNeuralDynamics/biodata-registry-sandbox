@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/collection", tags=["collections"], response_model=Collections)
+@router.post(
+    "/collection",
+    tags=["admin"],
+    response_model=Collections,
+    operation_id="create_collection"
+)
 async def create_collection(
         collection: CollectionCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_collection(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/collection", tags=["collections"], response_model=Collections)
+@router.get(
+    "/collection",
+    tags=["admin"],
+    response_model=Collections,
+    operation_id="get_collection"
+)
 async def get_collection(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_collection(
         )
     return row
 
-@router.get("/collections", tags=["collections"], response_model=List[Collections])
+@router.get(
+    "/collections",
+    tags=["admin"],
+    response_model=List[Collections],
+    operation_id="get_collections"
+)
 async def get_collections(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_collections(
     )
     return rows.all()
 
-@router.delete("/collection", tags=["collections"])
+@router.delete(
+    "/collection",
+    tags=["admin"],
+    operation_id="delete_collection"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/collection", tags=["collections"], response_model=Collections)
+@router.put(
+    "/collection",
+    tags=["admin"],
+    response_model=Collections,
+    operation_id="update_collection"
+)
 async def update(
         id: int,
         collection: CollectionUpdate,

@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/organization", tags=["organizations"], response_model=Organizations)
+@router.post(
+    "/organization",
+    tags=["admin"],
+    response_model=Organizations,
+    operation_id="create_organization"
+)
 async def create_organization(
         organization: OrganizationCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_organization(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/organization", tags=["organizations"], response_model=Organizations)
+@router.get(
+    "/organization",
+    tags=["admin"],
+    response_model=Organizations,
+    operation_id="get_organization"
+)
 async def get_organization(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_organization(
         )
     return row
 
-@router.get("/organizations", tags=["organizations"], response_model=List[Organizations])
+@router.get(
+    "/organizations",
+    tags=["admin"],
+    response_model=List[Organizations],
+    operation_id="get_organizations"
+)
 async def get_organizations(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_organizations(
     )
     return rows.all()
 
-@router.delete("/organization", tags=["organizations"])
+@router.delete(
+    "/organization",
+    tags=["admin"],
+    operation_id="delete_organization"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/organization", tags=["organizations"], response_model=Organizations)
+@router.put(
+    "/organization",
+    tags=["admin"],
+    response_model=Organizations,
+    operation_id="update_organization"
+)
 async def update(
         id: int,
         organization: OrganizationUpdate,

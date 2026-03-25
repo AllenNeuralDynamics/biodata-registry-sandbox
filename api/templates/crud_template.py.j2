@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/{{ route_name }}", tags=["{{ plural_route_name }}"], response_model={{ class_name }})
+@router.post(
+    "/{{ route_name }}",
+    tags=["{{ api_name }}"],
+    response_model={{ class_name }},
+    operation_id="create_{{ route_name }}"
+)
 async def create_{{ route_name }}(
         {{ route_name }}: {{ class_create_name }},
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_{{ route_name }}(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/{{ route_name }}", tags=["{{ plural_route_name }}"], response_model={{ class_name }})
+@router.get(
+    "/{{ route_name }}",
+    tags=["{{ api_name }}"],
+    response_model={{ class_name }},
+    operation_id="get_{{ route_name }}"
+)
 async def get_{{ route_name }}(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_{{ route_name }}(
         )
     return row
 
-@router.get("/{{ plural_route_name }}", tags=["{{ plural_route_name }}"], response_model=List[{{ class_name }}])
+@router.get(
+    "/{{ plural_route_name }}",
+    tags=["{{ api_name }}"],
+    response_model=List[{{ class_name }}],
+    operation_id="get_{{ plural_route_name }}"
+)
 async def get_{{ plural_route_name }}(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_{{ plural_route_name }}(
     )
     return rows.all()
 
-@router.delete("/{{ route_name }}", tags=["{{ plural_route_name }}"])
+@router.delete(
+    "/{{ route_name }}",
+    tags=["{{ api_name }}"],
+    operation_id="delete_{{ route_name }}"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/{{ route_name }}", tags=["{{ plural_route_name }}"], response_model={{ class_name }})
+@router.put(
+    "/{{ route_name }}",
+    tags=["{{ api_name }}"],
+    response_model={{ class_name }},
+    operation_id="update_{{ route_name }}"
+)
 async def update(
         id: int,
         {{ route_name }}: {{ class_update_name }},

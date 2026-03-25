@@ -35,6 +35,7 @@ for c in base_admin_class_names:
     route_manifests.append(
         {
             "module_name": "admin",
+            "api_name": "admin",
             "route_name": route_name,
             "plural_route_name": plural_route_name,
             "class_name": class_name,
@@ -61,6 +62,7 @@ for c in base_core_class_names:
     route_manifests.append(
         {
             "module_name": "core",
+            "api_name": "core",
             "route_name": route_name,
             "plural_route_name": plural_route_name,
             "class_name": class_name,

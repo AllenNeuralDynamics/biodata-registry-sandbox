@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/specimen", tags=["specimens"], response_model=Specimens)
+@router.post(
+    "/specimen",
+    tags=["core"],
+    response_model=Specimens,
+    operation_id="create_specimen"
+)
 async def create_specimen(
         specimen: SpecimenCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_specimen(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/specimen", tags=["specimens"], response_model=Specimens)
+@router.get(
+    "/specimen",
+    tags=["core"],
+    response_model=Specimens,
+    operation_id="get_specimen"
+)
 async def get_specimen(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_specimen(
         )
     return row
 
-@router.get("/specimens", tags=["specimens"], response_model=List[Specimens])
+@router.get(
+    "/specimens",
+    tags=["core"],
+    response_model=List[Specimens],
+    operation_id="get_specimens"
+)
 async def get_specimens(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_specimens(
     )
     return rows.all()
 
-@router.delete("/specimen", tags=["specimens"])
+@router.delete(
+    "/specimen",
+    tags=["core"],
+    operation_id="delete_specimen"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/specimen", tags=["specimens"], response_model=Specimens)
+@router.put(
+    "/specimen",
+    tags=["core"],
+    response_model=Specimens,
+    operation_id="update_specimen"
+)
 async def update(
         id: int,
         specimen: SpecimenUpdate,

@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/data_asset", tags=["data_assets"], response_model=DataAssets)
+@router.post(
+    "/data_asset",
+    tags=["core"],
+    response_model=DataAssets,
+    operation_id="create_data_asset"
+)
 async def create_data_asset(
         data_asset: DataAssetCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_data_asset(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/data_asset", tags=["data_assets"], response_model=DataAssets)
+@router.get(
+    "/data_asset",
+    tags=["core"],
+    response_model=DataAssets,
+    operation_id="get_data_asset"
+)
 async def get_data_asset(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_data_asset(
         )
     return row
 
-@router.get("/data_assets", tags=["data_assets"], response_model=List[DataAssets])
+@router.get(
+    "/data_assets",
+    tags=["core"],
+    response_model=List[DataAssets],
+    operation_id="get_data_assets"
+)
 async def get_data_assets(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_data_assets(
     )
     return rows.all()
 
-@router.delete("/data_asset", tags=["data_assets"])
+@router.delete(
+    "/data_asset",
+    tags=["core"],
+    operation_id="delete_data_asset"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/data_asset", tags=["data_assets"], response_model=DataAssets)
+@router.put(
+    "/data_asset",
+    tags=["core"],
+    response_model=DataAssets,
+    operation_id="update_data_asset"
+)
 async def update(
         id: int,
         data_asset: DataAssetUpdate,

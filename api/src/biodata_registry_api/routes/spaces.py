@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/space", tags=["spaces"], response_model=Spaces)
+@router.post(
+    "/space",
+    tags=["admin"],
+    response_model=Spaces,
+    operation_id="create_space"
+)
 async def create_space(
         space: SpaceCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_space(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/space", tags=["spaces"], response_model=Spaces)
+@router.get(
+    "/space",
+    tags=["admin"],
+    response_model=Spaces,
+    operation_id="get_space"
+)
 async def get_space(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_space(
         )
     return row
 
-@router.get("/spaces", tags=["spaces"], response_model=List[Spaces])
+@router.get(
+    "/spaces",
+    tags=["admin"],
+    response_model=List[Spaces],
+    operation_id="get_spaces"
+)
 async def get_spaces(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_spaces(
     )
     return rows.all()
 
-@router.delete("/space", tags=["spaces"])
+@router.delete(
+    "/space",
+    tags=["admin"],
+    operation_id="delete_space"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/space", tags=["spaces"], response_model=Spaces)
+@router.put(
+    "/space",
+    tags=["admin"],
+    response_model=Spaces,
+    operation_id="update_space"
+)
 async def update(
         id: int,
         space: SpaceUpdate,

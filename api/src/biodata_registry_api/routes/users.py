@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/user", tags=["users"], response_model=Users)
+@router.post(
+    "/user",
+    tags=["admin"],
+    response_model=Users,
+    operation_id="create_user"
+)
 async def create_user(
         user: UserCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_user(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/user", tags=["users"], response_model=Users)
+@router.get(
+    "/user",
+    tags=["admin"],
+    response_model=Users,
+    operation_id="get_user"
+)
 async def get_user(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_user(
         )
     return row
 
-@router.get("/users", tags=["users"], response_model=List[Users])
+@router.get(
+    "/users",
+    tags=["admin"],
+    response_model=List[Users],
+    operation_id="get_users"
+)
 async def get_users(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_users(
     )
     return rows.all()
 
-@router.delete("/user", tags=["users"])
+@router.delete(
+    "/user",
+    tags=["admin"],
+    operation_id="delete_user"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/user", tags=["users"], response_model=Users)
+@router.put(
+    "/user",
+    tags=["admin"],
+    response_model=Users,
+    operation_id="update_user"
+)
 async def update(
         id: int,
         user: UserUpdate,

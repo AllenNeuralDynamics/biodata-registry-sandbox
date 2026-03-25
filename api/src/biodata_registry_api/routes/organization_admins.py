@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/organization_admin", tags=["organization_admins"], response_model=OrganizationAdmins)
+@router.post(
+    "/organization_admin",
+    tags=["admin"],
+    response_model=OrganizationAdmins,
+    operation_id="create_organization_admin"
+)
 async def create_organization_admin(
         organization_admin: OrganizationAdminCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_organization_admin(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/organization_admin", tags=["organization_admins"], response_model=OrganizationAdmins)
+@router.get(
+    "/organization_admin",
+    tags=["admin"],
+    response_model=OrganizationAdmins,
+    operation_id="get_organization_admin"
+)
 async def get_organization_admin(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_organization_admin(
         )
     return row
 
-@router.get("/organization_admins", tags=["organization_admins"], response_model=List[OrganizationAdmins])
+@router.get(
+    "/organization_admins",
+    tags=["admin"],
+    response_model=List[OrganizationAdmins],
+    operation_id="get_organization_admins"
+)
 async def get_organization_admins(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_organization_admins(
     )
     return rows.all()
 
-@router.delete("/organization_admin", tags=["organization_admins"])
+@router.delete(
+    "/organization_admin",
+    tags=["admin"],
+    operation_id="delete_organization_admin"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/organization_admin", tags=["organization_admins"], response_model=OrganizationAdmins)
+@router.put(
+    "/organization_admin",
+    tags=["admin"],
+    response_model=OrganizationAdmins,
+    operation_id="update_organization_admin"
+)
 async def update(
         id: int,
         organization_admin: OrganizationAdminUpdate,

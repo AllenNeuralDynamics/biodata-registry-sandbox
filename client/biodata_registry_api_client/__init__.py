@@ -18,16 +18,8 @@ __version__ = "0.0.0"
 
 # Define package exports
 __all__ = [
-    "CollectionsApi",
-    "DataAssetsApi",
-    "HealthcheckApi",
-    "OrganizationAdminsApi",
-    "OrganizationsApi",
-    "SchemaEntitiesApi",
-    "SchemasApi",
-    "SpaceAdminsApi",
-    "SpacesApi",
-    "UsersApi",
+    "AdminApi",
+    "CoreApi",
     "ApiResponse",
     "ApiClient",
     "Configuration",
@@ -37,6 +29,9 @@ __all__ = [
     "ApiKeyError",
     "ApiAttributeError",
     "ApiException",
+    "AcquisitionCreate",
+    "AcquisitionUpdate",
+    "Acquisitions",
     "CollectionCreate",
     "CollectionUpdate",
     "Collections",
@@ -44,7 +39,9 @@ __all__ = [
     "DataAssetUpdate",
     "DataAssets",
     "HTTPValidationError",
-    "HealthCheck",
+    "InstrumentCreate",
+    "InstrumentUpdate",
+    "Instruments",
     "LocationInner",
     "OrganizationAdminCreate",
     "OrganizationAdminUpdate",
@@ -52,6 +49,12 @@ __all__ = [
     "OrganizationCreate",
     "OrganizationUpdate",
     "Organizations",
+    "ProcessCreate",
+    "ProcessUpdate",
+    "Processes",
+    "QualityControlCreate",
+    "QualityControlUpdate",
+    "QualityControls",
     "SchemaCreate",
     "SchemaEntities",
     "SchemaEntityCreate",
@@ -64,6 +67,18 @@ __all__ = [
     "SpaceCreate",
     "SpaceUpdate",
     "Spaces",
+    "SpecimenCreate",
+    "SpecimenProcedureCreate",
+    "SpecimenProcedureUpdate",
+    "SpecimenProcedures",
+    "SpecimenUpdate",
+    "Specimens",
+    "SubjectCreate",
+    "SubjectProcedureCreate",
+    "SubjectProcedureUpdate",
+    "SubjectProcedures",
+    "SubjectUpdate",
+    "Subjects",
     "UserCreate",
     "UserUpdate",
     "Users",
@@ -71,16 +86,8 @@ __all__ = [
 ]
 
 # import apis into sdk package
-from biodata_registry_api_client.api.collections_api import CollectionsApi as CollectionsApi
-from biodata_registry_api_client.api.data_assets_api import DataAssetsApi as DataAssetsApi
-from biodata_registry_api_client.api.healthcheck_api import HealthcheckApi as HealthcheckApi
-from biodata_registry_api_client.api.organization_admins_api import OrganizationAdminsApi as OrganizationAdminsApi
-from biodata_registry_api_client.api.organizations_api import OrganizationsApi as OrganizationsApi
-from biodata_registry_api_client.api.schema_entities_api import SchemaEntitiesApi as SchemaEntitiesApi
-from biodata_registry_api_client.api.schemas_api import SchemasApi as SchemasApi
-from biodata_registry_api_client.api.space_admins_api import SpaceAdminsApi as SpaceAdminsApi
-from biodata_registry_api_client.api.spaces_api import SpacesApi as SpacesApi
-from biodata_registry_api_client.api.users_api import UsersApi as UsersApi
+from biodata_registry_api_client.api.admin_api import AdminApi as AdminApi
+from biodata_registry_api_client.api.core_api import CoreApi as CoreApi
 
 # import ApiClient
 from biodata_registry_api_client.api_response import ApiResponse as ApiResponse
@@ -94,6 +101,9 @@ from biodata_registry_api_client.exceptions import ApiAttributeError as ApiAttri
 from biodata_registry_api_client.exceptions import ApiException as ApiException
 
 # import models into sdk package
+from biodata_registry_api_client.models.acquisition_create import AcquisitionCreate as AcquisitionCreate
+from biodata_registry_api_client.models.acquisition_update import AcquisitionUpdate as AcquisitionUpdate
+from biodata_registry_api_client.models.acquisitions import Acquisitions as Acquisitions
 from biodata_registry_api_client.models.collection_create import CollectionCreate as CollectionCreate
 from biodata_registry_api_client.models.collection_update import CollectionUpdate as CollectionUpdate
 from biodata_registry_api_client.models.collections import Collections as Collections
@@ -101,7 +111,9 @@ from biodata_registry_api_client.models.data_asset_create import DataAssetCreate
 from biodata_registry_api_client.models.data_asset_update import DataAssetUpdate as DataAssetUpdate
 from biodata_registry_api_client.models.data_assets import DataAssets as DataAssets
 from biodata_registry_api_client.models.http_validation_error import HTTPValidationError as HTTPValidationError
-from biodata_registry_api_client.models.health_check import HealthCheck as HealthCheck
+from biodata_registry_api_client.models.instrument_create import InstrumentCreate as InstrumentCreate
+from biodata_registry_api_client.models.instrument_update import InstrumentUpdate as InstrumentUpdate
+from biodata_registry_api_client.models.instruments import Instruments as Instruments
 from biodata_registry_api_client.models.location_inner import LocationInner as LocationInner
 from biodata_registry_api_client.models.organization_admin_create import OrganizationAdminCreate as OrganizationAdminCreate
 from biodata_registry_api_client.models.organization_admin_update import OrganizationAdminUpdate as OrganizationAdminUpdate
@@ -109,6 +121,12 @@ from biodata_registry_api_client.models.organization_admins import OrganizationA
 from biodata_registry_api_client.models.organization_create import OrganizationCreate as OrganizationCreate
 from biodata_registry_api_client.models.organization_update import OrganizationUpdate as OrganizationUpdate
 from biodata_registry_api_client.models.organizations import Organizations as Organizations
+from biodata_registry_api_client.models.process_create import ProcessCreate as ProcessCreate
+from biodata_registry_api_client.models.process_update import ProcessUpdate as ProcessUpdate
+from biodata_registry_api_client.models.processes import Processes as Processes
+from biodata_registry_api_client.models.quality_control_create import QualityControlCreate as QualityControlCreate
+from biodata_registry_api_client.models.quality_control_update import QualityControlUpdate as QualityControlUpdate
+from biodata_registry_api_client.models.quality_controls import QualityControls as QualityControls
 from biodata_registry_api_client.models.schema_create import SchemaCreate as SchemaCreate
 from biodata_registry_api_client.models.schema_entities import SchemaEntities as SchemaEntities
 from biodata_registry_api_client.models.schema_entity_create import SchemaEntityCreate as SchemaEntityCreate
@@ -121,6 +139,18 @@ from biodata_registry_api_client.models.space_admins import SpaceAdmins as Space
 from biodata_registry_api_client.models.space_create import SpaceCreate as SpaceCreate
 from biodata_registry_api_client.models.space_update import SpaceUpdate as SpaceUpdate
 from biodata_registry_api_client.models.spaces import Spaces as Spaces
+from biodata_registry_api_client.models.specimen_create import SpecimenCreate as SpecimenCreate
+from biodata_registry_api_client.models.specimen_procedure_create import SpecimenProcedureCreate as SpecimenProcedureCreate
+from biodata_registry_api_client.models.specimen_procedure_update import SpecimenProcedureUpdate as SpecimenProcedureUpdate
+from biodata_registry_api_client.models.specimen_procedures import SpecimenProcedures as SpecimenProcedures
+from biodata_registry_api_client.models.specimen_update import SpecimenUpdate as SpecimenUpdate
+from biodata_registry_api_client.models.specimens import Specimens as Specimens
+from biodata_registry_api_client.models.subject_create import SubjectCreate as SubjectCreate
+from biodata_registry_api_client.models.subject_procedure_create import SubjectProcedureCreate as SubjectProcedureCreate
+from biodata_registry_api_client.models.subject_procedure_update import SubjectProcedureUpdate as SubjectProcedureUpdate
+from biodata_registry_api_client.models.subject_procedures import SubjectProcedures as SubjectProcedures
+from biodata_registry_api_client.models.subject_update import SubjectUpdate as SubjectUpdate
+from biodata_registry_api_client.models.subjects import Subjects as Subjects
 from biodata_registry_api_client.models.user_create import UserCreate as UserCreate
 from biodata_registry_api_client.models.user_update import UserUpdate as UserUpdate
 from biodata_registry_api_client.models.users import Users as Users

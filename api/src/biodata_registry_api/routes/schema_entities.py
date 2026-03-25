@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/schema_entity", tags=["schema_entities"], response_model=SchemaEntities)
+@router.post(
+    "/schema_entity",
+    tags=["core"],
+    response_model=SchemaEntities,
+    operation_id="create_schema_entity"
+)
 async def create_schema_entity(
         schema_entity: SchemaEntityCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_schema_entity(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/schema_entity", tags=["schema_entities"], response_model=SchemaEntities)
+@router.get(
+    "/schema_entity",
+    tags=["core"],
+    response_model=SchemaEntities,
+    operation_id="get_schema_entity"
+)
 async def get_schema_entity(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_schema_entity(
         )
     return row
 
-@router.get("/schema_entities", tags=["schema_entities"], response_model=List[SchemaEntities])
+@router.get(
+    "/schema_entities",
+    tags=["core"],
+    response_model=List[SchemaEntities],
+    operation_id="get_schema_entities"
+)
 async def get_schema_entities(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_schema_entities(
     )
     return rows.all()
 
-@router.delete("/schema_entity", tags=["schema_entities"])
+@router.delete(
+    "/schema_entity",
+    tags=["core"],
+    operation_id="delete_schema_entity"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/schema_entity", tags=["schema_entities"], response_model=SchemaEntities)
+@router.put(
+    "/schema_entity",
+    tags=["core"],
+    response_model=SchemaEntities,
+    operation_id="update_schema_entity"
+)
 async def update(
         id: int,
         schema_entity: SchemaEntityUpdate,

@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/space_admin", tags=["space_admins"], response_model=SpaceAdmins)
+@router.post(
+    "/space_admin",
+    tags=["admin"],
+    response_model=SpaceAdmins,
+    operation_id="create_space_admin"
+)
 async def create_space_admin(
         space_admin: SpaceAdminCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_space_admin(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/space_admin", tags=["space_admins"], response_model=SpaceAdmins)
+@router.get(
+    "/space_admin",
+    tags=["admin"],
+    response_model=SpaceAdmins,
+    operation_id="get_space_admin"
+)
 async def get_space_admin(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_space_admin(
         )
     return row
 
-@router.get("/space_admins", tags=["space_admins"], response_model=List[SpaceAdmins])
+@router.get(
+    "/space_admins",
+    tags=["admin"],
+    response_model=List[SpaceAdmins],
+    operation_id="get_space_admins"
+)
 async def get_space_admins(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_space_admins(
     )
     return rows.all()
 
-@router.delete("/space_admin", tags=["space_admins"])
+@router.delete(
+    "/space_admin",
+    tags=["admin"],
+    operation_id="delete_space_admin"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/space_admin", tags=["space_admins"], response_model=SpaceAdmins)
+@router.put(
+    "/space_admin",
+    tags=["admin"],
+    response_model=SpaceAdmins,
+    operation_id="update_space_admin"
+)
 async def update(
         id: int,
         space_admin: SpaceAdminUpdate,

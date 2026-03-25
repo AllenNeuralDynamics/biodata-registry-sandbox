@@ -13,7 +13,12 @@ from biodata_registry_api.session import get_session
 
 router = APIRouter()
 
-@router.post("/specimen_procedure", tags=["specimen_procedures"], response_model=SpecimenProcedures)
+@router.post(
+    "/specimen_procedure",
+    tags=["core"],
+    response_model=SpecimenProcedures,
+    operation_id="create_specimen_procedure"
+)
 async def create_specimen_procedure(
         specimen_procedure: SpecimenProcedureCreate,
         session: AsyncSession = Depends(get_session),
@@ -24,7 +29,12 @@ async def create_specimen_procedure(
     await session.refresh(db_row)
     return db_row
 
-@router.get("/specimen_procedure", tags=["specimen_procedures"], response_model=SpecimenProcedures)
+@router.get(
+    "/specimen_procedure",
+    tags=["core"],
+    response_model=SpecimenProcedures,
+    operation_id="get_specimen_procedure"
+)
 async def get_specimen_procedure(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -36,7 +46,12 @@ async def get_specimen_procedure(
         )
     return row
 
-@router.get("/specimen_procedures", tags=["specimen_procedures"], response_model=List[SpecimenProcedures])
+@router.get(
+    "/specimen_procedures",
+    tags=["core"],
+    response_model=List[SpecimenProcedures],
+    operation_id="get_specimen_procedures"
+)
 async def get_specimen_procedures(
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
@@ -47,7 +62,11 @@ async def get_specimen_procedures(
     )
     return rows.all()
 
-@router.delete("/specimen_procedure", tags=["specimen_procedures"])
+@router.delete(
+    "/specimen_procedure",
+    tags=["core"],
+    operation_id="delete_specimen_procedure"
+)
 async def delete(
         id: int,
         session: AsyncSession = Depends(get_session),
@@ -61,7 +80,12 @@ async def delete(
     await session.commit()
     return {"ok": True, "msg": f"Deleted {id}"}
 
-@router.put("/specimen_procedure", tags=["specimen_procedures"], response_model=SpecimenProcedures)
+@router.put(
+    "/specimen_procedure",
+    tags=["core"],
+    response_model=SpecimenProcedures,
+    operation_id="update_specimen_procedure"
+)
 async def update(
         id: int,
         specimen_procedure: SpecimenProcedureUpdate,
