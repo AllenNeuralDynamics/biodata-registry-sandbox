@@ -7,6 +7,8 @@ from typing import List
 from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
+
+from biodata_registry_api.models.admin import Collections
 from biodata_registry_api.models.core import DataAssets, DataAssetCreate, DataAssetUpdate
 
 from biodata_registry_api.session import get_session
@@ -96,9 +98,88 @@ async def update(
         raise HTTPException(
             status_code=404, detail=f"{id} not found!"
         )
-    for k, v in data_asset.model_dump(exclude_unset=True).items():
+    for k, v in data_asset.model_dump(
+            exclude_unset=True, exclude={'collections'}
+    ).items():
         setattr(row, k, v)
     session.add(row)
     await session.commit()
     await session.refresh(row)
     return row
+
+@router.get(
+    "/data_asset_collections",
+    tags=["core"],
+    response_model=List[Collections],
+    operation_id="get_data_asset_collections"
+)
+async def get_data_asset_collections(
+        id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(DataAssets, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    collections = row.collections
+    return collections
+
+@router.delete(
+    "/data_asset_collection",
+    tags=["core"],
+    operation_id="remove_data_asset_collection"
+)
+async def remove_collection_data_asset(
+        id: int,
+        collection_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(DataAssets, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Collections, collection_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{collection_id} not found!"
+        )
+    row.collections.remove(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Removed collection {collection_id} from data_asset {id}"
+    }
+
+@router.put(
+    "/data_asset_collection",
+    tags=["core"],
+    # response_model=Collections,
+    operation_id="put_data_asset_collection"
+)
+async def add_data_asset_collection(
+        id: int,
+        collection_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(DataAssets, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Collections, collection_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{collection_id} not found!"
+        )
+    row.collections.append(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Added collection {collection_id} to data_asset {id}"
+    }

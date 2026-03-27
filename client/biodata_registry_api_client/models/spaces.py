@@ -28,10 +28,10 @@ class Spaces(BaseModel):
     """
     Spaces
     """ # noqa: E501
+    id: Optional[StrictInt] = None
     name: Annotated[str, Field(strict=True, max_length=254)]
     organization_id: Optional[StrictInt] = None
-    id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["name", "organization_id", "id"]
+    __properties: ClassVar[List[str]] = ["id", "name", "organization_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -72,15 +72,15 @@ class Spaces(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if organization_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.organization_id is None and "organization_id" in self.model_fields_set:
-            _dict['organization_id'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
+
+        # set to None if organization_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.organization_id is None and "organization_id" in self.model_fields_set:
+            _dict['organization_id'] = None
 
         return _dict
 
@@ -94,9 +94,9 @@ class Spaces(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "name": obj.get("name"),
-            "organization_id": obj.get("organization_id"),
-            "id": obj.get("id")
+            "organization_id": obj.get("organization_id")
         })
         return _obj
 

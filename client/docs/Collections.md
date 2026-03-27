@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **int** |  | [optional] 
 **name** | **str** |  | 
 **description** | **str** |  | 
 **owner_id** | **int** |  | [optional] 
-**id** | **int** |  | [optional] 
 
 ## Example
 

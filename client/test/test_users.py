@@ -35,9 +35,9 @@ class TestUsers(unittest.TestCase):
         model = Users()
         if include_optional:
             return Users(
+                id = 56,
                 name = '',
-                contact = '',
-                id = 56
+                contact = ''
             )
         else:
             return Users(

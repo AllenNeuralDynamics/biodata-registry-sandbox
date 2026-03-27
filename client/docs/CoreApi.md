@@ -29,6 +29,7 @@ Method | HTTP request | Description
 [**get_acquisition**](CoreApi.md#get_acquisition) | **GET** /acquisition | Get Acquisition
 [**get_acquisitions**](CoreApi.md#get_acquisitions) | **GET** /acquisitions | Get Acquisitions
 [**get_data_asset**](CoreApi.md#get_data_asset) | **GET** /data_asset | Get Data Asset
+[**get_data_asset_collections**](CoreApi.md#get_data_asset_collections) | **GET** /data_asset_collections | Get Data Asset Collections
 [**get_data_assets**](CoreApi.md#get_data_assets) | **GET** /data_assets | Get Data Assets
 [**get_instrument**](CoreApi.md#get_instrument) | **GET** /instrument | Get Instrument
 [**get_instruments**](CoreApi.md#get_instruments) | **GET** /instruments | Get Instruments
@@ -48,6 +49,8 @@ Method | HTTP request | Description
 [**get_subject_procedure**](CoreApi.md#get_subject_procedure) | **GET** /subject_procedure | Get Subject Procedure
 [**get_subject_procedures**](CoreApi.md#get_subject_procedures) | **GET** /subject_procedures | Get Subject Procedures
 [**get_subjects**](CoreApi.md#get_subjects) | **GET** /subjects | Get Subjects
+[**put_data_asset_collection**](CoreApi.md#put_data_asset_collection) | **PUT** /data_asset_collection | Add Data Asset Collection
+[**remove_data_asset_collection**](CoreApi.md#remove_data_asset_collection) | **DELETE** /data_asset_collection | Remove Collection Data Asset
 [**update_acquisition**](CoreApi.md#update_acquisition) | **PUT** /acquisition | Update
 [**update_data_asset**](CoreApi.md#update_data_asset) | **PUT** /data_asset | Update
 [**update_instrument**](CoreApi.md#update_instrument) | **PUT** /instrument | Update
@@ -1738,6 +1741,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_data_asset_collections**
+> List[Collections] get_data_asset_collections(id)
+
+Get Data Asset Collections
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.collections import Collections
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Data Asset Collections
+        api_response = api_instance.get_data_asset_collections(id)
+        print("The response of CoreApi->get_data_asset_collections:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_data_asset_collections: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[Collections]**](Collections.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_data_assets**
 > List[DataAssets] get_data_assets(offset=offset, limit=limit)
 
@@ -3012,6 +3082,142 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List[Subjects]**](Subjects.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_data_asset_collection**
+> object put_data_asset_collection(id, collection_id)
+
+Add Data Asset Collection
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    collection_id = 56 # int | 
+
+    try:
+        # Add Data Asset Collection
+        api_response = api_instance.put_data_asset_collection(id, collection_id)
+        print("The response of CoreApi->put_data_asset_collection:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_data_asset_collection: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **collection_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_data_asset_collection**
+> object remove_data_asset_collection(id, collection_id)
+
+Remove Collection Data Asset
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    collection_id = 56 # int | 
+
+    try:
+        # Remove Collection Data Asset
+        api_response = api_instance.remove_data_asset_collection(id, collection_id)
+        print("The response of CoreApi->remove_data_asset_collection:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_data_asset_collection: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **collection_id** | **int**|  | 
+
+### Return type
+
+**object**
 
 ### Authorization
 

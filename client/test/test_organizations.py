@@ -35,8 +35,8 @@ class TestOrganizations(unittest.TestCase):
         model = Organizations()
         if include_optional:
             return Organizations(
-                name = '',
-                id = 56
+                id = 56,
+                name = ''
             )
         else:
             return Organizations(

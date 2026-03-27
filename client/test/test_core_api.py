@@ -201,6 +201,13 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_get_data_asset_collections(self) -> None:
+        """Test case for get_data_asset_collections
+
+        Get Data Asset Collections
+        """
+        pass
+
     def test_get_data_assets(self) -> None:
         """Test case for get_data_assets
 
@@ -331,6 +338,20 @@ class TestCoreApi(unittest.TestCase):
         """Test case for get_subjects
 
         Get Subjects
+        """
+        pass
+
+    def test_put_data_asset_collection(self) -> None:
+        """Test case for put_data_asset_collection
+
+        Add Data Asset Collection
+        """
+        pass
+
+    def test_remove_data_asset_collection(self) -> None:
+        """Test case for remove_data_asset_collection
+
+        Remove Collection Data Asset
         """
         pass
 

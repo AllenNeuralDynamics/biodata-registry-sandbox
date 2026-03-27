@@ -35,9 +35,9 @@ class TestSpaces(unittest.TestCase):
         model = Spaces()
         if include_optional:
             return Spaces(
+                id = 56,
                 name = '',
-                organization_id = 56,
-                id = 56
+                organization_id = 56
             )
         else:
             return Spaces(

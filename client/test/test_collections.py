@@ -35,10 +35,10 @@ class TestCollections(unittest.TestCase):
         model = Collections()
         if include_optional:
             return Collections(
+                id = 56,
                 name = '',
                 description = '',
-                owner_id = 56,
-                id = 56
+                owner_id = 56
             )
         else:
             return Collections(

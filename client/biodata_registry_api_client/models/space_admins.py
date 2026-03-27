@@ -27,10 +27,10 @@ class SpaceAdmins(BaseModel):
     """
     SpaceAdmins
     """ # noqa: E501
+    id: Optional[StrictInt] = None
     user_id: Optional[StrictInt] = None
     space_id: Optional[StrictInt] = None
-    id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["user_id", "space_id", "id"]
+    __properties: ClassVar[List[str]] = ["id", "user_id", "space_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -71,6 +71,11 @@ class SpaceAdmins(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         # set to None if user_id (nullable) is None
         # and model_fields_set contains the field
         if self.user_id is None and "user_id" in self.model_fields_set:
@@ -80,11 +85,6 @@ class SpaceAdmins(BaseModel):
         # and model_fields_set contains the field
         if self.space_id is None and "space_id" in self.model_fields_set:
             _dict['space_id'] = None
-
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
 
         return _dict
 
@@ -98,9 +98,9 @@ class SpaceAdmins(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "user_id": obj.get("user_id"),
-            "space_id": obj.get("space_id"),
-            "id": obj.get("id")
+            "space_id": obj.get("space_id")
         })
         return _obj
 

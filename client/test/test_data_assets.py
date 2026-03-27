@@ -35,18 +35,16 @@ class TestDataAssets(unittest.TestCase):
         model = DataAssets()
         if include_optional:
             return DataAssets(
+                id = 56,
                 name = '',
                 location = '',
                 external_links = { },
                 data = { },
                 schema_id = 56,
-                space_id = 56,
-                id = 56
+                space_id = 56
             )
         else:
             return DataAssets(
-                name = '',
-                location = '',
         )
         """
 

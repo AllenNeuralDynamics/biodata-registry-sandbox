@@ -460,6 +460,148 @@
             }
          }
       },
+      "/collection_data_assets": {
+         "get": {
+            "tags": [
+               "admin"
+            ],
+            "summary": "Get Collection Data Assets",
+            "operationId": "get_collection_data_assets",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/DataAssets"
+                           },
+                           "title": "Response Get Collection Data Assets"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/collection_data_asset": {
+         "delete": {
+            "tags": [
+               "admin"
+            ],
+            "summary": "Remove Collection Data Asset",
+            "operationId": "remove_collection_data_asset",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "data_asset_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Data Asset Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "admin"
+            ],
+            "summary": "Add Collection Data Asset",
+            "operationId": "put_collection_data_asset",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "data_asset_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Data Asset Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
       "/data_asset": {
          "post": {
             "tags": [
@@ -671,6 +813,148 @@
                            },
                            "title": "Response Get Data Assets"
                         }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/data_asset_collections": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Data Asset Collections",
+            "operationId": "get_data_asset_collections",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Collections"
+                           },
+                           "title": "Response Get Data Asset Collections"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/data_asset_collection": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Collection Data Asset",
+            "operationId": "remove_data_asset_collection",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "collection_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Collection Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Data Asset Collection",
+            "operationId": "put_data_asset_collection",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "collection_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Collection Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
                      }
                   }
                },
@@ -4125,6 +4409,17 @@
          },
          "Collections": {
             "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
                "name": {
                   "type": "string",
                   "maxLength": 254,
@@ -4145,17 +4440,6 @@
                      }
                   ],
                   "title": "Owner Id"
-               },
-               "id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Id"
                }
             },
             "type": "object",
@@ -4295,14 +4579,39 @@
          },
          "DataAssets": {
             "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
                "name": {
-                  "type": "string",
-                  "maxLength": 254,
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
                   "title": "Name"
                },
                "location": {
-                  "type": "string",
-                  "maxLength": 254,
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
                   "title": "Location"
                },
                "external_links": {
@@ -4336,24 +4645,9 @@
                      }
                   ],
                   "title": "Space Id"
-               },
-               "id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Id"
                }
             },
             "type": "object",
-            "required": [
-               "name",
-               "location"
-            ],
             "title": "DataAssets"
          },
          "HTTPValidationError": {
@@ -4572,6 +4866,17 @@
          },
          "OrganizationAdmins": {
             "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
                "user_id": {
                   "anyOf": [
                      {
@@ -4593,17 +4898,6 @@
                      }
                   ],
                   "title": "Organization Id"
-               },
-               "id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Id"
                }
             },
             "type": "object",
@@ -4643,11 +4937,6 @@
          },
          "Organizations": {
             "properties": {
-               "name": {
-                  "type": "string",
-                  "maxLength": 254,
-                  "title": "Name"
-               },
                "id": {
                   "anyOf": [
                      {
@@ -4658,6 +4947,11 @@
                      }
                   ],
                   "title": "Id"
+               },
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
                }
             },
             "type": "object",
@@ -5114,6 +5408,17 @@
          },
          "Schemas": {
             "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
                "name": {
                   "type": "string",
                   "maxLength": 50,
@@ -5139,17 +5444,6 @@
                      }
                   ],
                   "title": "Schema Entity Id"
-               },
-               "id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Id"
                }
             },
             "type": "object",
@@ -5217,6 +5511,17 @@
          },
          "SpaceAdmins": {
             "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
                "user_id": {
                   "anyOf": [
                      {
@@ -5238,17 +5543,6 @@
                      }
                   ],
                   "title": "Space Id"
-               },
-               "id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Id"
                }
             },
             "type": "object",
@@ -5310,6 +5604,17 @@
          },
          "Spaces": {
             "properties": {
+               "id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Id"
+               },
                "name": {
                   "type": "string",
                   "maxLength": 254,
@@ -5325,17 +5630,6 @@
                      }
                   ],
                   "title": "Organization Id"
-               },
-               "id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Id"
                }
             },
             "type": "object",
@@ -5986,16 +6280,6 @@
          },
          "Users": {
             "properties": {
-               "name": {
-                  "type": "string",
-                  "maxLength": 254,
-                  "title": "Name"
-               },
-               "contact": {
-                  "type": "string",
-                  "maxLength": 254,
-                  "title": "Contact"
-               },
                "id": {
                   "anyOf": [
                      {
@@ -6006,6 +6290,16 @@
                      }
                   ],
                   "title": "Id"
+               },
+               "name": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Name"
+               },
+               "contact": {
+                  "type": "string",
+                  "maxLength": 254,
+                  "title": "Contact"
                }
             },
             "type": "object",

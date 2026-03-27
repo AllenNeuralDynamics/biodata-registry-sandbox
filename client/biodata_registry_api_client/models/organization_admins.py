@@ -27,10 +27,10 @@ class OrganizationAdmins(BaseModel):
     """
     OrganizationAdmins
     """ # noqa: E501
+    id: Optional[StrictInt] = None
     user_id: Optional[StrictInt] = None
     organization_id: Optional[StrictInt] = None
-    id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["user_id", "organization_id", "id"]
+    __properties: ClassVar[List[str]] = ["id", "user_id", "organization_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -71,6 +71,11 @@ class OrganizationAdmins(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         # set to None if user_id (nullable) is None
         # and model_fields_set contains the field
         if self.user_id is None and "user_id" in self.model_fields_set:
@@ -80,11 +85,6 @@ class OrganizationAdmins(BaseModel):
         # and model_fields_set contains the field
         if self.organization_id is None and "organization_id" in self.model_fields_set:
             _dict['organization_id'] = None
-
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
 
         return _dict
 
@@ -98,9 +98,9 @@ class OrganizationAdmins(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "user_id": obj.get("user_id"),
-            "organization_id": obj.get("organization_id"),
-            "id": obj.get("id")
+            "organization_id": obj.get("organization_id")
         })
         return _obj
 

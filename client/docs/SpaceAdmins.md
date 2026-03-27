@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **int** |  | [optional] 
 **user_id** | **int** |  | [optional] 
 **space_id** | **int** |  | [optional] 
-**id** | **int** |  | [optional] 
 
 ## Example
 

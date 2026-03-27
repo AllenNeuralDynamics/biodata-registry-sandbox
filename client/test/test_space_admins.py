@@ -35,9 +35,9 @@ class TestSpaceAdmins(unittest.TestCase):
         model = SpaceAdmins()
         if include_optional:
             return SpaceAdmins(
+                id = 56,
                 user_id = 56,
-                space_id = 56,
-                id = 56
+                space_id = 56
             )
         else:
             return SpaceAdmins(

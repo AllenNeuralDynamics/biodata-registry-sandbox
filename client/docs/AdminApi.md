@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**delete_space_admin**](AdminApi.md#delete_space_admin) | **DELETE** /space_admin | Delete
 [**delete_user**](AdminApi.md#delete_user) | **DELETE** /user | Delete
 [**get_collection**](AdminApi.md#get_collection) | **GET** /collection | Get Collection
+[**get_collection_data_assets**](AdminApi.md#get_collection_data_assets) | **GET** /collection_data_assets | Get Collection Data Assets
 [**get_collections**](AdminApi.md#get_collections) | **GET** /collections | Get Collections
 [**get_organization**](AdminApi.md#get_organization) | **GET** /organization | Get Organization
 [**get_organization_admin**](AdminApi.md#get_organization_admin) | **GET** /organization_admin | Get Organization Admin
@@ -28,6 +29,8 @@ Method | HTTP request | Description
 [**get_spaces**](AdminApi.md#get_spaces) | **GET** /spaces | Get Spaces
 [**get_user**](AdminApi.md#get_user) | **GET** /user | Get User
 [**get_users**](AdminApi.md#get_users) | **GET** /users | Get Users
+[**put_collection_data_asset**](AdminApi.md#put_collection_data_asset) | **PUT** /collection_data_asset | Add Collection Data Asset
+[**remove_collection_data_asset**](AdminApi.md#remove_collection_data_asset) | **DELETE** /collection_data_asset | Remove Collection Data Asset
 [**update_collection**](AdminApi.md#update_collection) | **PUT** /collection | Update
 [**update_organization**](AdminApi.md#update_organization) | **PUT** /organization | Update
 [**update_organization_admin**](AdminApi.md#update_organization_admin) | **PUT** /organization_admin | Update
@@ -907,6 +910,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_collection_data_assets**
+> List[DataAssets] get_collection_data_assets(id)
+
+Get Collection Data Assets
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.data_assets import DataAssets
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.AdminApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Collection Data Assets
+        api_response = api_instance.get_collection_data_assets(id)
+        print("The response of AdminApi->get_collection_data_assets:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AdminApi->get_collection_data_assets: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[DataAssets]**](DataAssets.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_collections**
 > List[Collections] get_collections(offset=offset, limit=limit)
 
@@ -1637,6 +1707,142 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List[Users]**](Users.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_collection_data_asset**
+> object put_collection_data_asset(id, data_asset_id)
+
+Add Collection Data Asset
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.AdminApi(api_client)
+    id = 56 # int | 
+    data_asset_id = 56 # int | 
+
+    try:
+        # Add Collection Data Asset
+        api_response = api_instance.put_collection_data_asset(id, data_asset_id)
+        print("The response of AdminApi->put_collection_data_asset:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AdminApi->put_collection_data_asset: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **data_asset_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_collection_data_asset**
+> object remove_collection_data_asset(id, data_asset_id)
+
+Remove Collection Data Asset
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.AdminApi(api_client)
+    id = 56 # int | 
+    data_asset_id = 56 # int | 
+
+    try:
+        # Remove Collection Data Asset
+        api_response = api_instance.remove_collection_data_asset(id, data_asset_id)
+        print("The response of AdminApi->remove_collection_data_asset:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AdminApi->remove_collection_data_asset: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **data_asset_id** | **int**|  | 
+
+### Return type
+
+**object**
 
 ### Authorization
 

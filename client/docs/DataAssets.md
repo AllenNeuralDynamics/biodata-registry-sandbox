@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
-**location** | **str** |  | 
+**id** | **int** |  | [optional] 
+**name** | **str** |  | [optional] 
+**location** | **str** |  | [optional] 
 **external_links** | **Dict[str, object]** |  | [optional] 
 **data** | **Dict[str, object]** |  | [optional] 
 **schema_id** | **int** |  | [optional] 
 **space_id** | **int** |  | [optional] 
-**id** | **int** |  | [optional] 
 
 ## Example
 

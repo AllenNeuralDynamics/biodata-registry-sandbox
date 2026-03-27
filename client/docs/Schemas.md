@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **int** |  | [optional] 
 **name** | **str** |  | 
 **version** | **str** |  | 
 **data** | **Dict[str, object]** |  | [optional] 
 **schema_entity_id** | **int** |  | [optional] 
-**id** | **int** |  | [optional] 
 
 ## Example
 

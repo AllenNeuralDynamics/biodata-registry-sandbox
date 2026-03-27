@@ -28,11 +28,11 @@ class Collections(BaseModel):
     """
     Collections
     """ # noqa: E501
+    id: Optional[StrictInt] = None
     name: Annotated[str, Field(strict=True, max_length=254)]
     description: Annotated[str, Field(strict=True, max_length=254)]
     owner_id: Optional[StrictInt] = None
-    id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "owner_id", "id"]
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "owner_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -73,15 +73,15 @@ class Collections(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if owner_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.owner_id is None and "owner_id" in self.model_fields_set:
-            _dict['owner_id'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
+
+        # set to None if owner_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.owner_id is None and "owner_id" in self.model_fields_set:
+            _dict['owner_id'] = None
 
         return _dict
 
@@ -95,10 +95,10 @@ class Collections(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "name": obj.get("name"),
             "description": obj.get("description"),
-            "owner_id": obj.get("owner_id"),
-            "id": obj.get("id")
+            "owner_id": obj.get("owner_id")
         })
         return _obj
 

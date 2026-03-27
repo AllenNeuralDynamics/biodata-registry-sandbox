@@ -28,14 +28,14 @@ class DataAssets(BaseModel):
     """
     DataAssets
     """ # noqa: E501
-    name: Annotated[str, Field(strict=True, max_length=254)]
-    location: Annotated[str, Field(strict=True, max_length=254)]
+    id: Optional[StrictInt] = None
+    name: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
+    location: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
     external_links: Optional[Dict[str, Any]] = None
     data: Optional[Dict[str, Any]] = None
     schema_id: Optional[StrictInt] = None
     space_id: Optional[StrictInt] = None
-    id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["name", "location", "external_links", "data", "schema_id", "space_id", "id"]
+    __properties: ClassVar[List[str]] = ["id", "name", "location", "external_links", "data", "schema_id", "space_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -76,6 +76,21 @@ class DataAssets(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if location (nullable) is None
+        # and model_fields_set contains the field
+        if self.location is None and "location" in self.model_fields_set:
+            _dict['location'] = None
+
         # set to None if schema_id (nullable) is None
         # and model_fields_set contains the field
         if self.schema_id is None and "schema_id" in self.model_fields_set:
@@ -85,11 +100,6 @@ class DataAssets(BaseModel):
         # and model_fields_set contains the field
         if self.space_id is None and "space_id" in self.model_fields_set:
             _dict['space_id'] = None
-
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
 
         return _dict
 
@@ -103,13 +113,13 @@ class DataAssets(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "name": obj.get("name"),
             "location": obj.get("location"),
             "external_links": obj.get("external_links"),
             "data": obj.get("data"),
             "schema_id": obj.get("schema_id"),
-            "space_id": obj.get("space_id"),
-            "id": obj.get("id")
+            "space_id": obj.get("space_id")
         })
         return _obj
 

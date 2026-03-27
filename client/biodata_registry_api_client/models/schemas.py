@@ -28,12 +28,12 @@ class Schemas(BaseModel):
     """
     Schemas
     """ # noqa: E501
+    id: Optional[StrictInt] = None
     name: Annotated[str, Field(strict=True, max_length=50)]
     version: Annotated[str, Field(strict=True, max_length=50)]
     data: Optional[Dict[str, Any]] = None
     schema_entity_id: Optional[StrictInt] = None
-    id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["name", "version", "data", "schema_entity_id", "id"]
+    __properties: ClassVar[List[str]] = ["id", "name", "version", "data", "schema_entity_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -74,15 +74,15 @@ class Schemas(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if schema_entity_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.schema_entity_id is None and "schema_entity_id" in self.model_fields_set:
-            _dict['schema_entity_id'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
+
+        # set to None if schema_entity_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.schema_entity_id is None and "schema_entity_id" in self.model_fields_set:
+            _dict['schema_entity_id'] = None
 
         return _dict
 
@@ -96,11 +96,11 @@ class Schemas(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "name": obj.get("name"),
             "version": obj.get("version"),
             "data": obj.get("data"),
-            "schema_entity_id": obj.get("schema_entity_id"),
-            "id": obj.get("id")
+            "schema_entity_id": obj.get("schema_entity_id")
         })
         return _obj
 

@@ -28,10 +28,10 @@ class Users(BaseModel):
     """
     Users
     """ # noqa: E501
+    id: Optional[StrictInt] = None
     name: Annotated[str, Field(strict=True, max_length=254)]
     contact: Annotated[str, Field(strict=True, max_length=254)]
-    id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["name", "contact", "id"]
+    __properties: ClassVar[List[str]] = ["id", "name", "contact"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -89,9 +89,9 @@ class Users(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "name": obj.get("name"),
-            "contact": obj.get("contact"),
-            "id": obj.get("id")
+            "contact": obj.get("contact")
         })
         return _obj
 

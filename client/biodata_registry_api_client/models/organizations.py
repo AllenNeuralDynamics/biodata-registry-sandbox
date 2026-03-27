@@ -28,9 +28,9 @@ class Organizations(BaseModel):
     """
     Organizations
     """ # noqa: E501
-    name: Annotated[str, Field(strict=True, max_length=254)]
     id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["name", "id"]
+    name: Annotated[str, Field(strict=True, max_length=254)]
+    __properties: ClassVar[List[str]] = ["id", "name"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -88,8 +88,8 @@ class Organizations(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "id": obj.get("id")
+            "id": obj.get("id"),
+            "name": obj.get("name")
         })
         return _obj
 

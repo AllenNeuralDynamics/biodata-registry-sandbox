@@ -1,8 +1,8 @@
 from biodata_registry_api.models.link_tables import (
     CollectionDataAssets,
-    ProcessInputs,
-    SubjectProcedureOutputs,
-    AcquisitionSpecimens
+    # ProcessInputs,
+    # SubjectProcedureOutputs,
+    # AcquisitionSpecimens
 )
 from sqlmodel import SQLModel, Field, Column, Relationship
 from typing import Dict, Any, List
@@ -14,7 +14,9 @@ class SchemaEntityCreate(SQLModel):
 class SchemaEntityUpdate(SQLModel):
     name: str | None = Field(default=None, max_length=50)
 
-class SchemaEntities(SchemaEntityCreate, table=True):
+class SchemaEntities(SQLModel, table=True):
+    __tablename__ = "schema_entities"
+    name: str = Field(max_length=50)
     id: int | None = Field(default=None, primary_key=True)
 
 class SchemaCreate(SQLModel):
@@ -35,14 +37,17 @@ class SchemaUpdate(SQLModel):
     )
     schema_entity_id: int | None = Field(default=None)
 
-class Schemas(SchemaCreate, table=True):
+class Schemas(SQLModel, table=True):
+    __tablename__ = "schemas"
     id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(max_length=50)
+    version: str = Field(max_length=50)
     data: Dict[str, Any] = Field(
         default_factory=dict,
         sa_column=Column(JSONB)
     )
     schema_entity_id: int | None = Field(
-        default=None, foreign_key="schemaentities.id"
+        default=None, foreign_key="schema_entities.id"
     )
 
 class DataAssetCreate(SQLModel):
@@ -62,7 +67,7 @@ class DataAssetCreate(SQLModel):
     space_id: int | None = Field(
         default=None, # foreign_key="spaces.id"
     )
-    # collections: List["Collections"] = Field(default=[])
+    # collection_ids: List[int] = Field(default=[])
 
 class DataAssetUpdate(SQLModel):
     name: str | None = Field(default=None, max_length=254)
@@ -81,10 +86,13 @@ class DataAssetUpdate(SQLModel):
     space_id: int | None = Field(
         default=None, # foreign_key="spaces.id"
     )
-    # collections: List["Collections"] | None = Field(default=None)
+    # collection_ids: List[int] | None = Field(default=None)
 
-class DataAssets(DataAssetCreate, table=True):
+class DataAssets(SQLModel, table=True):
+    __tablename__ = "data_assets"
     id: int | None = Field(default=None, primary_key=True)
+    name: str | None = Field(default=None, max_length=254)
+    location: str | None = Field(default=None, max_length=254)
     external_links: Dict[str, Any] = Field(
         default_factory=dict,
         sa_column=Column(JSONB)
@@ -100,11 +108,13 @@ class DataAssets(DataAssetCreate, table=True):
         default=None, foreign_key="spaces.id"
     )
     collections: List["Collections"] = Relationship(
-        back_populates="data_assets", link_model=CollectionDataAssets
+        back_populates="data_assets",
+        link_model=CollectionDataAssets,
+        sa_relationship_kwargs={'lazy': 'selectin'}
     )
-    processes: List["Processes"] = Relationship(
-        back_populates="processes", link_model=ProcessInputs
-    )
+    # processes: List["Processes"] = Relationship(
+    #     back_populates="processes", link_model=ProcessInputs
+    # )
 
 class SubjectCreate(SQLModel):
     name: str = Field(max_length=254)
@@ -133,6 +143,7 @@ class SubjectUpdate(SQLModel):
     )
 
 class Subjects(SQLModel, table=True):
+    __tablename__ = "subjects"
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
@@ -179,6 +190,7 @@ class SpecimenUpdate(SQLModel):
     )
 
 class Specimens(SQLModel, table=True):
+    __tablename__ = "specimens"
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
@@ -194,13 +206,13 @@ class Specimens(SQLModel, table=True):
     subject_id: int | None = Field(
         default=None, foreign_key="subjects.id"
     )
-    subject_procedures: List["SubjectProcedures"] = Relationship(
-        back_populates="subjectprocedures", link_model=SubjectProcedureOutputs
-    )
-    acquisitions: List["Acquisitions"] = Relationship(
-        back_populates="acquisitions", link_model=AcquisitionSpecimens
-    )
-
+#     subject_procedures: List["SubjectProcedures"] = Relationship(
+#         back_populates="subject_procedures", link_model=SubjectProcedureOutputs
+#     )
+#     acquisitions: List["Acquisitions"] = Relationship(
+#         back_populates="acquisitions", link_model=AcquisitionSpecimens
+#     )
+#
 class SpecimenProcedureCreate(SQLModel):
     data: Dict[str, Any] = Field(
         default_factory=dict,
@@ -226,6 +238,7 @@ class SpecimenProcedureUpdate(SQLModel):
     )
 
 class SpecimenProcedures(SQLModel, table=True):
+    __tablename__ = "specimen_procedures"
     id: int | None = Field(default=None, primary_key=True)
     data: Dict[str, Any] = Field(
         default_factory=dict,
@@ -269,6 +282,7 @@ class SubjectProcedureUpdate(SQLModel):
     )
 
 class SubjectProcedures(SQLModel, table=True):
+    __tablename__ = "subject_procedures"
     id: int | None = Field(default=None, primary_key=True)
     data: Dict[str, Any] = Field(
         default_factory=dict,
@@ -283,10 +297,10 @@ class SubjectProcedures(SQLModel, table=True):
     subject_id: int | None = Field(
         default=None, foreign_key="subjects.id"
     )
-    specimens: List["Specimens"] = Relationship(
-        back_populates="specimens", link_model=SubjectProcedureOutputs
-    )
-
+#     specimens: List["Specimens"] = Relationship(
+#         back_populates="specimens", link_model=SubjectProcedureOutputs
+#     )
+#
 class InstrumentCreate(SQLModel):
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
@@ -314,6 +328,7 @@ class InstrumentUpdate(SQLModel):
     )
 
 class Instruments(SQLModel, table=True):
+    __tablename__ = "instruments"
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
@@ -339,7 +354,7 @@ class AcquisitionCreate(SQLModel):
         default=None, # foreign_key="spaces.id"
     )
     data_asset_id: int | None = Field(
-        default=None, # foreign_key="dataassets.id"
+        default=None, # foreign_key="data_assets.id"
     )
     instrument_id: int | None = Field(
         default=None, # foreign_key="instruments.id"
@@ -357,13 +372,14 @@ class AcquisitionUpdate(SQLModel):
         default=None, # foreign_key="spaces.id"
     )
     data_asset_id: int | None = Field(
-        default=None, # foreign_key="dataassets.id"
+        default=None, # foreign_key="data_assets.id"
     )
     instrument_id: int | None = Field(
         default=None, # foreign_key="instruments.id"
     )
 
 class Acquisitions(SQLModel, table=True):
+    __tablename__ = "acquisitions"
     id: int | None = Field(default=None, primary_key=True)
     data: Dict[str, Any] = Field(
         default_factory=dict,
@@ -376,15 +392,15 @@ class Acquisitions(SQLModel, table=True):
         default=None, foreign_key="spaces.id"
     )
     data_asset_id: int | None = Field(
-        default=None, foreign_key="dataassets.id"
+        default=None, foreign_key="data_assets.id"
     )
     instrument_id: int | None = Field(
         default=None, foreign_key="instruments.id"
     )
-    specimens: List["Specimens"] = Relationship(
-        back_populates="specimens", link_model=AcquisitionSpecimens
-    )
-
+#     specimens: List["Specimens"] = Relationship(
+#         back_populates="specimens", link_model=AcquisitionSpecimens
+#     )
+#
 class QualityControlCreate(SQLModel):
     data: Dict[str, Any] = Field(
         default_factory=dict,
@@ -397,7 +413,7 @@ class QualityControlCreate(SQLModel):
         default=None, # foreign_key="spaces.id"
     )
     data_asset_id: int | None = Field(
-        default=None, # foreign_key="dataassets.id"
+        default=None, # foreign_key="data_assets.id"
     )
 
 class QualityControlUpdate(SQLModel):
@@ -412,10 +428,11 @@ class QualityControlUpdate(SQLModel):
         default=None, # foreign_key="spaces.id"
     )
     data_asset_id: int | None = Field(
-        default=None, # foreign_key="dataassets.id"
+        default=None, # foreign_key="data_assets.id"
     )
 
 class QualityControls(SQLModel, table=True):
+    __tablename__ = "quality_controls"
     id: int | None = Field(default=None, primary_key=True)
     data: Dict[str, Any] = Field(
         default_factory=dict,
@@ -428,7 +445,7 @@ class QualityControls(SQLModel, table=True):
         default=None, foreign_key="spaces.id"
     )
     data_asset_id: int | None = Field(
-        default=None, foreign_key="dataassets.id"
+        default=None, foreign_key="data_assets.id"
     )
 
 class ProcessCreate(SQLModel):
@@ -443,7 +460,7 @@ class ProcessCreate(SQLModel):
         default=None, # foreign_key="spaces.id"
     )
     output_data_asset_id: int | None = Field(
-        default=None, # foreign_key="dataassets.id"
+        default=None, # foreign_key="data_assets.id"
     )
 
 class ProcessUpdate(SQLModel):
@@ -458,10 +475,11 @@ class ProcessUpdate(SQLModel):
         default=None, # foreign_key="spaces.id"
     )
     output_data_asset_id: int | None = Field(
-        default=None, # foreign_key="dataassets.id"
+        default=None, # foreign_key="data_assets.id"
     )
 
 class Processes(SQLModel, table=True):
+    __tablename__ = "processes"
     id: int | None = Field(default=None, primary_key=True)
     data: Dict[str, Any] = Field(
         default_factory=dict,
@@ -474,8 +492,8 @@ class Processes(SQLModel, table=True):
         default=None, foreign_key="spaces.id"
     )
     output_data_asset_id: int | None = Field(
-        default=None, foreign_key="dataassets.id"
+        default=None, foreign_key="data_assets.id"
     )
-    data_assets: List["DataAssets"] = Relationship(
-        back_populates="dataassets", link_model=ProcessInputs
-    )
+#     data_assets: List["DataAssets"] = Relationship(
+#         back_populates="data_assets", link_model=ProcessInputs
+#     )

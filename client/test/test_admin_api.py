@@ -117,6 +117,13 @@ class TestAdminApi(unittest.TestCase):
         """
         pass
 
+    def test_get_collection_data_assets(self) -> None:
+        """Test case for get_collection_data_assets
+
+        Get Collection Data Assets
+        """
+        pass
+
     def test_get_collections(self) -> None:
         """Test case for get_collections
 
@@ -191,6 +198,20 @@ class TestAdminApi(unittest.TestCase):
         """Test case for get_users
 
         Get Users
+        """
+        pass
+
+    def test_put_collection_data_asset(self) -> None:
+        """Test case for put_collection_data_asset
+
+        Add Collection Data Asset
+        """
+        pass
+
+    def test_remove_collection_data_asset(self) -> None:
+        """Test case for remove_collection_data_asset
+
+        Remove Collection Data Asset
         """
         pass
 

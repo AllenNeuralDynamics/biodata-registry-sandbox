@@ -103,6 +103,7 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**delete_space_admin**](docs/AdminApi.md#delete_space_admin) | **DELETE** /space_admin | Delete
 *AdminApi* | [**delete_user**](docs/AdminApi.md#delete_user) | **DELETE** /user | Delete
 *AdminApi* | [**get_collection**](docs/AdminApi.md#get_collection) | **GET** /collection | Get Collection
+*AdminApi* | [**get_collection_data_assets**](docs/AdminApi.md#get_collection_data_assets) | **GET** /collection_data_assets | Get Collection Data Assets
 *AdminApi* | [**get_collections**](docs/AdminApi.md#get_collections) | **GET** /collections | Get Collections
 *AdminApi* | [**get_organization**](docs/AdminApi.md#get_organization) | **GET** /organization | Get Organization
 *AdminApi* | [**get_organization_admin**](docs/AdminApi.md#get_organization_admin) | **GET** /organization_admin | Get Organization Admin
@@ -114,6 +115,8 @@ Class | Method | HTTP request | Description
 *AdminApi* | [**get_spaces**](docs/AdminApi.md#get_spaces) | **GET** /spaces | Get Spaces
 *AdminApi* | [**get_user**](docs/AdminApi.md#get_user) | **GET** /user | Get User
 *AdminApi* | [**get_users**](docs/AdminApi.md#get_users) | **GET** /users | Get Users
+*AdminApi* | [**put_collection_data_asset**](docs/AdminApi.md#put_collection_data_asset) | **PUT** /collection_data_asset | Add Collection Data Asset
+*AdminApi* | [**remove_collection_data_asset**](docs/AdminApi.md#remove_collection_data_asset) | **DELETE** /collection_data_asset | Remove Collection Data Asset
 *AdminApi* | [**update_collection**](docs/AdminApi.md#update_collection) | **PUT** /collection | Update
 *AdminApi* | [**update_organization**](docs/AdminApi.md#update_organization) | **PUT** /organization | Update
 *AdminApi* | [**update_organization_admin**](docs/AdminApi.md#update_organization_admin) | **PUT** /organization_admin | Update
@@ -145,6 +148,7 @@ Class | Method | HTTP request | Description
 *CoreApi* | [**get_acquisition**](docs/CoreApi.md#get_acquisition) | **GET** /acquisition | Get Acquisition
 *CoreApi* | [**get_acquisitions**](docs/CoreApi.md#get_acquisitions) | **GET** /acquisitions | Get Acquisitions
 *CoreApi* | [**get_data_asset**](docs/CoreApi.md#get_data_asset) | **GET** /data_asset | Get Data Asset
+*CoreApi* | [**get_data_asset_collections**](docs/CoreApi.md#get_data_asset_collections) | **GET** /data_asset_collections | Get Data Asset Collections
 *CoreApi* | [**get_data_assets**](docs/CoreApi.md#get_data_assets) | **GET** /data_assets | Get Data Assets
 *CoreApi* | [**get_instrument**](docs/CoreApi.md#get_instrument) | **GET** /instrument | Get Instrument
 *CoreApi* | [**get_instruments**](docs/CoreApi.md#get_instruments) | **GET** /instruments | Get Instruments
@@ -164,6 +168,8 @@ Class | Method | HTTP request | Description
 *CoreApi* | [**get_subject_procedure**](docs/CoreApi.md#get_subject_procedure) | **GET** /subject_procedure | Get Subject Procedure
 *CoreApi* | [**get_subject_procedures**](docs/CoreApi.md#get_subject_procedures) | **GET** /subject_procedures | Get Subject Procedures
 *CoreApi* | [**get_subjects**](docs/CoreApi.md#get_subjects) | **GET** /subjects | Get Subjects
+*CoreApi* | [**put_data_asset_collection**](docs/CoreApi.md#put_data_asset_collection) | **PUT** /data_asset_collection | Add Data Asset Collection
+*CoreApi* | [**remove_data_asset_collection**](docs/CoreApi.md#remove_data_asset_collection) | **DELETE** /data_asset_collection | Remove Collection Data Asset
 *CoreApi* | [**update_acquisition**](docs/CoreApi.md#update_acquisition) | **PUT** /acquisition | Update
 *CoreApi* | [**update_data_asset**](docs/CoreApi.md#update_data_asset) | **PUT** /data_asset | Update
 *CoreApi* | [**update_instrument**](docs/CoreApi.md#update_instrument) | **PUT** /instrument | Update

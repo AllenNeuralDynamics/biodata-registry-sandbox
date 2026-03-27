@@ -35,11 +35,11 @@ class TestSchemas(unittest.TestCase):
         model = Schemas()
         if include_optional:
             return Schemas(
+                id = 56,
                 name = '',
                 version = '',
                 data = { },
-                schema_entity_id = 56,
-                id = 56
+                schema_entity_id = 56
             )
         else:
             return Schemas(
