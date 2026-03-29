@@ -7,7 +7,7 @@ from typing import List
 from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.core import Acquisitions, AcquisitionCreate, AcquisitionUpdate
+from biodata_registry_api.models.core import Acquisitions, AcquisitionCreate, AcquisitionUpdate, Subjects
 
 from biodata_registry_api.session import get_session
 
@@ -102,3 +102,79 @@ async def update(
     await session.commit()
     await session.refresh(row)
     return row
+
+@router.get(
+    "/acquisition_subjects",
+    tags=["core"],
+    response_model=List[Subjects],
+    operation_id="get_acquisition_subjects"
+)
+async def get_acquisition_subjects(
+        id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(Acquisitions, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    subjects = row.subjects
+    return subjects
+
+@router.delete(
+    "/acquisition_subject",
+    tags=["core"],
+    operation_id="remove_acquisition_subject"
+)
+async def remove_acquisition_subject(
+        id: int,
+        subject_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(Acquisitions, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Subjects, subject_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{subject_id} not found!"
+        )
+    row.subjects.remove(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Removed subject {subject_id} from acquisition {id}"
+    }
+
+@router.put(
+    "/acquisition_subject",
+    tags=["core"],
+    operation_id="put_acquisition_subject"
+)
+async def add_acquisition_subject(
+        id: int,
+        subject_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(Acquisitions, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Subjects, subject_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{subject_id} not found!"
+        )
+    row.subjects.append(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Added subject {subject_id} to acquisition {id}"
+    }

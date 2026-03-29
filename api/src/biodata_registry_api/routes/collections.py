@@ -154,7 +154,6 @@ async def remove_collection_data_asset(
 @router.put(
     "/collection_data_asset",
     tags=["admin"],
-    # response_model=Collections,
     operation_id="put_collection_data_asset"
 )
 async def add_collection_data_asset(

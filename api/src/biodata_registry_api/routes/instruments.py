@@ -53,13 +53,15 @@ async def get_instrument(
     operation_id="get_instruments"
 )
 async def get_instruments(
+        name: str | None = Query(default=None),
         offset: int = Query(default=0),
         limit: int = Query(default=10, le=1000),
         session: AsyncSession = Depends(get_session),
 ):
-    rows = await session.exec(
-        select(Instruments).offset(offset).limit(limit)
-    )
+    statement = select(Instruments).offset(offset).limit(limit)
+    if name is not None:
+        statement = statement.where(Instruments.name == name)
+    rows = await session.exec(statement)
     return rows.all()
 
 @router.delete(

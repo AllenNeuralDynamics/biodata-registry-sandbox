@@ -20,6 +20,7 @@ __version__ = "0.0.0"
 __all__ = [
     "AdminApi",
     "CoreApi",
+    "ViewsApi",
     "ApiResponse",
     "ApiClient",
     "Configuration",
@@ -88,6 +89,7 @@ __all__ = [
 # import apis into sdk package
 from biodata_registry_api_client.api.admin_api import AdminApi as AdminApi
 from biodata_registry_api_client.api.core_api import CoreApi as CoreApi
+from biodata_registry_api_client.api.views_api import ViewsApi as ViewsApi
 
 # import ApiClient
 from biodata_registry_api_client.api_response import ApiResponse as ApiResponse

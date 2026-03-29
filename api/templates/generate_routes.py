@@ -8,23 +8,29 @@ def to_snake_case(text):
     return ''.join(['_' + char.lower() if char.isupper() else char for char in text]).lstrip('_')
 
 admin_classes = [
-    name for name, obj in inspect.getmembers(admin, inspect.isclass)
+    (name, obj) for name, obj in inspect.getmembers(admin, inspect.isclass)
     if obj.__module__ == admin.__name__
 ]
 
 core_classes = [
-    name for name, obj in inspect.getmembers(core, inspect.isclass)
+    (name, obj) for name, obj in inspect.getmembers(core, inspect.isclass)
     if obj.__module__ == core.__name__
 ]
 
-link_table_classes = [
-    (name, obj) for name, obj in inspect.getmembers(link_tables, inspect.isclass)
-    if obj.__module__ == link_tables.__name__
-]
+# link_table_classes = [
+#     (name, obj) for name, obj in inspect.getmembers(link_tables, inspect.isclass)
+#     if obj.__module__ == link_tables.__name__
+# ]
 
 base_admin_class_names = [
     c.replace("Create", "") for c in admin_classes if c.endswith("Create")
 ]
+
+# link_dicts = dict()
+# for name, obj in link_table_classes:
+#     model_fields = obj.model_fields
+#     for k in model_fields:
+#         print(k, model_fields[k].metadata[0].foreign_key)
 
 route_manifests = []
 for c in base_admin_class_names:

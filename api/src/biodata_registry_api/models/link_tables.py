@@ -4,14 +4,24 @@ from sqlalchemy.dialects.postgresql import JSONB
 
 # Link Tables #################################################################
 
-# class ProcessInputs(SQLModel, table=True):
-#     data_asset_id: int | None = Field(
-#         default=None, foreign_key="dataassets.id", primary_key=True
-#     )
-#     process_id: int | None = Field(
-#         default=None, foreign_key="processes.id", primary_key=True
-#     )
-#
+class ProcessInputs(SQLModel, table=True):
+    __tablename__ = "process_inputs"
+    data_asset_id: int | None = Field(
+        default=None, foreign_key="data_assets.id", primary_key=True
+    )
+    process_id: int | None = Field(
+        default=None, foreign_key="processes.id", primary_key=True
+    )
+
+class ProcessOutputs(SQLModel, table=True):
+    __tablename__ = "process_outputs"
+    data_asset_id: int | None = Field(
+        default=None, foreign_key="data_assets.id", primary_key=True
+    )
+    process_id: int | None = Field(
+        default=None, foreign_key="processes.id", primary_key=True
+    )
+
 # class SubjectProcedureOutputs(SQLModel, table=True):
 #     specimen_id: int | None = Field(
 #         default=None, foreign_key="specimens.id", primary_key=True
@@ -36,14 +46,15 @@ from sqlalchemy.dialects.postgresql import JSONB
 #         default=None, foreign_key="specimenprocedures.id", primary_key=True
 #     )
 #
-# class AcquisitionSubjects(SQLModel, table=True):
-#     acquisition_id: int | None = Field(
-#         default=None, foreign_key="acquisitions.id", primary_key=True
-#     )
-#     subject_id: int | None = Field(
-#         default=None, foreign_key="subjects.id", primary_key=True
-#     )
-#
+class AcquisitionSubjects(SQLModel, table=True):
+    __tablename__ = "acquisition_subjects"
+    acquisition_id: int | None = Field(
+        default=None, foreign_key="acquisitions.id", primary_key=True
+    )
+    subject_id: int | None = Field(
+        default=None, foreign_key="subjects.id", primary_key=True
+    )
+
 # class AcquisitionSpecimens(SQLModel, table=True):
 #     acquisition_id: int | None = Field(
 #         default=None, foreign_key="acquisitions.id", primary_key=True

@@ -5,12 +5,12 @@ import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.routing import APIRoute
-from contextlib import asynccontextmanager
-from sqlmodel import SQLModel
-from biodata_registry_api.models.link_tables import *
-from biodata_registry_api.models.admin import *
-from biodata_registry_api.models.core import *
+# from fastapi.routing import APIRoute
+# from contextlib import asynccontextmanager
+# from sqlmodel import SQLModel
+# from biodata_registry_api.models.link_tables import *
+# from biodata_registry_api.models.admin import *
+# from biodata_registry_api.models.core import *
 
 from biodata_registry_api import __version__ as service_version
 from biodata_registry_api.routes import (
@@ -32,8 +32,9 @@ from biodata_registry_api.routes import (
     subject_procedures,
     subjects,
     users,
+    views
 )
-from biodata_registry_api.session import engine
+# from biodata_registry_api.session import engine
 
 log_level = os.getenv("LOG_LEVEL", "INFO")
 logging.basicConfig(level=log_level)
@@ -45,18 +46,18 @@ Service to fetch data from Registry.
 
 """
 
-@asynccontextmanager
-async def lifespan(_: FastAPI):
-    async with engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.create_all)
-    yield
+# @asynccontextmanager
+# async def lifespan(_: FastAPI):
+#     async with engine.begin() as conn:
+#         await conn.run_sync(SQLModel.metadata.create_all)
+#     yield
 
 # noinspection PyTypeChecker
 app = FastAPI(
     title="biodata-registry-service",
     description=description,
     summary="Serves data from Registry.",
-    lifespan=lifespan,
+    # lifespan=lifespan,
     version=service_version,
 )
 
@@ -86,6 +87,7 @@ app.include_router(specimens.router)
 app.include_router(subject_procedures.router)
 app.include_router(subjects.router)
 app.include_router(users.router)
+app.include_router(views.router)
 
 
 # Clean up the methods names that is generated in the client code

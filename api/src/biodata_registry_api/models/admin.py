@@ -1,5 +1,5 @@
 from biodata_registry_api.models. link_tables import CollectionDataAssets
-from sqlmodel import SQLModel, Field, Relationship
+from sqlmodel import SQLModel, Field, Relationship, UniqueConstraint
 from typing import List
 
 class UserCreate(SQLModel):
@@ -14,7 +14,7 @@ class Users(SQLModel, table=True):
     __tablename__ = "users"
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(max_length=254)
-    contact: str = Field(max_length=254)
+    contact: str = Field(max_length=254, unique=True)
 
 class OrganizationCreate(SQLModel):
     name: str = Field(max_length=254)
@@ -25,7 +25,7 @@ class OrganizationUpdate(SQLModel):
 class Organizations(SQLModel, table=True):
     __tablename__ = "organizations"
     id: int | None = Field(default=None, primary_key=True)
-    name: str = Field(max_length=254)
+    name: str = Field(max_length=254, unique=True)
 
 class SpaceCreate(SQLModel):
     name: str = Field(max_length=254)

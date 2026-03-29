@@ -102,3 +102,81 @@ async def update(
     await session.commit()
     await session.refresh(row)
     return row
+
+{% for item in links %}
+@router.get(
+    "/{{ item[0] }}_{{ item[1] }}s",
+    tags=["{{ api_name }}"],
+    response_model=List[{{ item[2] }}],
+    operation_id="get_{{ item[0] }}_{{ item[1] }}s"
+)
+async def get_{{ item[0] }}_{{ item[1] }}s(
+        id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get({{ item[3] }}, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    {{ item[1] }}s = row.{{ item[1] }}s
+    return {{ item[1] }}s
+
+@router.delete(
+    "/{{ item[0] }}_{{ item[1] }}",
+    tags=["{{ api_name }}"],
+    operation_id="remove_{{ item[0] }}_{{ item[1] }}"
+)
+async def remove_{{ item[0] }}_{{ item[1] }}(
+        id: int,
+        {{ item[1] }}_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get({{ item[3] }}, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get({{ item[2] }}, {{ item[1] }}_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{{{ item[1] }}_id} not found!"
+        )
+    row.{{ item[1] }}s.remove(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Removed {{ item[1] }} {{{ item[1] }}_id} from {{ item[0] }} {id}"
+    }
+
+@router.put(
+    "/{{ item[0] }}_{{ item[1] }}",
+    tags=["{{ api_name }}"],
+    operation_id="put_{{ item[0] }}_{{ item[1] }}"
+)
+async def add_{{ item[0] }}_{{ item[1] }}(
+        id: int,
+        {{ item[1] }}_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get({{ item[3] }}, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get({{ item[2] }}, {{ item[1] }}_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{{{ item[1] }}_id} not found!"
+        )
+    row.{{ item[1] }}s.add(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Added {{ item[1] }} {{{ item[1] }}_id} to {{ item[0] }} {id}"
+    }
+{% endfor %}

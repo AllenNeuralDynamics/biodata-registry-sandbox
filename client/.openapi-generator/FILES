@@ -8,6 +8,7 @@ biodata_registry_api_client/__init__.py
 biodata_registry_api_client/api/__init__.py
 biodata_registry_api_client/api/admin_api.py
 biodata_registry_api_client/api/core_api.py
+biodata_registry_api_client/api/views_api.py
 biodata_registry_api_client/api_client.py
 biodata_registry_api_client/api_response.py
 biodata_registry_api_client/configuration.py
@@ -125,6 +126,7 @@ docs/UserCreate.md
 docs/UserUpdate.md
 docs/Users.md
 docs/ValidationError.md
+docs/ViewsApi.md
 git_push.sh
 pyproject.toml
 requirements.txt
@@ -188,4 +190,5 @@ test/test_user_create.py
 test/test_user_update.py
 test/test_users.py
 test/test_validation_error.py
+test/test_views_api.py
 tox.ini

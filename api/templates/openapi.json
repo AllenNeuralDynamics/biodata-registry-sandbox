@@ -233,6 +233,148 @@
             }
          }
       },
+      "/acquisition_subjects": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Acquisition Subjects",
+            "operationId": "get_acquisition_subjects",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Subjects"
+                           },
+                           "title": "Response Get Acquisition Subjects"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/acquisition_subject": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Acquisition Subject",
+            "operationId": "remove_acquisition_subject",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "subject_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Subject Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Acquisition Subject",
+            "operationId": "put_acquisition_subject",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "subject_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Subject Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
       "/collection": {
          "post": {
             "tags": [
@@ -1148,6 +1290,22 @@
             "summary": "Get Instruments",
             "operationId": "get_instruments",
             "parameters": [
+               {
+                  "name": "name",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name"
+                  }
+               },
                {
                   "name": "offset",
                   "in": "query",
@@ -3873,6 +4031,22 @@
             "operationId": "get_subjects",
             "parameters": [
                {
+                  "name": "name",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name"
+                  }
+               },
+               {
                   "name": "offset",
                   "in": "query",
                   "required": false,
@@ -3906,6 +4080,148 @@
                            },
                            "title": "Response Get Subjects"
                         }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/subject_acquisitions": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Subject Acquisitions",
+            "operationId": "get_subject_acquisitions",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Acquisitions"
+                           },
+                           "title": "Response Get Subject Acquisitions"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/subject_acquisition": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Subject Acquisition",
+            "operationId": "remove_subject_acquisition",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "acquisition_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Acquisition Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Subject Acquisition",
+            "operationId": "put_subject_acquisition",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "acquisition_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Acquisition Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
                      }
                   }
                },
@@ -4148,6 +4464,64 @@
                }
             }
          }
+      },
+      "/acquisition_view": {
+         "get": {
+            "tags": [
+               "views"
+            ],
+            "summary": "Get Acquisition View",
+            "operationId": "get_acquisition_view",
+            "parameters": [
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/AcquisitionView"
+                           },
+                           "title": "Response Get Acquisition View"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
       }
    },
    "components": {
@@ -4268,6 +4642,11 @@
             },
             "type": "object",
             "title": "AcquisitionUpdate"
+         },
+         "AcquisitionView": {
+            "properties": {},
+            "type": "object",
+            "title": "AcquisitionView"
          },
          "Acquisitions": {
             "properties": {

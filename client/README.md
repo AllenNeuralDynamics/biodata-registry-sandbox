@@ -146,6 +146,7 @@ Class | Method | HTTP request | Description
 *CoreApi* | [**delete_subject**](docs/CoreApi.md#delete_subject) | **DELETE** /subject | Delete
 *CoreApi* | [**delete_subject_procedure**](docs/CoreApi.md#delete_subject_procedure) | **DELETE** /subject_procedure | Delete
 *CoreApi* | [**get_acquisition**](docs/CoreApi.md#get_acquisition) | **GET** /acquisition | Get Acquisition
+*CoreApi* | [**get_acquisition_subjects**](docs/CoreApi.md#get_acquisition_subjects) | **GET** /acquisition_subjects | Get Acquisition Subjects
 *CoreApi* | [**get_acquisitions**](docs/CoreApi.md#get_acquisitions) | **GET** /acquisitions | Get Acquisitions
 *CoreApi* | [**get_data_asset**](docs/CoreApi.md#get_data_asset) | **GET** /data_asset | Get Data Asset
 *CoreApi* | [**get_data_asset_collections**](docs/CoreApi.md#get_data_asset_collections) | **GET** /data_asset_collections | Get Data Asset Collections
@@ -165,11 +166,16 @@ Class | Method | HTTP request | Description
 *CoreApi* | [**get_specimen_procedures**](docs/CoreApi.md#get_specimen_procedures) | **GET** /specimen_procedures | Get Specimen Procedures
 *CoreApi* | [**get_specimens**](docs/CoreApi.md#get_specimens) | **GET** /specimens | Get Specimens
 *CoreApi* | [**get_subject**](docs/CoreApi.md#get_subject) | **GET** /subject | Get Subject
+*CoreApi* | [**get_subject_acquisitions**](docs/CoreApi.md#get_subject_acquisitions) | **GET** /subject_acquisitions | Get Subject Acquisitions
 *CoreApi* | [**get_subject_procedure**](docs/CoreApi.md#get_subject_procedure) | **GET** /subject_procedure | Get Subject Procedure
 *CoreApi* | [**get_subject_procedures**](docs/CoreApi.md#get_subject_procedures) | **GET** /subject_procedures | Get Subject Procedures
 *CoreApi* | [**get_subjects**](docs/CoreApi.md#get_subjects) | **GET** /subjects | Get Subjects
+*CoreApi* | [**put_acquisition_subject**](docs/CoreApi.md#put_acquisition_subject) | **PUT** /acquisition_subject | Add Acquisition Subject
 *CoreApi* | [**put_data_asset_collection**](docs/CoreApi.md#put_data_asset_collection) | **PUT** /data_asset_collection | Add Data Asset Collection
+*CoreApi* | [**put_subject_acquisition**](docs/CoreApi.md#put_subject_acquisition) | **PUT** /subject_acquisition | Add Subject Acquisition
+*CoreApi* | [**remove_acquisition_subject**](docs/CoreApi.md#remove_acquisition_subject) | **DELETE** /acquisition_subject | Remove Acquisition Subject
 *CoreApi* | [**remove_data_asset_collection**](docs/CoreApi.md#remove_data_asset_collection) | **DELETE** /data_asset_collection | Remove Collection Data Asset
+*CoreApi* | [**remove_subject_acquisition**](docs/CoreApi.md#remove_subject_acquisition) | **DELETE** /subject_acquisition | Remove Subject Acquisition
 *CoreApi* | [**update_acquisition**](docs/CoreApi.md#update_acquisition) | **PUT** /acquisition | Update
 *CoreApi* | [**update_data_asset**](docs/CoreApi.md#update_data_asset) | **PUT** /data_asset | Update
 *CoreApi* | [**update_instrument**](docs/CoreApi.md#update_instrument) | **PUT** /instrument | Update
@@ -181,6 +187,7 @@ Class | Method | HTTP request | Description
 *CoreApi* | [**update_specimen_procedure**](docs/CoreApi.md#update_specimen_procedure) | **PUT** /specimen_procedure | Update
 *CoreApi* | [**update_subject**](docs/CoreApi.md#update_subject) | **PUT** /subject | Update
 *CoreApi* | [**update_subject_procedure**](docs/CoreApi.md#update_subject_procedure) | **PUT** /subject_procedure | Update
+*ViewsApi* | [**get_acquisition_view**](docs/ViewsApi.md#get_acquisition_view) | **GET** /acquisition_view | Get Acquisition View
 
 
 ## Documentation For Models

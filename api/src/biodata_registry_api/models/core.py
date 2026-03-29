@@ -1,10 +1,12 @@
 from biodata_registry_api.models.link_tables import (
     CollectionDataAssets,
-    # ProcessInputs,
+    AcquisitionSubjects,
+    ProcessOutputs,
+    ProcessInputs
     # SubjectProcedureOutputs,
     # AcquisitionSpecimens
 )
-from sqlmodel import SQLModel, Field, Column, Relationship
+from sqlmodel import SQLModel, Field, Column, Relationship, UniqueConstraint
 from typing import Dict, Any, List
 from sqlalchemy.dialects.postgresql import JSONB
 
@@ -16,7 +18,7 @@ class SchemaEntityUpdate(SQLModel):
 
 class SchemaEntities(SQLModel, table=True):
     __tablename__ = "schema_entities"
-    name: str = Field(max_length=50)
+    name: str = Field(max_length=50, unique=True)
     id: int | None = Field(default=None, primary_key=True)
 
 class SchemaCreate(SQLModel):
@@ -39,6 +41,9 @@ class SchemaUpdate(SQLModel):
 
 class Schemas(SQLModel, table=True):
     __tablename__ = "schemas"
+    __table_args__ = (
+        UniqueConstraint("name", "version", name="unique_schema_name_version"),
+    )
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(max_length=50)
     version: str = Field(max_length=50)
@@ -90,6 +95,9 @@ class DataAssetUpdate(SQLModel):
 
 class DataAssets(SQLModel, table=True):
     __tablename__ = "data_assets"
+    __table_args__ = (
+        UniqueConstraint("name", "space_id", name="unique_data_asset_name_space_id"),
+    )
     id: int | None = Field(default=None, primary_key=True)
     name: str | None = Field(default=None, max_length=254)
     location: str | None = Field(default=None, max_length=254)
@@ -110,6 +118,16 @@ class DataAssets(SQLModel, table=True):
     collections: List["Collections"] = Relationship(
         back_populates="data_assets",
         link_model=CollectionDataAssets,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+    process_inputs: List["Processes"] = Relationship(
+        back_populates="data_asset_inputs",
+        link_model=ProcessInputs,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+    process_outputs: List["Processes"] = Relationship(
+        back_populates="data_asset_outputs",
+        link_model=ProcessOutputs,
         sa_relationship_kwargs={'lazy': 'selectin'}
     )
     # processes: List["Processes"] = Relationship(
@@ -144,6 +162,9 @@ class SubjectUpdate(SQLModel):
 
 class Subjects(SQLModel, table=True):
     __tablename__ = "subjects"
+    __table_args__ = (
+        UniqueConstraint("name", "space_id", name="unique_subject_name_space_id"),
+    )
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
@@ -155,6 +176,11 @@ class Subjects(SQLModel, table=True):
     )
     space_id: int | None = Field(
         default=None, foreign_key="spaces.id"
+    )
+    acquisitions: List["Acquisitions"] = Relationship(
+        back_populates="subjects",
+        link_model=AcquisitionSubjects,
+        sa_relationship_kwargs={'lazy': 'selectin'}
     )
 
 class SpecimenCreate(SQLModel):
@@ -329,6 +355,9 @@ class InstrumentUpdate(SQLModel):
 
 class Instruments(SQLModel, table=True):
     __tablename__ = "instruments"
+    __table_args__ = (
+        UniqueConstraint("name", "space_id", name="unique_instrument_name_space_id"),
+    )
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
@@ -396,6 +425,11 @@ class Acquisitions(SQLModel, table=True):
     )
     instrument_id: int | None = Field(
         default=None, foreign_key="instruments.id"
+    )
+    subjects: List["Subjects"] = Relationship(
+        back_populates="acquisitions",
+        link_model=AcquisitionSubjects,
+        sa_relationship_kwargs={'lazy': 'selectin'}
     )
 #     specimens: List["Specimens"] = Relationship(
 #         back_populates="specimens", link_model=AcquisitionSpecimens
@@ -493,6 +527,16 @@ class Processes(SQLModel, table=True):
     )
     output_data_asset_id: int | None = Field(
         default=None, foreign_key="data_assets.id"
+    )
+    data_asset_inputs: List["DataAssets"] = Relationship(
+        back_populates="process_inputs",
+        link_model=ProcessInputs,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+    data_asset_outputs: List["DataAssets"] = Relationship(
+        back_populates="process_outputs",
+        link_model=ProcessOutputs,
+        sa_relationship_kwargs={'lazy': 'selectin'}
     )
 #     data_assets: List["DataAssets"] = Relationship(
 #         back_populates="data_assets", link_model=ProcessInputs

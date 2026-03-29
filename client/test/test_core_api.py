@@ -187,6 +187,13 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_get_acquisition_subjects(self) -> None:
+        """Test case for get_acquisition_subjects
+
+        Get Acquisition Subjects
+        """
+        pass
+
     def test_get_acquisitions(self) -> None:
         """Test case for get_acquisitions
 
@@ -320,6 +327,13 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_get_subject_acquisitions(self) -> None:
+        """Test case for get_subject_acquisitions
+
+        Get Subject Acquisitions
+        """
+        pass
+
     def test_get_subject_procedure(self) -> None:
         """Test case for get_subject_procedure
 
@@ -341,6 +355,13 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_put_acquisition_subject(self) -> None:
+        """Test case for put_acquisition_subject
+
+        Add Acquisition Subject
+        """
+        pass
+
     def test_put_data_asset_collection(self) -> None:
         """Test case for put_data_asset_collection
 
@@ -348,10 +369,31 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_put_subject_acquisition(self) -> None:
+        """Test case for put_subject_acquisition
+
+        Add Subject Acquisition
+        """
+        pass
+
+    def test_remove_acquisition_subject(self) -> None:
+        """Test case for remove_acquisition_subject
+
+        Remove Acquisition Subject
+        """
+        pass
+
     def test_remove_data_asset_collection(self) -> None:
         """Test case for remove_data_asset_collection
 
         Remove Collection Data Asset
+        """
+        pass
+
+    def test_remove_subject_acquisition(self) -> None:
+        """Test case for remove_subject_acquisition
+
+        Remove Subject Acquisition
         """
         pass
 

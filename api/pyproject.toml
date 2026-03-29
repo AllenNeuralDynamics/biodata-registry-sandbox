@@ -23,6 +23,7 @@ dependencies = [
     'pydantic>=2.0',
     'pydantic-xml',
     'asyncpg',
+    'sqlalchemy-utils'
 ]
 
 [project.optional-dependencies]

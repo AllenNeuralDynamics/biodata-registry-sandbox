@@ -27,6 +27,7 @@ Method | HTTP request | Description
 [**delete_subject**](CoreApi.md#delete_subject) | **DELETE** /subject | Delete
 [**delete_subject_procedure**](CoreApi.md#delete_subject_procedure) | **DELETE** /subject_procedure | Delete
 [**get_acquisition**](CoreApi.md#get_acquisition) | **GET** /acquisition | Get Acquisition
+[**get_acquisition_subjects**](CoreApi.md#get_acquisition_subjects) | **GET** /acquisition_subjects | Get Acquisition Subjects
 [**get_acquisitions**](CoreApi.md#get_acquisitions) | **GET** /acquisitions | Get Acquisitions
 [**get_data_asset**](CoreApi.md#get_data_asset) | **GET** /data_asset | Get Data Asset
 [**get_data_asset_collections**](CoreApi.md#get_data_asset_collections) | **GET** /data_asset_collections | Get Data Asset Collections
@@ -46,11 +47,16 @@ Method | HTTP request | Description
 [**get_specimen_procedures**](CoreApi.md#get_specimen_procedures) | **GET** /specimen_procedures | Get Specimen Procedures
 [**get_specimens**](CoreApi.md#get_specimens) | **GET** /specimens | Get Specimens
 [**get_subject**](CoreApi.md#get_subject) | **GET** /subject | Get Subject
+[**get_subject_acquisitions**](CoreApi.md#get_subject_acquisitions) | **GET** /subject_acquisitions | Get Subject Acquisitions
 [**get_subject_procedure**](CoreApi.md#get_subject_procedure) | **GET** /subject_procedure | Get Subject Procedure
 [**get_subject_procedures**](CoreApi.md#get_subject_procedures) | **GET** /subject_procedures | Get Subject Procedures
 [**get_subjects**](CoreApi.md#get_subjects) | **GET** /subjects | Get Subjects
+[**put_acquisition_subject**](CoreApi.md#put_acquisition_subject) | **PUT** /acquisition_subject | Add Acquisition Subject
 [**put_data_asset_collection**](CoreApi.md#put_data_asset_collection) | **PUT** /data_asset_collection | Add Data Asset Collection
+[**put_subject_acquisition**](CoreApi.md#put_subject_acquisition) | **PUT** /subject_acquisition | Add Subject Acquisition
+[**remove_acquisition_subject**](CoreApi.md#remove_acquisition_subject) | **DELETE** /acquisition_subject | Remove Acquisition Subject
 [**remove_data_asset_collection**](CoreApi.md#remove_data_asset_collection) | **DELETE** /data_asset_collection | Remove Collection Data Asset
+[**remove_subject_acquisition**](CoreApi.md#remove_subject_acquisition) | **DELETE** /subject_acquisition | Remove Subject Acquisition
 [**update_acquisition**](CoreApi.md#update_acquisition) | **PUT** /acquisition | Update
 [**update_data_asset**](CoreApi.md#update_data_asset) | **PUT** /data_asset | Update
 [**update_instrument**](CoreApi.md#update_instrument) | **PUT** /instrument | Update
@@ -1605,6 +1611,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_acquisition_subjects**
+> List[Subjects] get_acquisition_subjects(id)
+
+Get Acquisition Subjects
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.subjects import Subjects
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Acquisition Subjects
+        api_response = api_instance.get_acquisition_subjects(id)
+        print("The response of CoreApi->get_acquisition_subjects:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_acquisition_subjects: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[Subjects]**](Subjects.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_acquisitions**
 > List[Acquisitions] get_acquisitions(offset=offset, limit=limit)
 
@@ -1945,7 +2018,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_instruments**
-> List[Instruments] get_instruments(offset=offset, limit=limit)
+> List[Instruments] get_instruments(name=name, offset=offset, limit=limit)
 
 Get Instruments
 
@@ -1969,12 +2042,13 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
+    name = 'name_example' # str |  (optional)
     offset = 0 # int |  (optional) (default to 0)
     limit = 10 # int |  (optional) (default to 10)
 
     try:
         # Get Instruments
-        api_response = api_instance.get_instruments(offset=offset, limit=limit)
+        api_response = api_instance.get_instruments(name=name, offset=offset, limit=limit)
         print("The response of CoreApi->get_instruments:\n")
         pprint(api_response)
     except Exception as e:
@@ -1988,6 +2062,7 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **name** | **str**|  | [optional] 
  **offset** | **int**|  | [optional] [default to 0]
  **limit** | **int**|  | [optional] [default to 10]
 
@@ -2896,6 +2971,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_subject_acquisitions**
+> List[Acquisitions] get_subject_acquisitions(id)
+
+Get Subject Acquisitions
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.acquisitions import Acquisitions
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Subject Acquisitions
+        api_response = api_instance.get_subject_acquisitions(id)
+        print("The response of CoreApi->get_subject_acquisitions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_subject_acquisitions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[Acquisitions]**](Acquisitions.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_subject_procedure**
 > SubjectProcedures get_subject_procedure(id)
 
@@ -3033,7 +3175,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_subjects**
-> List[Subjects] get_subjects(offset=offset, limit=limit)
+> List[Subjects] get_subjects(name=name, offset=offset, limit=limit)
 
 Get Subjects
 
@@ -3057,12 +3199,13 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
+    name = 'name_example' # str |  (optional)
     offset = 0 # int |  (optional) (default to 0)
     limit = 10 # int |  (optional) (default to 10)
 
     try:
         # Get Subjects
-        api_response = api_instance.get_subjects(offset=offset, limit=limit)
+        api_response = api_instance.get_subjects(name=name, offset=offset, limit=limit)
         print("The response of CoreApi->get_subjects:\n")
         pprint(api_response)
     except Exception as e:
@@ -3076,12 +3219,81 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **name** | **str**|  | [optional] 
  **offset** | **int**|  | [optional] [default to 0]
  **limit** | **int**|  | [optional] [default to 10]
 
 ### Return type
 
 [**List[Subjects]**](Subjects.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_acquisition_subject**
+> object put_acquisition_subject(id, subject_id)
+
+Add Acquisition Subject
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    subject_id = 56 # int | 
+
+    try:
+        # Add Acquisition Subject
+        api_response = api_instance.put_acquisition_subject(id, subject_id)
+        print("The response of CoreApi->put_acquisition_subject:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_acquisition_subject: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **subject_id** | **int**|  | 
+
+### Return type
+
+**object**
 
 ### Authorization
 
@@ -3169,6 +3381,142 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **put_subject_acquisition**
+> object put_subject_acquisition(id, acquisition_id)
+
+Add Subject Acquisition
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    acquisition_id = 56 # int | 
+
+    try:
+        # Add Subject Acquisition
+        api_response = api_instance.put_subject_acquisition(id, acquisition_id)
+        print("The response of CoreApi->put_subject_acquisition:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_subject_acquisition: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **acquisition_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_acquisition_subject**
+> object remove_acquisition_subject(id, subject_id)
+
+Remove Acquisition Subject
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    subject_id = 56 # int | 
+
+    try:
+        # Remove Acquisition Subject
+        api_response = api_instance.remove_acquisition_subject(id, subject_id)
+        print("The response of CoreApi->remove_acquisition_subject:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_acquisition_subject: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **subject_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **remove_data_asset_collection**
 > object remove_data_asset_collection(id, collection_id)
 
@@ -3214,6 +3562,74 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  | 
  **collection_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_subject_acquisition**
+> object remove_subject_acquisition(id, acquisition_id)
+
+Remove Subject Acquisition
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    acquisition_id = 56 # int | 
+
+    try:
+        # Remove Subject Acquisition
+        api_response = api_instance.remove_subject_acquisition(id, acquisition_id)
+        print("The response of CoreApi->remove_subject_acquisition:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_subject_acquisition: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **acquisition_id** | **int**|  | 
 
 ### Return type
 
