@@ -7,7 +7,8 @@ from typing import List
 from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.core import SpecimenProcedures, SpecimenProcedureCreate, SpecimenProcedureUpdate
+from biodata_registry_api.models.core import SpecimenProcedures, SpecimenProcedureCreate, SpecimenProcedureUpdate, \
+    Specimens
 
 from biodata_registry_api.session import get_session
 
@@ -102,3 +103,163 @@ async def update(
     await session.commit()
     await session.refresh(row)
     return row
+
+@router.get(
+    "/specimen_procedure_specimen_inputs",
+    tags=["core"],
+    response_model=List[Specimens],
+    operation_id="get_specimen_procedure_specimen_inputs"
+)
+async def get_specimen_procedure_specimen_inputs(
+        id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(SpecimenProcedures, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    specimen_inputs = row.specimen_inputs
+    return specimen_inputs
+
+@router.delete(
+    "/specimen_procedure_specimen_input",
+    tags=["core"],
+    operation_id="remove_specimen_procedure_specimen_input"
+)
+async def remove_specimen_procedure_specimen_input(
+        id: int,
+        specimen_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(SpecimenProcedures, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Specimens, specimen_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{specimen_id} not found!"
+        )
+    row.specimen_inputs.remove(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": (
+            f"Removed specimen_input {specimen_id} from specimen_procedure"
+            f" {id}"
+        )
+    }
+
+@router.put(
+    "/specimen_procedure_specimen_input",
+    tags=["core"],
+    operation_id="put_specimen_procedure_specimen_input"
+)
+async def add_specimen_procedure_specimen_input(
+        id: int,
+        specimen_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(SpecimenProcedures, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Specimens, specimen_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{specimen_id} not found!"
+        )
+    row.specimen_inputs.append(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Added specimen_input {specimen_id} to specimen_procedure {id}"
+    }
+
+@router.get(
+    "/specimen_procedure_specimen_outputs",
+    tags=["core"],
+    response_model=List[Specimens],
+    operation_id="get_specimen_procedure_specimen_outputs"
+)
+async def get_specimen_procedure_specimen_outputs(
+        id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(SpecimenProcedures, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    specimen_outputs = row.specimen_outputs
+    return specimen_outputs
+
+@router.delete(
+    "/specimen_procedure_specimen_output",
+    tags=["core"],
+    operation_id="remove_specimen_procedure_specimen_output"
+)
+async def remove_specimen_procedure_specimen_output(
+        id: int,
+        specimen_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(SpecimenProcedures, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Specimens, specimen_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{specimen_id} not found!"
+        )
+    row.specimen_outputs.remove(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": (
+            f"Removed specimen_output {specimen_id} from specimen_procedure"
+            f" {id}"
+        )
+    }
+
+@router.put(
+    "/specimen_procedure_specimen_output",
+    tags=["core"],
+    operation_id="put_specimen_procedure_specimen_output"
+)
+async def add_specimen_procedure_specimen_output(
+        id: int,
+        specimen_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(SpecimenProcedures, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Specimens, specimen_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{specimen_id} not found!"
+        )
+    row.specimen_outputs.append(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": (
+            f"Added specimen_output {specimen_id} to specimen_procedure {id}"
+        )
+    }

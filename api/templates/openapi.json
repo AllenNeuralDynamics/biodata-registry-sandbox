@@ -375,6 +375,148 @@
             }
          }
       },
+      "/acquisition_specimens": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Acquisition Subjects",
+            "operationId": "get_acquisition_specimens",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Specimens"
+                           },
+                           "title": "Response Get Acquisition Specimens"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/acquisition_specimen": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Acquisition Specimen",
+            "operationId": "remove_acquisition_specimen",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Acquisition Specimen",
+            "operationId": "put_acquisition_specimen",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
       "/collection": {
          "post": {
             "tags": [
@@ -1088,6 +1230,148 @@
                   "schema": {
                      "type": "integer",
                      "title": "Collection Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/data_asset_process_inputs": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Data Asset Process Inputs",
+            "operationId": "get_data_asset_process_inputs",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Processes"
+                           },
+                           "title": "Response Get Data Asset Process Inputs"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/data_asset_process_input": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Data Asset Process Input",
+            "operationId": "remove_data_asset_process_input",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "process_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Process Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Data Asset Process Input",
+            "operationId": "put_data_asset_process_input",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "process_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Process Id"
                   }
                }
             ],
@@ -2021,6 +2305,148 @@
                            },
                            "title": "Response Get Processes"
                         }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/process_data_asset_inputs": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Process Data Asset Inputs",
+            "operationId": "get_process_data_asset_inputs",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/DataAssets"
+                           },
+                           "title": "Response Get Process Data Asset Inputs"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/process_data_asset_input": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Process Data Asset Input",
+            "operationId": "remove_process_data_asset_input",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "data_asset_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Data Asset Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Process Data Asset Input",
+            "operationId": "put_process_data_asset_input",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "data_asset_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Data Asset Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
                      }
                   }
                },
@@ -3399,6 +3825,290 @@
             }
          }
       },
+      "/specimen_procedure_specimen_inputs": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Specimen Procedure Specimen Inputs",
+            "operationId": "get_specimen_procedure_specimen_inputs",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Specimens"
+                           },
+                           "title": "Response Get Specimen Procedure Specimen Inputs"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_procedure_specimen_input": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Specimen Procedure Specimen Input",
+            "operationId": "remove_specimen_procedure_specimen_input",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Specimen Procedure Specimen Input",
+            "operationId": "put_specimen_procedure_specimen_input",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_procedure_specimen_outputs": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Specimen Procedure Specimen Outputs",
+            "operationId": "get_specimen_procedure_specimen_outputs",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Specimens"
+                           },
+                           "title": "Response Get Specimen Procedure Specimen Outputs"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_procedure_specimen_output": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Specimen Procedure Specimen Output",
+            "operationId": "remove_specimen_procedure_specimen_output",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Specimen Procedure Specimen Output",
+            "operationId": "put_specimen_procedure_specimen_output",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
       "/specimen": {
          "post": {
             "tags": [
@@ -3626,6 +4336,574 @@
             }
          }
       },
+      "/specimen_acquisitions": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Specimen Acquisitions",
+            "operationId": "get_specimen_acquisitions",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Acquisitions"
+                           },
+                           "title": "Response Get Specimen Acquisitions"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_acquisition": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Specimen Acquisition",
+            "operationId": "remove_specimen_acquisition",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "acquisition_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Acquisition Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Specimen Acquisition",
+            "operationId": "put_specimen_acquisition",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "acquisition_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Acquisition Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_subject_procedures": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Specimen Subject Procedures",
+            "operationId": "get_specimen_subject_procedures",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/SubjectProcedures"
+                           },
+                           "title": "Response Get Specimen Subject Procedures"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_subject_procedure": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Specimen Subject Procedure",
+            "operationId": "remove_specimen_subject_procedure",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "subject_procedure_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Subject Procedure Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Specimen Subject Procedure",
+            "operationId": "put_specimen_subject_procedure",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "subject_procedure_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Subject Procedure Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_specimen_procedure_inputs": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Specimen Specimen Procedure Inputs",
+            "operationId": "get_specimen_specimen_procedure_inputs",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/SpecimenProcedures"
+                           },
+                           "title": "Response Get Specimen Specimen Procedure Inputs"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_specimen_procedure_input": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Specimen Specimen Procedure Input",
+            "operationId": "remove_specimen_specimen_procedure_input",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_procedure_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Procedure Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Specimen Specimen Procedure Input",
+            "operationId": "put_specimen_specimen_procedure_input",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_procedure_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Procedure Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_specimen_procedure_outputs": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Specimen Specimen Procedure Outputs",
+            "operationId": "get_specimen_specimen_procedure_outputs",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/SpecimenProcedures"
+                           },
+                           "title": "Response Get Specimen Specimen Procedure Outputs"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/specimen_specimen_procedure_output": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Specimen Specimen Procedure Output",
+            "operationId": "remove_specimen_specimen_procedure_output",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_procedure_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Procedure Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Specimen Specimen Procedure Output",
+            "operationId": "put_specimen_specimen_procedure_output",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_procedure_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Procedure Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
       "/subject_procedure": {
          "post": {
             "tags": [
@@ -3837,6 +5115,148 @@
                            },
                            "title": "Response Get Subject Procedures"
                         }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/subject_procedure_specimens": {
+         "get": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Get Subject Procedure Specimens",
+            "operationId": "get_subject_procedure_specimens",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/Specimens"
+                           },
+                           "title": "Response Get Subject Procedure Specimens"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/subject_procedure_specimen": {
+         "delete": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Remove Subject Procedure Specimen",
+            "operationId": "remove_subject_procedure_specimen",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": [
+               "core"
+            ],
+            "summary": "Add Subject Procedure Specimen",
+            "operationId": "put_subject_procedure_specimen",
+            "parameters": [
+               {
+                  "name": "id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Id"
+                  }
+               },
+               {
+                  "name": "specimen_id",
+                  "in": "query",
+                  "required": true,
+                  "schema": {
+                     "type": "integer",
+                     "title": "Specimen Id"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {}
                      }
                   }
                },
@@ -4474,6 +5894,102 @@
             "operationId": "get_acquisition_view",
             "parameters": [
                {
+                  "name": "acquisition_id",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "integer"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Acquisition Id"
+                  }
+               },
+               {
+                  "name": "subject_id",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "integer"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Subject Id"
+                  }
+               },
+               {
+                  "name": "data_asset_name",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Data Asset Name"
+                  }
+               },
+               {
+                  "name": "subject_name",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Subject Name"
+                  }
+               },
+               {
+                  "name": "instrument_name",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Instrument Name"
+                  }
+               },
+               {
+                  "name": "data_asset_location",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Data Asset Location"
+                  }
+               },
+               {
                   "name": "offset",
                   "in": "query",
                   "required": false,
@@ -4506,6 +6022,176 @@
                               "$ref": "#/components/schemas/AcquisitionView"
                            },
                            "title": "Response Get Acquisition View"
+                        }
+                     }
+                  }
+               },
+               "422": {
+                  "description": "Validation Error",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "$ref": "#/components/schemas/HTTPValidationError"
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/data_asset_view": {
+         "get": {
+            "tags": [
+               "views"
+            ],
+            "summary": "Get Data Asset View",
+            "operationId": "get_data_asset_view",
+            "parameters": [
+               {
+                  "name": "data_asset_id",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "integer"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Data Asset Id"
+                  }
+               },
+               {
+                  "name": "acquisition_id",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "integer"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Acquisition Id"
+                  }
+               },
+               {
+                  "name": "subject_id",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "integer"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Subject Id"
+                  }
+               },
+               {
+                  "name": "data_asset_name",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Data Asset Name"
+                  }
+               },
+               {
+                  "name": "subject_name",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Subject Name"
+                  }
+               },
+               {
+                  "name": "instrument_name",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Instrument Name"
+                  }
+               },
+               {
+                  "name": "data_asset_location",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Data Asset Location"
+                  }
+               },
+               {
+                  "name": "offset",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "default": 0,
+                     "title": "Offset"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 1000,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Successful Response",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "array",
+                           "items": {
+                              "$ref": "#/components/schemas/DataAssetView"
+                           },
+                           "title": "Response Get Data Asset View"
                         }
                      }
                   }
@@ -4644,7 +6330,108 @@
             "title": "AcquisitionUpdate"
          },
          "AcquisitionView": {
-            "properties": {},
+            "properties": {
+               "acquisition_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Acquisition Id"
+               },
+               "subject_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Id"
+               },
+               "acquisition_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Acquisition Data"
+               },
+               "instrument_name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Instrument Name"
+               },
+               "instrument_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Instrument Data"
+               },
+               "data_asset_location": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Location"
+               },
+               "data_asset_name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Name"
+               },
+               "data_asset_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data Asset Data"
+               },
+               "data_asset_external_links": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data Asset External Links"
+               },
+               "subject_name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Name"
+               },
+               "subject_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Subject Data"
+               },
+               "quality_control_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Quality Control Data"
+               }
+            },
             "type": "object",
             "title": "AcquisitionView"
          },
@@ -4955,6 +6742,123 @@
             },
             "type": "object",
             "title": "DataAssetUpdate"
+         },
+         "DataAssetView": {
+            "properties": {
+               "data_asset_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Id"
+               },
+               "acquisition_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Acquisition Id"
+               },
+               "subject_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Id"
+               },
+               "acquisition_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Acquisition Data"
+               },
+               "instrument_name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Instrument Name"
+               },
+               "instrument_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Instrument Data"
+               },
+               "data_asset_location": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Location"
+               },
+               "data_asset_name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Data Asset Name"
+               },
+               "data_asset_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data Asset Data"
+               },
+               "data_asset_external_links": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Data Asset External Links"
+               },
+               "subject_name": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "maxLength": 254
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Subject Name"
+               },
+               "subject_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Subject Data"
+               },
+               "quality_control_data": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Quality Control Data"
+               }
+            },
+            "type": "object",
+            "title": "DataAssetView"
          },
          "DataAssets": {
             "properties": {

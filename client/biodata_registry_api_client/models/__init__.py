@@ -15,12 +15,14 @@
 # import models into model package
 from biodata_registry_api_client.models.acquisition_create import AcquisitionCreate
 from biodata_registry_api_client.models.acquisition_update import AcquisitionUpdate
+from biodata_registry_api_client.models.acquisition_view import AcquisitionView
 from biodata_registry_api_client.models.acquisitions import Acquisitions
 from biodata_registry_api_client.models.collection_create import CollectionCreate
 from biodata_registry_api_client.models.collection_update import CollectionUpdate
 from biodata_registry_api_client.models.collections import Collections
 from biodata_registry_api_client.models.data_asset_create import DataAssetCreate
 from biodata_registry_api_client.models.data_asset_update import DataAssetUpdate
+from biodata_registry_api_client.models.data_asset_view import DataAssetView
 from biodata_registry_api_client.models.data_assets import DataAssets
 from biodata_registry_api_client.models.http_validation_error import HTTPValidationError
 from biodata_registry_api_client.models.instrument_create import InstrumentCreate

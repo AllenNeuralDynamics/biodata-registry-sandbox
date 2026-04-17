@@ -33,6 +33,13 @@ class TestViewsApi(unittest.TestCase):
         """
         pass
 
+    def test_get_data_asset_view(self) -> None:
+        """Test case for get_data_asset_view
+
+        Get Data Asset View
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

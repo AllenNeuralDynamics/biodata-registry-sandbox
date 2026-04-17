@@ -5,6 +5,17 @@ Sandbox repo to prototype different ideas for a biodata registry.
 ### Getting started
 
 - Creating python client
+- From api directory:
+```
+python templates/dump_sql.py
+```
+Move output to initdb directory.
+```
+python templates/generate_api_spec.py
+```
+Move output to templates directory.
+
+- From biodata-registry-sandbox directory 
 ```
 docker run --rm \
   -u "$(id -u):$(id -g)" \
@@ -14,4 +25,9 @@ docker run --rm \
   -i /local/api/templates/openapi.json \
   -g python \
   -o /local/client
+```
+
+- To register the postgres kafka connector
+```
+curl -X POST -H "Content-Type: application/json" --data @lambda/register-postgres.json http://localhost:8083/connectors
 ```

@@ -187,6 +187,13 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_get_acquisition_specimens(self) -> None:
+        """Test case for get_acquisition_specimens
+
+        Get Acquisition Subjects
+        """
+        pass
+
     def test_get_acquisition_subjects(self) -> None:
         """Test case for get_acquisition_subjects
 
@@ -215,6 +222,13 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_get_data_asset_process_inputs(self) -> None:
+        """Test case for get_data_asset_process_inputs
+
+        Get Data Asset Process Inputs
+        """
+        pass
+
     def test_get_data_assets(self) -> None:
         """Test case for get_data_assets
 
@@ -240,6 +254,13 @@ class TestCoreApi(unittest.TestCase):
         """Test case for get_process
 
         Get Process
+        """
+        pass
+
+    def test_get_process_data_asset_inputs(self) -> None:
+        """Test case for get_process_data_asset_inputs
+
+        Get Process Data Asset Inputs
         """
         pass
 
@@ -299,6 +320,13 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_get_specimen_acquisitions(self) -> None:
+        """Test case for get_specimen_acquisitions
+
+        Get Specimen Acquisitions
+        """
+        pass
+
     def test_get_specimen_procedure(self) -> None:
         """Test case for get_specimen_procedure
 
@@ -306,10 +334,45 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_get_specimen_procedure_specimen_inputs(self) -> None:
+        """Test case for get_specimen_procedure_specimen_inputs
+
+        Get Specimen Procedure Specimen Inputs
+        """
+        pass
+
+    def test_get_specimen_procedure_specimen_outputs(self) -> None:
+        """Test case for get_specimen_procedure_specimen_outputs
+
+        Get Specimen Procedure Specimen Outputs
+        """
+        pass
+
     def test_get_specimen_procedures(self) -> None:
         """Test case for get_specimen_procedures
 
         Get Specimen Procedures
+        """
+        pass
+
+    def test_get_specimen_specimen_procedure_inputs(self) -> None:
+        """Test case for get_specimen_specimen_procedure_inputs
+
+        Get Specimen Specimen Procedure Inputs
+        """
+        pass
+
+    def test_get_specimen_specimen_procedure_outputs(self) -> None:
+        """Test case for get_specimen_specimen_procedure_outputs
+
+        Get Specimen Specimen Procedure Outputs
+        """
+        pass
+
+    def test_get_specimen_subject_procedures(self) -> None:
+        """Test case for get_specimen_subject_procedures
+
+        Get Specimen Subject Procedures
         """
         pass
 
@@ -341,6 +404,13 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_get_subject_procedure_specimens(self) -> None:
+        """Test case for get_subject_procedure_specimens
+
+        Get Subject Procedure Specimens
+        """
+        pass
+
     def test_get_subject_procedures(self) -> None:
         """Test case for get_subject_procedures
 
@@ -352,6 +422,13 @@ class TestCoreApi(unittest.TestCase):
         """Test case for get_subjects
 
         Get Subjects
+        """
+        pass
+
+    def test_put_acquisition_specimen(self) -> None:
+        """Test case for put_acquisition_specimen
+
+        Add Acquisition Specimen
         """
         pass
 
@@ -369,10 +446,80 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_put_data_asset_process_input(self) -> None:
+        """Test case for put_data_asset_process_input
+
+        Add Data Asset Process Input
+        """
+        pass
+
+    def test_put_process_data_asset_input(self) -> None:
+        """Test case for put_process_data_asset_input
+
+        Add Process Data Asset Input
+        """
+        pass
+
+    def test_put_specimen_acquisition(self) -> None:
+        """Test case for put_specimen_acquisition
+
+        Add Specimen Acquisition
+        """
+        pass
+
+    def test_put_specimen_procedure_specimen_input(self) -> None:
+        """Test case for put_specimen_procedure_specimen_input
+
+        Add Specimen Procedure Specimen Input
+        """
+        pass
+
+    def test_put_specimen_procedure_specimen_output(self) -> None:
+        """Test case for put_specimen_procedure_specimen_output
+
+        Add Specimen Procedure Specimen Output
+        """
+        pass
+
+    def test_put_specimen_specimen_procedure_input(self) -> None:
+        """Test case for put_specimen_specimen_procedure_input
+
+        Add Specimen Specimen Procedure Input
+        """
+        pass
+
+    def test_put_specimen_specimen_procedure_output(self) -> None:
+        """Test case for put_specimen_specimen_procedure_output
+
+        Add Specimen Specimen Procedure Output
+        """
+        pass
+
+    def test_put_specimen_subject_procedure(self) -> None:
+        """Test case for put_specimen_subject_procedure
+
+        Add Specimen Subject Procedure
+        """
+        pass
+
     def test_put_subject_acquisition(self) -> None:
         """Test case for put_subject_acquisition
 
         Add Subject Acquisition
+        """
+        pass
+
+    def test_put_subject_procedure_specimen(self) -> None:
+        """Test case for put_subject_procedure_specimen
+
+        Add Subject Procedure Specimen
+        """
+        pass
+
+    def test_remove_acquisition_specimen(self) -> None:
+        """Test case for remove_acquisition_specimen
+
+        Remove Acquisition Specimen
         """
         pass
 
@@ -390,10 +537,73 @@ class TestCoreApi(unittest.TestCase):
         """
         pass
 
+    def test_remove_data_asset_process_input(self) -> None:
+        """Test case for remove_data_asset_process_input
+
+        Remove Data Asset Process Input
+        """
+        pass
+
+    def test_remove_process_data_asset_input(self) -> None:
+        """Test case for remove_process_data_asset_input
+
+        Remove Process Data Asset Input
+        """
+        pass
+
+    def test_remove_specimen_acquisition(self) -> None:
+        """Test case for remove_specimen_acquisition
+
+        Remove Specimen Acquisition
+        """
+        pass
+
+    def test_remove_specimen_procedure_specimen_input(self) -> None:
+        """Test case for remove_specimen_procedure_specimen_input
+
+        Remove Specimen Procedure Specimen Input
+        """
+        pass
+
+    def test_remove_specimen_procedure_specimen_output(self) -> None:
+        """Test case for remove_specimen_procedure_specimen_output
+
+        Remove Specimen Procedure Specimen Output
+        """
+        pass
+
+    def test_remove_specimen_specimen_procedure_input(self) -> None:
+        """Test case for remove_specimen_specimen_procedure_input
+
+        Remove Specimen Specimen Procedure Input
+        """
+        pass
+
+    def test_remove_specimen_specimen_procedure_output(self) -> None:
+        """Test case for remove_specimen_specimen_procedure_output
+
+        Remove Specimen Specimen Procedure Output
+        """
+        pass
+
+    def test_remove_specimen_subject_procedure(self) -> None:
+        """Test case for remove_specimen_subject_procedure
+
+        Remove Specimen Subject Procedure
+        """
+        pass
+
     def test_remove_subject_acquisition(self) -> None:
         """Test case for remove_subject_acquisition
 
         Remove Subject Acquisition
+        """
+        pass
+
+    def test_remove_subject_procedure_specimen(self) -> None:
+        """Test case for remove_subject_procedure_specimen
+
+        Remove Subject Procedure Specimen
         """
         pass
 

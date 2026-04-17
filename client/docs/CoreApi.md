@@ -27,14 +27,17 @@ Method | HTTP request | Description
 [**delete_subject**](CoreApi.md#delete_subject) | **DELETE** /subject | Delete
 [**delete_subject_procedure**](CoreApi.md#delete_subject_procedure) | **DELETE** /subject_procedure | Delete
 [**get_acquisition**](CoreApi.md#get_acquisition) | **GET** /acquisition | Get Acquisition
+[**get_acquisition_specimens**](CoreApi.md#get_acquisition_specimens) | **GET** /acquisition_specimens | Get Acquisition Subjects
 [**get_acquisition_subjects**](CoreApi.md#get_acquisition_subjects) | **GET** /acquisition_subjects | Get Acquisition Subjects
 [**get_acquisitions**](CoreApi.md#get_acquisitions) | **GET** /acquisitions | Get Acquisitions
 [**get_data_asset**](CoreApi.md#get_data_asset) | **GET** /data_asset | Get Data Asset
 [**get_data_asset_collections**](CoreApi.md#get_data_asset_collections) | **GET** /data_asset_collections | Get Data Asset Collections
+[**get_data_asset_process_inputs**](CoreApi.md#get_data_asset_process_inputs) | **GET** /data_asset_process_inputs | Get Data Asset Process Inputs
 [**get_data_assets**](CoreApi.md#get_data_assets) | **GET** /data_assets | Get Data Assets
 [**get_instrument**](CoreApi.md#get_instrument) | **GET** /instrument | Get Instrument
 [**get_instruments**](CoreApi.md#get_instruments) | **GET** /instruments | Get Instruments
 [**get_process**](CoreApi.md#get_process) | **GET** /process | Get Process
+[**get_process_data_asset_inputs**](CoreApi.md#get_process_data_asset_inputs) | **GET** /process_data_asset_inputs | Get Process Data Asset Inputs
 [**get_processes**](CoreApi.md#get_processes) | **GET** /processes | Get Processes
 [**get_quality_control**](CoreApi.md#get_quality_control) | **GET** /quality_control | Get Quality Control
 [**get_quality_controls**](CoreApi.md#get_quality_controls) | **GET** /quality_controls | Get Quality Controls
@@ -43,20 +46,47 @@ Method | HTTP request | Description
 [**get_schema_entity**](CoreApi.md#get_schema_entity) | **GET** /schema_entity | Get Schema Entity
 [**get_schemas**](CoreApi.md#get_schemas) | **GET** /schemas | Get Schemas
 [**get_specimen**](CoreApi.md#get_specimen) | **GET** /specimen | Get Specimen
+[**get_specimen_acquisitions**](CoreApi.md#get_specimen_acquisitions) | **GET** /specimen_acquisitions | Get Specimen Acquisitions
 [**get_specimen_procedure**](CoreApi.md#get_specimen_procedure) | **GET** /specimen_procedure | Get Specimen Procedure
+[**get_specimen_procedure_specimen_inputs**](CoreApi.md#get_specimen_procedure_specimen_inputs) | **GET** /specimen_procedure_specimen_inputs | Get Specimen Procedure Specimen Inputs
+[**get_specimen_procedure_specimen_outputs**](CoreApi.md#get_specimen_procedure_specimen_outputs) | **GET** /specimen_procedure_specimen_outputs | Get Specimen Procedure Specimen Outputs
 [**get_specimen_procedures**](CoreApi.md#get_specimen_procedures) | **GET** /specimen_procedures | Get Specimen Procedures
+[**get_specimen_specimen_procedure_inputs**](CoreApi.md#get_specimen_specimen_procedure_inputs) | **GET** /specimen_specimen_procedure_inputs | Get Specimen Specimen Procedure Inputs
+[**get_specimen_specimen_procedure_outputs**](CoreApi.md#get_specimen_specimen_procedure_outputs) | **GET** /specimen_specimen_procedure_outputs | Get Specimen Specimen Procedure Outputs
+[**get_specimen_subject_procedures**](CoreApi.md#get_specimen_subject_procedures) | **GET** /specimen_subject_procedures | Get Specimen Subject Procedures
 [**get_specimens**](CoreApi.md#get_specimens) | **GET** /specimens | Get Specimens
 [**get_subject**](CoreApi.md#get_subject) | **GET** /subject | Get Subject
 [**get_subject_acquisitions**](CoreApi.md#get_subject_acquisitions) | **GET** /subject_acquisitions | Get Subject Acquisitions
 [**get_subject_procedure**](CoreApi.md#get_subject_procedure) | **GET** /subject_procedure | Get Subject Procedure
+[**get_subject_procedure_specimens**](CoreApi.md#get_subject_procedure_specimens) | **GET** /subject_procedure_specimens | Get Subject Procedure Specimens
 [**get_subject_procedures**](CoreApi.md#get_subject_procedures) | **GET** /subject_procedures | Get Subject Procedures
 [**get_subjects**](CoreApi.md#get_subjects) | **GET** /subjects | Get Subjects
+[**put_acquisition_specimen**](CoreApi.md#put_acquisition_specimen) | **PUT** /acquisition_specimen | Add Acquisition Specimen
 [**put_acquisition_subject**](CoreApi.md#put_acquisition_subject) | **PUT** /acquisition_subject | Add Acquisition Subject
 [**put_data_asset_collection**](CoreApi.md#put_data_asset_collection) | **PUT** /data_asset_collection | Add Data Asset Collection
+[**put_data_asset_process_input**](CoreApi.md#put_data_asset_process_input) | **PUT** /data_asset_process_input | Add Data Asset Process Input
+[**put_process_data_asset_input**](CoreApi.md#put_process_data_asset_input) | **PUT** /process_data_asset_input | Add Process Data Asset Input
+[**put_specimen_acquisition**](CoreApi.md#put_specimen_acquisition) | **PUT** /specimen_acquisition | Add Specimen Acquisition
+[**put_specimen_procedure_specimen_input**](CoreApi.md#put_specimen_procedure_specimen_input) | **PUT** /specimen_procedure_specimen_input | Add Specimen Procedure Specimen Input
+[**put_specimen_procedure_specimen_output**](CoreApi.md#put_specimen_procedure_specimen_output) | **PUT** /specimen_procedure_specimen_output | Add Specimen Procedure Specimen Output
+[**put_specimen_specimen_procedure_input**](CoreApi.md#put_specimen_specimen_procedure_input) | **PUT** /specimen_specimen_procedure_input | Add Specimen Specimen Procedure Input
+[**put_specimen_specimen_procedure_output**](CoreApi.md#put_specimen_specimen_procedure_output) | **PUT** /specimen_specimen_procedure_output | Add Specimen Specimen Procedure Output
+[**put_specimen_subject_procedure**](CoreApi.md#put_specimen_subject_procedure) | **PUT** /specimen_subject_procedure | Add Specimen Subject Procedure
 [**put_subject_acquisition**](CoreApi.md#put_subject_acquisition) | **PUT** /subject_acquisition | Add Subject Acquisition
+[**put_subject_procedure_specimen**](CoreApi.md#put_subject_procedure_specimen) | **PUT** /subject_procedure_specimen | Add Subject Procedure Specimen
+[**remove_acquisition_specimen**](CoreApi.md#remove_acquisition_specimen) | **DELETE** /acquisition_specimen | Remove Acquisition Specimen
 [**remove_acquisition_subject**](CoreApi.md#remove_acquisition_subject) | **DELETE** /acquisition_subject | Remove Acquisition Subject
 [**remove_data_asset_collection**](CoreApi.md#remove_data_asset_collection) | **DELETE** /data_asset_collection | Remove Collection Data Asset
+[**remove_data_asset_process_input**](CoreApi.md#remove_data_asset_process_input) | **DELETE** /data_asset_process_input | Remove Data Asset Process Input
+[**remove_process_data_asset_input**](CoreApi.md#remove_process_data_asset_input) | **DELETE** /process_data_asset_input | Remove Process Data Asset Input
+[**remove_specimen_acquisition**](CoreApi.md#remove_specimen_acquisition) | **DELETE** /specimen_acquisition | Remove Specimen Acquisition
+[**remove_specimen_procedure_specimen_input**](CoreApi.md#remove_specimen_procedure_specimen_input) | **DELETE** /specimen_procedure_specimen_input | Remove Specimen Procedure Specimen Input
+[**remove_specimen_procedure_specimen_output**](CoreApi.md#remove_specimen_procedure_specimen_output) | **DELETE** /specimen_procedure_specimen_output | Remove Specimen Procedure Specimen Output
+[**remove_specimen_specimen_procedure_input**](CoreApi.md#remove_specimen_specimen_procedure_input) | **DELETE** /specimen_specimen_procedure_input | Remove Specimen Specimen Procedure Input
+[**remove_specimen_specimen_procedure_output**](CoreApi.md#remove_specimen_specimen_procedure_output) | **DELETE** /specimen_specimen_procedure_output | Remove Specimen Specimen Procedure Output
+[**remove_specimen_subject_procedure**](CoreApi.md#remove_specimen_subject_procedure) | **DELETE** /specimen_subject_procedure | Remove Specimen Subject Procedure
 [**remove_subject_acquisition**](CoreApi.md#remove_subject_acquisition) | **DELETE** /subject_acquisition | Remove Subject Acquisition
+[**remove_subject_procedure_specimen**](CoreApi.md#remove_subject_procedure_specimen) | **DELETE** /subject_procedure_specimen | Remove Subject Procedure Specimen
 [**update_acquisition**](CoreApi.md#update_acquisition) | **PUT** /acquisition | Update
 [**update_data_asset**](CoreApi.md#update_data_asset) | **PUT** /data_asset | Update
 [**update_instrument**](CoreApi.md#update_instrument) | **PUT** /instrument | Update
@@ -1611,6 +1641,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_acquisition_specimens**
+> List[Specimens] get_acquisition_specimens(id)
+
+Get Acquisition Subjects
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.specimens import Specimens
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Acquisition Subjects
+        api_response = api_instance.get_acquisition_specimens(id)
+        print("The response of CoreApi->get_acquisition_specimens:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_acquisition_specimens: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[Specimens]**](Specimens.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_acquisition_subjects**
 > List[Subjects] get_acquisition_subjects(id)
 
@@ -1862,6 +1959,73 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List[Collections]**](Collections.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_data_asset_process_inputs**
+> List[Processes] get_data_asset_process_inputs(id)
+
+Get Data Asset Process Inputs
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.processes import Processes
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Data Asset Process Inputs
+        api_response = api_instance.get_data_asset_process_inputs(id)
+        print("The response of CoreApi->get_data_asset_process_inputs:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_data_asset_process_inputs: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[Processes]**](Processes.md)
 
 ### Authorization
 
@@ -2136,6 +2300,73 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Processes**](Processes.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_process_data_asset_inputs**
+> List[DataAssets] get_process_data_asset_inputs(id)
+
+Get Process Data Asset Inputs
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.data_assets import DataAssets
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Process Data Asset Inputs
+        api_response = api_instance.get_process_data_asset_inputs(id)
+        print("The response of CoreApi->get_process_data_asset_inputs:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_process_data_asset_inputs: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[DataAssets]**](DataAssets.md)
 
 ### Authorization
 
@@ -2699,6 +2930,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_specimen_acquisitions**
+> List[Acquisitions] get_specimen_acquisitions(id)
+
+Get Specimen Acquisitions
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.acquisitions import Acquisitions
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Specimen Acquisitions
+        api_response = api_instance.get_specimen_acquisitions(id)
+        print("The response of CoreApi->get_specimen_acquisitions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_specimen_acquisitions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[Acquisitions]**](Acquisitions.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_specimen_procedure**
 > SpecimenProcedures get_specimen_procedure(id)
 
@@ -2747,6 +3045,140 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SpecimenProcedures**](SpecimenProcedures.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_specimen_procedure_specimen_inputs**
+> List[Specimens] get_specimen_procedure_specimen_inputs(id)
+
+Get Specimen Procedure Specimen Inputs
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.specimens import Specimens
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Specimen Procedure Specimen Inputs
+        api_response = api_instance.get_specimen_procedure_specimen_inputs(id)
+        print("The response of CoreApi->get_specimen_procedure_specimen_inputs:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_specimen_procedure_specimen_inputs: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[Specimens]**](Specimens.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_specimen_procedure_specimen_outputs**
+> List[Specimens] get_specimen_procedure_specimen_outputs(id)
+
+Get Specimen Procedure Specimen Outputs
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.specimens import Specimens
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Specimen Procedure Specimen Outputs
+        api_response = api_instance.get_specimen_procedure_specimen_outputs(id)
+        print("The response of CoreApi->get_specimen_procedure_specimen_outputs:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_specimen_procedure_specimen_outputs: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[Specimens]**](Specimens.md)
 
 ### Authorization
 
@@ -2816,6 +3248,207 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List[SpecimenProcedures]**](SpecimenProcedures.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_specimen_specimen_procedure_inputs**
+> List[SpecimenProcedures] get_specimen_specimen_procedure_inputs(id)
+
+Get Specimen Specimen Procedure Inputs
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.specimen_procedures import SpecimenProcedures
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Specimen Specimen Procedure Inputs
+        api_response = api_instance.get_specimen_specimen_procedure_inputs(id)
+        print("The response of CoreApi->get_specimen_specimen_procedure_inputs:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_specimen_specimen_procedure_inputs: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[SpecimenProcedures]**](SpecimenProcedures.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_specimen_specimen_procedure_outputs**
+> List[SpecimenProcedures] get_specimen_specimen_procedure_outputs(id)
+
+Get Specimen Specimen Procedure Outputs
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.specimen_procedures import SpecimenProcedures
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Specimen Specimen Procedure Outputs
+        api_response = api_instance.get_specimen_specimen_procedure_outputs(id)
+        print("The response of CoreApi->get_specimen_specimen_procedure_outputs:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_specimen_specimen_procedure_outputs: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[SpecimenProcedures]**](SpecimenProcedures.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_specimen_subject_procedures**
+> List[SubjectProcedures] get_specimen_subject_procedures(id)
+
+Get Specimen Subject Procedures
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.subject_procedures import SubjectProcedures
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Specimen Subject Procedures
+        api_response = api_instance.get_specimen_subject_procedures(id)
+        print("The response of CoreApi->get_specimen_subject_procedures:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_specimen_subject_procedures: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[SubjectProcedures]**](SubjectProcedures.md)
 
 ### Authorization
 
@@ -3105,6 +3738,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_subject_procedure_specimens**
+> List[Specimens] get_subject_procedure_specimens(id)
+
+Get Subject Procedure Specimens
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.models.specimens import Specimens
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+
+    try:
+        # Get Subject Procedure Specimens
+        api_response = api_instance.get_subject_procedure_specimens(id)
+        print("The response of CoreApi->get_subject_procedure_specimens:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->get_subject_procedure_specimens: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+
+### Return type
+
+[**List[Specimens]**](Specimens.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_subject_procedures**
 > List[SubjectProcedures] get_subject_procedures(offset=offset, limit=limit)
 
@@ -3226,6 +3926,74 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List[Subjects]**](Subjects.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_acquisition_specimen**
+> object put_acquisition_specimen(id, specimen_id)
+
+Add Acquisition Specimen
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_id = 56 # int | 
+
+    try:
+        # Add Acquisition Specimen
+        api_response = api_instance.put_acquisition_specimen(id, specimen_id)
+        print("The response of CoreApi->put_acquisition_specimen:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_acquisition_specimen: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_id** | **int**|  | 
+
+### Return type
+
+**object**
 
 ### Authorization
 
@@ -3381,6 +4149,550 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **put_data_asset_process_input**
+> object put_data_asset_process_input(id, process_id)
+
+Add Data Asset Process Input
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    process_id = 56 # int | 
+
+    try:
+        # Add Data Asset Process Input
+        api_response = api_instance.put_data_asset_process_input(id, process_id)
+        print("The response of CoreApi->put_data_asset_process_input:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_data_asset_process_input: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **process_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_process_data_asset_input**
+> object put_process_data_asset_input(id, data_asset_id)
+
+Add Process Data Asset Input
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    data_asset_id = 56 # int | 
+
+    try:
+        # Add Process Data Asset Input
+        api_response = api_instance.put_process_data_asset_input(id, data_asset_id)
+        print("The response of CoreApi->put_process_data_asset_input:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_process_data_asset_input: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **data_asset_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_specimen_acquisition**
+> object put_specimen_acquisition(id, acquisition_id)
+
+Add Specimen Acquisition
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    acquisition_id = 56 # int | 
+
+    try:
+        # Add Specimen Acquisition
+        api_response = api_instance.put_specimen_acquisition(id, acquisition_id)
+        print("The response of CoreApi->put_specimen_acquisition:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_specimen_acquisition: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **acquisition_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_specimen_procedure_specimen_input**
+> object put_specimen_procedure_specimen_input(id, specimen_id)
+
+Add Specimen Procedure Specimen Input
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_id = 56 # int | 
+
+    try:
+        # Add Specimen Procedure Specimen Input
+        api_response = api_instance.put_specimen_procedure_specimen_input(id, specimen_id)
+        print("The response of CoreApi->put_specimen_procedure_specimen_input:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_specimen_procedure_specimen_input: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_specimen_procedure_specimen_output**
+> object put_specimen_procedure_specimen_output(id, specimen_id)
+
+Add Specimen Procedure Specimen Output
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_id = 56 # int | 
+
+    try:
+        # Add Specimen Procedure Specimen Output
+        api_response = api_instance.put_specimen_procedure_specimen_output(id, specimen_id)
+        print("The response of CoreApi->put_specimen_procedure_specimen_output:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_specimen_procedure_specimen_output: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_specimen_specimen_procedure_input**
+> object put_specimen_specimen_procedure_input(id, specimen_procedure_id)
+
+Add Specimen Specimen Procedure Input
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_procedure_id = 56 # int | 
+
+    try:
+        # Add Specimen Specimen Procedure Input
+        api_response = api_instance.put_specimen_specimen_procedure_input(id, specimen_procedure_id)
+        print("The response of CoreApi->put_specimen_specimen_procedure_input:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_specimen_specimen_procedure_input: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_procedure_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_specimen_specimen_procedure_output**
+> object put_specimen_specimen_procedure_output(id, specimen_procedure_id)
+
+Add Specimen Specimen Procedure Output
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_procedure_id = 56 # int | 
+
+    try:
+        # Add Specimen Specimen Procedure Output
+        api_response = api_instance.put_specimen_specimen_procedure_output(id, specimen_procedure_id)
+        print("The response of CoreApi->put_specimen_specimen_procedure_output:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_specimen_specimen_procedure_output: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_procedure_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_specimen_subject_procedure**
+> object put_specimen_subject_procedure(id, subject_procedure_id)
+
+Add Specimen Subject Procedure
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    subject_procedure_id = 56 # int | 
+
+    try:
+        # Add Specimen Subject Procedure
+        api_response = api_instance.put_specimen_subject_procedure(id, subject_procedure_id)
+        print("The response of CoreApi->put_specimen_subject_procedure:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_specimen_subject_procedure: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **subject_procedure_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **put_subject_acquisition**
 > object put_subject_acquisition(id, acquisition_id)
 
@@ -3426,6 +4738,142 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  | 
  **acquisition_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_subject_procedure_specimen**
+> object put_subject_procedure_specimen(id, specimen_id)
+
+Add Subject Procedure Specimen
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_id = 56 # int | 
+
+    try:
+        # Add Subject Procedure Specimen
+        api_response = api_instance.put_subject_procedure_specimen(id, specimen_id)
+        print("The response of CoreApi->put_subject_procedure_specimen:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->put_subject_procedure_specimen: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_acquisition_specimen**
+> object remove_acquisition_specimen(id, specimen_id)
+
+Remove Acquisition Specimen
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_id = 56 # int | 
+
+    try:
+        # Remove Acquisition Specimen
+        api_response = api_instance.remove_acquisition_specimen(id, specimen_id)
+        print("The response of CoreApi->remove_acquisition_specimen:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_acquisition_specimen: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_id** | **int**|  | 
 
 ### Return type
 
@@ -3585,6 +5033,550 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **remove_data_asset_process_input**
+> object remove_data_asset_process_input(id, process_id)
+
+Remove Data Asset Process Input
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    process_id = 56 # int | 
+
+    try:
+        # Remove Data Asset Process Input
+        api_response = api_instance.remove_data_asset_process_input(id, process_id)
+        print("The response of CoreApi->remove_data_asset_process_input:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_data_asset_process_input: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **process_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_process_data_asset_input**
+> object remove_process_data_asset_input(id, data_asset_id)
+
+Remove Process Data Asset Input
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    data_asset_id = 56 # int | 
+
+    try:
+        # Remove Process Data Asset Input
+        api_response = api_instance.remove_process_data_asset_input(id, data_asset_id)
+        print("The response of CoreApi->remove_process_data_asset_input:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_process_data_asset_input: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **data_asset_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_specimen_acquisition**
+> object remove_specimen_acquisition(id, acquisition_id)
+
+Remove Specimen Acquisition
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    acquisition_id = 56 # int | 
+
+    try:
+        # Remove Specimen Acquisition
+        api_response = api_instance.remove_specimen_acquisition(id, acquisition_id)
+        print("The response of CoreApi->remove_specimen_acquisition:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_specimen_acquisition: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **acquisition_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_specimen_procedure_specimen_input**
+> object remove_specimen_procedure_specimen_input(id, specimen_id)
+
+Remove Specimen Procedure Specimen Input
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_id = 56 # int | 
+
+    try:
+        # Remove Specimen Procedure Specimen Input
+        api_response = api_instance.remove_specimen_procedure_specimen_input(id, specimen_id)
+        print("The response of CoreApi->remove_specimen_procedure_specimen_input:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_specimen_procedure_specimen_input: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_specimen_procedure_specimen_output**
+> object remove_specimen_procedure_specimen_output(id, specimen_id)
+
+Remove Specimen Procedure Specimen Output
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_id = 56 # int | 
+
+    try:
+        # Remove Specimen Procedure Specimen Output
+        api_response = api_instance.remove_specimen_procedure_specimen_output(id, specimen_id)
+        print("The response of CoreApi->remove_specimen_procedure_specimen_output:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_specimen_procedure_specimen_output: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_specimen_specimen_procedure_input**
+> object remove_specimen_specimen_procedure_input(id, specimen_procedure_id)
+
+Remove Specimen Specimen Procedure Input
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_procedure_id = 56 # int | 
+
+    try:
+        # Remove Specimen Specimen Procedure Input
+        api_response = api_instance.remove_specimen_specimen_procedure_input(id, specimen_procedure_id)
+        print("The response of CoreApi->remove_specimen_specimen_procedure_input:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_specimen_specimen_procedure_input: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_procedure_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_specimen_specimen_procedure_output**
+> object remove_specimen_specimen_procedure_output(id, specimen_procedure_id)
+
+Remove Specimen Specimen Procedure Output
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_procedure_id = 56 # int | 
+
+    try:
+        # Remove Specimen Specimen Procedure Output
+        api_response = api_instance.remove_specimen_specimen_procedure_output(id, specimen_procedure_id)
+        print("The response of CoreApi->remove_specimen_specimen_procedure_output:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_specimen_specimen_procedure_output: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_procedure_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_specimen_subject_procedure**
+> object remove_specimen_subject_procedure(id, subject_procedure_id)
+
+Remove Specimen Subject Procedure
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    subject_procedure_id = 56 # int | 
+
+    try:
+        # Remove Specimen Subject Procedure
+        api_response = api_instance.remove_specimen_subject_procedure(id, subject_procedure_id)
+        print("The response of CoreApi->remove_specimen_subject_procedure:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_specimen_subject_procedure: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **subject_procedure_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **remove_subject_acquisition**
 > object remove_subject_acquisition(id, acquisition_id)
 
@@ -3630,6 +5622,74 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**|  | 
  **acquisition_id** | **int**|  | 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **remove_subject_procedure_specimen**
+> object remove_subject_procedure_specimen(id, specimen_id)
+
+Remove Subject Procedure Specimen
+
+### Example
+
+
+```python
+import biodata_registry_api_client
+from biodata_registry_api_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = biodata_registry_api_client.Configuration(
+    host = "http://localhost"
+)
+
+
+# Enter a context with an instance of the API client
+with biodata_registry_api_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = biodata_registry_api_client.CoreApi(api_client)
+    id = 56 # int | 
+    specimen_id = 56 # int | 
+
+    try:
+        # Remove Subject Procedure Specimen
+        api_response = api_instance.remove_subject_procedure_specimen(id, specimen_id)
+        print("The response of CoreApi->remove_subject_procedure_specimen:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CoreApi->remove_subject_procedure_specimen: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **int**|  | 
+ **specimen_id** | **int**|  | 
 
 ### Return type
 

@@ -9,7 +9,7 @@ from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from biodata_registry_api.models.admin import Collections
-from biodata_registry_api.models.core import DataAssets, DataAssetCreate, DataAssetUpdate
+from biodata_registry_api.models.core import DataAssets, DataAssetCreate, DataAssetUpdate, Processes
 
 from biodata_registry_api.session import get_session
 
@@ -181,4 +181,80 @@ async def add_data_asset_collection(
     return {
         "ok": True,
         "msg": f"Added collection {collection_id} to data_asset {id}"
+    }
+
+@router.get(
+    "/data_asset_process_inputs",
+    tags=["core"],
+    response_model=List[Processes],
+    operation_id="get_data_asset_process_inputs"
+)
+async def get_data_asset_process_inputs(
+        id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(DataAssets, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    process_inputs = row.process_inputs
+    return process_inputs
+
+@router.delete(
+    "/data_asset_process_input",
+    tags=["core"],
+    operation_id="remove_data_asset_process_input"
+)
+async def remove_data_asset_process_input(
+        id: int,
+        process_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(DataAssets, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Processes, process_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{process_id} not found!"
+        )
+    row.process_inputs.remove(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Removed process_input {process_id} from data_asset {id}"
+    }
+
+@router.put(
+    "/data_asset_process_input",
+    tags=["core"],
+    operation_id="put_data_asset_process_input"
+)
+async def add_data_asset_process_input(
+        id: int,
+        process_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(DataAssets, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Processes, process_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{process_id} not found!"
+        )
+    row.process_inputs.append(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Added process_input {process_id} to data_asset {id}"
     }

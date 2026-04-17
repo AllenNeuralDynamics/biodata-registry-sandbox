@@ -1,10 +1,11 @@
 from biodata_registry_api.models.link_tables import (
     CollectionDataAssets,
     AcquisitionSubjects,
-    ProcessOutputs,
-    ProcessInputs
-    # SubjectProcedureOutputs,
-    # AcquisitionSpecimens
+    ProcessInputs,
+    SpecimenProcedureInputs,
+    SpecimenProcedureOutputs,
+    SubjectProcedureOutputs,
+    AcquisitionSpecimens
 )
 from sqlmodel import SQLModel, Field, Column, Relationship, UniqueConstraint
 from typing import Dict, Any, List
@@ -125,11 +126,6 @@ class DataAssets(SQLModel, table=True):
         link_model=ProcessInputs,
         sa_relationship_kwargs={'lazy': 'selectin'}
     )
-    process_outputs: List["Processes"] = Relationship(
-        back_populates="data_asset_outputs",
-        link_model=ProcessOutputs,
-        sa_relationship_kwargs={'lazy': 'selectin'}
-    )
     # processes: List["Processes"] = Relationship(
     #     back_populates="processes", link_model=ProcessInputs
     # )
@@ -232,13 +228,27 @@ class Specimens(SQLModel, table=True):
     subject_id: int | None = Field(
         default=None, foreign_key="subjects.id"
     )
-#     subject_procedures: List["SubjectProcedures"] = Relationship(
-#         back_populates="subject_procedures", link_model=SubjectProcedureOutputs
-#     )
-#     acquisitions: List["Acquisitions"] = Relationship(
-#         back_populates="acquisitions", link_model=AcquisitionSpecimens
-#     )
-#
+    acquisitions: List["Acquisitions"] = Relationship(
+        back_populates="specimens",
+        link_model=AcquisitionSpecimens,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+    subject_procedures: List["SubjectProcedures"] = Relationship(
+        back_populates="specimens",
+        link_model=SubjectProcedureOutputs,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+    specimen_procedures_inputs: List["SpecimenProcedures"] = Relationship(
+        back_populates="specimen_inputs",
+        link_model=SpecimenProcedureInputs,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+    specimen_procedures_outputs: List["SpecimenProcedures"] = Relationship(
+        back_populates="specimen_outputs",
+        link_model=SpecimenProcedureOutputs,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+
 class SpecimenProcedureCreate(SQLModel):
     data: Dict[str, Any] = Field(
         default_factory=dict,
@@ -275,6 +285,16 @@ class SpecimenProcedures(SQLModel, table=True):
     )
     space_id: int | None = Field(
         default=None, foreign_key="spaces.id"
+    )
+    specimen_inputs: List["Specimens"] = Relationship(
+        back_populates="specimen_procedures_inputs",
+        link_model=SpecimenProcedureInputs,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+    specimen_outputs: List["Specimens"] = Relationship(
+        back_populates="specimen_procedures_outputs",
+        link_model=SpecimenProcedureOutputs,
+        sa_relationship_kwargs={'lazy': 'selectin'}
     )
 
 class SubjectProcedureCreate(SQLModel):
@@ -323,10 +343,12 @@ class SubjectProcedures(SQLModel, table=True):
     subject_id: int | None = Field(
         default=None, foreign_key="subjects.id"
     )
-#     specimens: List["Specimens"] = Relationship(
-#         back_populates="specimens", link_model=SubjectProcedureOutputs
-#     )
-#
+    specimens: List["Specimens"] = Relationship(
+        back_populates="subject_procedures",
+        link_model=SubjectProcedureOutputs,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+
 class InstrumentCreate(SQLModel):
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
@@ -431,10 +453,12 @@ class Acquisitions(SQLModel, table=True):
         link_model=AcquisitionSubjects,
         sa_relationship_kwargs={'lazy': 'selectin'}
     )
-#     specimens: List["Specimens"] = Relationship(
-#         back_populates="specimens", link_model=AcquisitionSpecimens
-#     )
-#
+    specimens: List["Specimens"] = Relationship(
+        back_populates="acquisitions",
+        link_model=AcquisitionSpecimens,
+        sa_relationship_kwargs={'lazy': 'selectin'}
+    )
+
 class QualityControlCreate(SQLModel):
     data: Dict[str, Any] = Field(
         default_factory=dict,
@@ -531,11 +555,6 @@ class Processes(SQLModel, table=True):
     data_asset_inputs: List["DataAssets"] = Relationship(
         back_populates="process_inputs",
         link_model=ProcessInputs,
-        sa_relationship_kwargs={'lazy': 'selectin'}
-    )
-    data_asset_outputs: List["DataAssets"] = Relationship(
-        back_populates="process_outputs",
-        link_model=ProcessOutputs,
         sa_relationship_kwargs={'lazy': 'selectin'}
     )
 #     data_assets: List["DataAssets"] = Relationship(

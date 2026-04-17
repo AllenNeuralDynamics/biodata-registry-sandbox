@@ -104,7 +104,6 @@ admin_api.create_collection(
         name="My Collection",
         description="My Collection description",
         owner_id=1,
-        data_assets = [12]
     )
 )
 
@@ -166,25 +165,6 @@ for record in docdb_records:
             names_seen.add(record_name)
             filtered_records.append(record)
 
-# subjects_seen = set()
-# instruments_seen = set()
-# for record in filtered_records:
-#     subject_id = record["subject"]["subject_id"]
-#     instrument = record["instrument"]
-#     instrument_name = (
-#         f"{instrument['instrument_id']}_{instrument['modification_date']}"
-#     )
-#     print(instrument["instrument_id"], instrument["modification_date"])
-    # if subject_id not in subjects_seen:
-    #     subjects_seen.add(subject_id)
-    #     registered_subject = core_api.create_subject(
-    #         SubjectCreate(name=subject_id, space_id=1, schema_id=8, data=record["subject"])
-    #     )
-    #     print(registered_subject.id)
-    # else:
-    #     registered_subject = core_api.get_subjects(name=subject_id)[0]
-    #     print(registered_subject.id)
-
 
 subjects_seen = set()
 instruments_seen = set()
@@ -231,7 +211,7 @@ for record in filtered_records[0:200]:
                 space_id=1,
                 schema_id=schema_id_map["instrument"],
                 name=instrument_name,
-                data=subject
+                data=instrument
             )
         )
     else:
@@ -264,8 +244,6 @@ for record in filtered_records[0:200]:
             space_id=1,
             schema_id=schema_id_map["quality_control"],
             data_asset_id=registered_data_asset.id,
-            data=data
+            data=quality_controls
         )
     )
-
-

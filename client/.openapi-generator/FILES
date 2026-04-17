@@ -16,12 +16,14 @@ biodata_registry_api_client/exceptions.py
 biodata_registry_api_client/models/__init__.py
 biodata_registry_api_client/models/acquisition_create.py
 biodata_registry_api_client/models/acquisition_update.py
+biodata_registry_api_client/models/acquisition_view.py
 biodata_registry_api_client/models/acquisitions.py
 biodata_registry_api_client/models/collection_create.py
 biodata_registry_api_client/models/collection_update.py
 biodata_registry_api_client/models/collections.py
 biodata_registry_api_client/models/data_asset_create.py
 biodata_registry_api_client/models/data_asset_update.py
+biodata_registry_api_client/models/data_asset_view.py
 biodata_registry_api_client/models/data_assets.py
 biodata_registry_api_client/models/http_validation_error.py
 biodata_registry_api_client/models/instrument_create.py
@@ -72,6 +74,7 @@ biodata_registry_api_client/py.typed
 biodata_registry_api_client/rest.py
 docs/AcquisitionCreate.md
 docs/AcquisitionUpdate.md
+docs/AcquisitionView.md
 docs/Acquisitions.md
 docs/AdminApi.md
 docs/CollectionCreate.md
@@ -80,6 +83,7 @@ docs/Collections.md
 docs/CoreApi.md
 docs/DataAssetCreate.md
 docs/DataAssetUpdate.md
+docs/DataAssetView.md
 docs/DataAssets.md
 docs/HTTPValidationError.md
 docs/InstrumentCreate.md
@@ -136,6 +140,7 @@ test-requirements.txt
 test/__init__.py
 test/test_acquisition_create.py
 test/test_acquisition_update.py
+test/test_acquisition_view.py
 test/test_acquisitions.py
 test/test_admin_api.py
 test/test_collection_create.py
@@ -144,6 +149,7 @@ test/test_collections.py
 test/test_core_api.py
 test/test_data_asset_create.py
 test/test_data_asset_update.py
+test/test_data_asset_view.py
 test/test_data_assets.py
 test/test_http_validation_error.py
 test/test_instrument_create.py

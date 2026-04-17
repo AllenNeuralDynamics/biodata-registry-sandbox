@@ -7,7 +7,8 @@ from typing import List
 from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.core import SubjectProcedures, SubjectProcedureCreate, SubjectProcedureUpdate
+from biodata_registry_api.models.core import SubjectProcedures, SubjectProcedureCreate, SubjectProcedureUpdate, \
+    Specimens
 
 from biodata_registry_api.session import get_session
 
@@ -102,3 +103,79 @@ async def update(
     await session.commit()
     await session.refresh(row)
     return row
+
+@router.get(
+    "/subject_procedure_specimens",
+    tags=["core"],
+    response_model=List[Specimens],
+    operation_id="get_subject_procedure_specimens"
+)
+async def get_subject_procedure_specimens(
+        id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(SubjectProcedures, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    specimens = row.specimens
+    return specimens
+
+@router.delete(
+    "/subject_procedure_specimen",
+    tags=["core"],
+    operation_id="remove_subject_procedure_specimen"
+)
+async def remove_subject_procedure_specimen(
+        id: int,
+        specimen_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(SubjectProcedures, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Specimens, specimen_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{specimen_id} not found!"
+        )
+    row.specimens.remove(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Removed specimen {specimen_id} from subject_procedure {id}"
+    }
+
+@router.put(
+    "/subject_procedure_specimen",
+    tags=["core"],
+    operation_id="put_subject_procedure_specimen"
+)
+async def add_subject_procedure_specimen(
+        id: int,
+        specimen_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(SubjectProcedures, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Specimens, specimen_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{specimen_id} not found!"
+        )
+    row.specimens.append(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Added specimen {specimen_id} to subject_procedure {id}"
+    }

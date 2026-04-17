@@ -7,7 +7,7 @@ from typing import List
 from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.core import Acquisitions, AcquisitionCreate, AcquisitionUpdate, Subjects
+from biodata_registry_api.models.core import Acquisitions, AcquisitionCreate, AcquisitionUpdate, Subjects, Specimens
 
 from biodata_registry_api.session import get_session
 
@@ -178,3 +178,80 @@ async def add_acquisition_subject(
         "ok": True,
         "msg": f"Added subject {subject_id} to acquisition {id}"
     }
+
+@router.get(
+    "/acquisition_specimens",
+    tags=["core"],
+    response_model=List[Specimens],
+    operation_id="get_acquisition_specimens"
+)
+async def get_acquisition_subjects(
+        id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(Acquisitions, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    specimens = row.specimens
+    return specimens
+
+@router.delete(
+    "/acquisition_specimen",
+    tags=["core"],
+    operation_id="remove_acquisition_specimen"
+)
+async def remove_acquisition_specimen(
+        id: int,
+        specimen_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(Acquisitions, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Specimens, specimen_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{specimen_id} not found!"
+        )
+    row.specimens.remove(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Removed specimen {specimen_id} from acquisition {id}"
+    }
+
+@router.put(
+    "/acquisition_specimen",
+    tags=["core"],
+    operation_id="put_acquisition_specimen"
+)
+async def add_acquisition_specimen(
+        id: int,
+        specimen_id: int,
+        session: AsyncSession = Depends(get_session),
+):
+    row = await session.get(Acquisitions, id)
+    if not row:
+        raise HTTPException(
+            status_code=404, detail=f"{id} not found!"
+        )
+    foreign_row = await session.get(Specimens, specimen_id)
+    if not foreign_row:
+        raise HTTPException(
+            status_code=404, detail=f"{specimen_id} not found!"
+        )
+    row.specimens.append(foreign_row)
+    session.add(row)
+    await session.commit()
+    await session.refresh(row)
+    return {
+        "ok": True,
+        "msg": f"Added specimen {specimen_id} to acquisition {id}"
+    }
+
