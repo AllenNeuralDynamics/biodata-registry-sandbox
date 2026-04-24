@@ -27,6 +27,11 @@ docker run --rm \
   -o /local/client
 ```
 
+- Run
+```
+docker compose up --build
+```
+
 - To register the postgres kafka connector
 ```
 curl -X POST -H "Content-Type: application/json" --data @lambda/register-postgres.json http://localhost:8083/connectors

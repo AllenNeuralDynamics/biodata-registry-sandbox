@@ -217,7 +217,6 @@ Class | Method | HTTP request | Description
 *CoreApi* | [**update_specimen_procedure**](docs/CoreApi.md#update_specimen_procedure) | **PUT** /specimen_procedure | Update
 *CoreApi* | [**update_subject**](docs/CoreApi.md#update_subject) | **PUT** /subject | Update
 *CoreApi* | [**update_subject_procedure**](docs/CoreApi.md#update_subject_procedure) | **PUT** /subject_procedure | Update
-*ViewsApi* | [**get_acquisition_view**](docs/ViewsApi.md#get_acquisition_view) | **GET** /acquisition_view | Get Acquisition View
 *ViewsApi* | [**get_data_asset_view**](docs/ViewsApi.md#get_data_asset_view) | **GET** /data_asset_view | Get Data Asset View
 
 
@@ -225,14 +224,12 @@ Class | Method | HTTP request | Description
 
  - [AcquisitionCreate](docs/AcquisitionCreate.md)
  - [AcquisitionUpdate](docs/AcquisitionUpdate.md)
- - [AcquisitionView](docs/AcquisitionView.md)
  - [Acquisitions](docs/Acquisitions.md)
  - [CollectionCreate](docs/CollectionCreate.md)
  - [CollectionUpdate](docs/CollectionUpdate.md)
  - [Collections](docs/Collections.md)
  - [DataAssetCreate](docs/DataAssetCreate.md)
  - [DataAssetUpdate](docs/DataAssetUpdate.md)
- - [DataAssetView](docs/DataAssetView.md)
  - [DataAssets](docs/DataAssets.md)
  - [HTTPValidationError](docs/HTTPValidationError.md)
  - [InstrumentCreate](docs/InstrumentCreate.md)

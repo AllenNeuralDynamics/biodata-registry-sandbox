@@ -36,7 +36,9 @@ class TestSubjectProcedures(unittest.TestCase):
         if include_optional:
             return SubjectProcedures(
                 id = 56,
-                data = { },
+                data = [
+                    { }
+                    ],
                 schema_id = 56,
                 space_id = 56,
                 subject_id = 56

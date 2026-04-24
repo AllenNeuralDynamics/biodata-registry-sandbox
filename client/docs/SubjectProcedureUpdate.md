@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**data** | **Dict[str, object]** |  | [optional] 
+**data** | **List[Optional[Dict[str, object]]]** |  | [optional] 
 **schema_id** | **int** |  | [optional] 
 **space_id** | **int** |  | [optional] 
 **subject_id** | **int** |  | [optional] 

@@ -16,8 +16,10 @@ from biodata_registry_api_client import (
     SchemaCreate,
     InstrumentCreate,
     SubjectCreate,
+    SubjectProcedureCreate,
     DataAssetCreate,
-    QualityControlCreate
+    QualityControlCreate,
+    ProcessCreate
 )
 from pathlib import Path
 import json
@@ -191,6 +193,9 @@ for record in filtered_records[0:200]:
     name = data_description["name"]
     acquisition = record["acquisition"]
     quality_controls = record["quality_control"]
+    processes = record["processing"]
+    procedures = record["procedures"]
+    subject_procedures = procedures.get("subject_procedures")
     if subject_id not in subjects_seen:
         subjects_seen.add(subject["subject_id"])
         registered_subject = core_api.create_subject(
@@ -199,6 +204,14 @@ for record in filtered_records[0:200]:
                 schema_id=schema_id_map["subject"],
                 name=subject_id,
                 data=subject
+            )
+        )
+        registered_subject_procedures = core_api.create_subject_procedure(
+            SubjectProcedureCreate(
+                space_id=1,
+                schema_id=schema_id_map["subject_procedures"],
+                subject_id=registered_subject.id,
+                data=subject_procedures,
             )
         )
     else:
@@ -245,5 +258,13 @@ for record in filtered_records[0:200]:
             schema_id=schema_id_map["quality_control"],
             data_asset_id=registered_data_asset.id,
             data=quality_controls
+        )
+    )
+    registered_processes = core_api.create_process(
+        ProcessCreate(
+            space_id=1,
+            schema_id=schema_id_map["processing"],
+            output_data_asset_id=registered_data_asset.id,
+            data=processes
         )
     )

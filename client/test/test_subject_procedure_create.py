@@ -35,7 +35,9 @@ class TestSubjectProcedureCreate(unittest.TestCase):
         model = SubjectProcedureCreate()
         if include_optional:
             return SubjectProcedureCreate(
-                data = { },
+                data = [
+                    { }
+                    ],
                 schema_id = 56,
                 space_id = 56,
                 subject_id = 56

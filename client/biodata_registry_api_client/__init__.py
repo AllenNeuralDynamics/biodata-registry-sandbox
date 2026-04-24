@@ -32,14 +32,12 @@ __all__ = [
     "ApiException",
     "AcquisitionCreate",
     "AcquisitionUpdate",
-    "AcquisitionView",
     "Acquisitions",
     "CollectionCreate",
     "CollectionUpdate",
     "Collections",
     "DataAssetCreate",
     "DataAssetUpdate",
-    "DataAssetView",
     "DataAssets",
     "HTTPValidationError",
     "InstrumentCreate",
@@ -107,14 +105,12 @@ from biodata_registry_api_client.exceptions import ApiException as ApiException
 # import models into sdk package
 from biodata_registry_api_client.models.acquisition_create import AcquisitionCreate as AcquisitionCreate
 from biodata_registry_api_client.models.acquisition_update import AcquisitionUpdate as AcquisitionUpdate
-from biodata_registry_api_client.models.acquisition_view import AcquisitionView as AcquisitionView
 from biodata_registry_api_client.models.acquisitions import Acquisitions as Acquisitions
 from biodata_registry_api_client.models.collection_create import CollectionCreate as CollectionCreate
 from biodata_registry_api_client.models.collection_update import CollectionUpdate as CollectionUpdate
 from biodata_registry_api_client.models.collections import Collections as Collections
 from biodata_registry_api_client.models.data_asset_create import DataAssetCreate as DataAssetCreate
 from biodata_registry_api_client.models.data_asset_update import DataAssetUpdate as DataAssetUpdate
-from biodata_registry_api_client.models.data_asset_view import DataAssetView as DataAssetView
 from biodata_registry_api_client.models.data_assets import DataAssets as DataAssets
 from biodata_registry_api_client.models.http_validation_error import HTTPValidationError as HTTPValidationError
 from biodata_registry_api_client.models.instrument_create import InstrumentCreate as InstrumentCreate

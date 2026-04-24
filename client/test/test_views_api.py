@@ -26,13 +26,6 @@ class TestViewsApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_get_acquisition_view(self) -> None:
-        """Test case for get_acquisition_view
-
-        Get Acquisition View
-        """
-        pass
-
     def test_get_data_asset_view(self) -> None:
         """Test case for get_data_asset_view
 

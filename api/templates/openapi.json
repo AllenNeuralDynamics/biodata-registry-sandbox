@@ -5885,160 +5885,6 @@
             }
          }
       },
-      "/acquisition_view": {
-         "get": {
-            "tags": [
-               "views"
-            ],
-            "summary": "Get Acquisition View",
-            "operationId": "get_acquisition_view",
-            "parameters": [
-               {
-                  "name": "acquisition_id",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "integer"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Acquisition Id"
-                  }
-               },
-               {
-                  "name": "subject_id",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "integer"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Subject Id"
-                  }
-               },
-               {
-                  "name": "data_asset_name",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "string"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Data Asset Name"
-                  }
-               },
-               {
-                  "name": "subject_name",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "string"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Subject Name"
-                  }
-               },
-               {
-                  "name": "instrument_name",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "string"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Instrument Name"
-                  }
-               },
-               {
-                  "name": "data_asset_location",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "string"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Data Asset Location"
-                  }
-               },
-               {
-                  "name": "offset",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
-                  }
-               },
-               {
-                  "name": "limit",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "type": "integer",
-                     "maximum": 1000,
-                     "default": 10,
-                     "title": "Limit"
-                  }
-               }
-            ],
-            "responses": {
-               "200": {
-                  "description": "Successful Response",
-                  "content": {
-                     "application/json": {
-                        "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/AcquisitionView"
-                           },
-                           "title": "Response Get Acquisition View"
-                        }
-                     }
-                  }
-               },
-               "422": {
-                  "description": "Validation Error",
-                  "content": {
-                     "application/json": {
-                        "schema": {
-                           "$ref": "#/components/schemas/HTTPValidationError"
-                        }
-                     }
-                  }
-               }
-            }
-         }
-      },
       "/data_asset_view": {
          "get": {
             "tags": [
@@ -6093,6 +5939,38 @@
                         }
                      ],
                      "title": "Subject Id"
+                  }
+               },
+               {
+                  "name": "subject_procedure_id",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "integer"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Subject Procedure Id"
+                  }
+               },
+               {
+                  "name": "instrument_id",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "integer"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Instrument Id"
                   }
                },
                {
@@ -6328,112 +6206,6 @@
             },
             "type": "object",
             "title": "AcquisitionUpdate"
-         },
-         "AcquisitionView": {
-            "properties": {
-               "acquisition_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Acquisition Id"
-               },
-               "subject_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Subject Id"
-               },
-               "acquisition_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Acquisition Data"
-               },
-               "instrument_name": {
-                  "anyOf": [
-                     {
-                        "type": "string",
-                        "maxLength": 254
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Instrument Name"
-               },
-               "instrument_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Instrument Data"
-               },
-               "data_asset_location": {
-                  "anyOf": [
-                     {
-                        "type": "string",
-                        "maxLength": 254
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Data Asset Location"
-               },
-               "data_asset_name": {
-                  "anyOf": [
-                     {
-                        "type": "string",
-                        "maxLength": 254
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Data Asset Name"
-               },
-               "data_asset_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Data Asset Data"
-               },
-               "data_asset_external_links": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Data Asset External Links"
-               },
-               "subject_name": {
-                  "anyOf": [
-                     {
-                        "type": "string",
-                        "maxLength": 254
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Subject Name"
-               },
-               "subject_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Subject Data"
-               },
-               "quality_control_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Quality Control Data"
-               }
-            },
-            "type": "object",
-            "title": "AcquisitionView"
          },
          "Acquisitions": {
             "properties": {
@@ -6744,119 +6516,7 @@
             "title": "DataAssetUpdate"
          },
          "DataAssetView": {
-            "properties": {
-               "data_asset_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Data Asset Id"
-               },
-               "acquisition_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Acquisition Id"
-               },
-               "subject_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Subject Id"
-               },
-               "acquisition_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Acquisition Data"
-               },
-               "instrument_name": {
-                  "anyOf": [
-                     {
-                        "type": "string",
-                        "maxLength": 254
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Instrument Name"
-               },
-               "instrument_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Instrument Data"
-               },
-               "data_asset_location": {
-                  "anyOf": [
-                     {
-                        "type": "string",
-                        "maxLength": 254
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Data Asset Location"
-               },
-               "data_asset_name": {
-                  "anyOf": [
-                     {
-                        "type": "string",
-                        "maxLength": 254
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Data Asset Name"
-               },
-               "data_asset_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Data Asset Data"
-               },
-               "data_asset_external_links": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Data Asset External Links"
-               },
-               "subject_name": {
-                  "anyOf": [
-                     {
-                        "type": "string",
-                        "maxLength": 254
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Subject Name"
-               },
-               "subject_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Subject Data"
-               },
-               "quality_control_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Quality Control Data"
-               }
-            },
+            "properties": {},
             "type": "object",
             "title": "DataAssetView"
          },
@@ -8260,8 +7920,11 @@
          "SubjectProcedureCreate": {
             "properties": {
                "data": {
-                  "additionalProperties": true,
-                  "type": "object",
+                  "items": {
+                     "additionalProperties": true,
+                     "type": "object"
+                  },
+                  "type": "array",
                   "title": "Data"
                },
                "schema_id": {
@@ -8306,8 +7969,11 @@
                "data": {
                   "anyOf": [
                      {
-                        "additionalProperties": true,
-                        "type": "object"
+                        "items": {
+                           "additionalProperties": true,
+                           "type": "object"
+                        },
+                        "type": "array"
                      },
                      {
                         "type": "null"
@@ -8366,8 +8032,11 @@
                   "title": "Id"
                },
                "data": {
-                  "additionalProperties": true,
-                  "type": "object",
+                  "items": {
+                     "additionalProperties": true,
+                     "type": "object"
+                  },
+                  "type": "array",
                   "title": "Data"
                },
                "schema_id": {
