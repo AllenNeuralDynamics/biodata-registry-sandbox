@@ -21,6 +21,7 @@ from biodata_registry_api_client.models.collection_update import CollectionUpdat
 from biodata_registry_api_client.models.collections import Collections
 from biodata_registry_api_client.models.data_asset_create import DataAssetCreate
 from biodata_registry_api_client.models.data_asset_update import DataAssetUpdate
+from biodata_registry_api_client.models.data_asset_view import DataAssetView
 from biodata_registry_api_client.models.data_assets import DataAssets
 from biodata_registry_api_client.models.http_validation_error import HTTPValidationError
 from biodata_registry_api_client.models.instrument_create import InstrumentCreate

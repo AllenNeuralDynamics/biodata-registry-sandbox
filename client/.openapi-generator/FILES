@@ -22,6 +22,7 @@ biodata_registry_api_client/models/collection_update.py
 biodata_registry_api_client/models/collections.py
 biodata_registry_api_client/models/data_asset_create.py
 biodata_registry_api_client/models/data_asset_update.py
+biodata_registry_api_client/models/data_asset_view.py
 biodata_registry_api_client/models/data_assets.py
 biodata_registry_api_client/models/http_validation_error.py
 biodata_registry_api_client/models/instrument_create.py
@@ -80,6 +81,7 @@ docs/Collections.md
 docs/CoreApi.md
 docs/DataAssetCreate.md
 docs/DataAssetUpdate.md
+docs/DataAssetView.md
 docs/DataAssets.md
 docs/HTTPValidationError.md
 docs/InstrumentCreate.md
@@ -144,6 +146,7 @@ test/test_collections.py
 test/test_core_api.py
 test/test_data_asset_create.py
 test/test_data_asset_update.py
+test/test_data_asset_view.py
 test/test_data_assets.py
 test/test_http_validation_error.py
 test/test_instrument_create.py

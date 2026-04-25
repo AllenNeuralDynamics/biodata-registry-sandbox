@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **get_data_asset_view**
-> List[object] get_data_asset_view(data_asset_id=data_asset_id, acquisition_id=acquisition_id, subject_id=subject_id, subject_procedure_id=subject_procedure_id, instrument_id=instrument_id, data_asset_name=data_asset_name, subject_name=subject_name, instrument_name=instrument_name, data_asset_location=data_asset_location, offset=offset, limit=limit)
+> List[DataAssetView] get_data_asset_view(data_asset_id=data_asset_id, acquisition_id=acquisition_id, subject_id=subject_id, subject_procedure_id=subject_procedure_id, instrument_id=instrument_id, data_asset_name=data_asset_name, subject_name=subject_name, instrument_name=instrument_name, data_asset_location=data_asset_location, offset=offset, limit=limit)
 
 Get Data Asset View
 
@@ -17,6 +17,7 @@ Get Data Asset View
 
 ```python
 import biodata_registry_api_client
+from biodata_registry_api_client.models.data_asset_view import DataAssetView
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -73,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**List[object]**
+[**List[DataAssetView]**](DataAssetView.md)
 
 ### Authorization
 

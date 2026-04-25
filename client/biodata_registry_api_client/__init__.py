@@ -38,6 +38,7 @@ __all__ = [
     "Collections",
     "DataAssetCreate",
     "DataAssetUpdate",
+    "DataAssetView",
     "DataAssets",
     "HTTPValidationError",
     "InstrumentCreate",
@@ -111,6 +112,7 @@ from biodata_registry_api_client.models.collection_update import CollectionUpdat
 from biodata_registry_api_client.models.collections import Collections as Collections
 from biodata_registry_api_client.models.data_asset_create import DataAssetCreate as DataAssetCreate
 from biodata_registry_api_client.models.data_asset_update import DataAssetUpdate as DataAssetUpdate
+from biodata_registry_api_client.models.data_asset_view import DataAssetView as DataAssetView
 from biodata_registry_api_client.models.data_assets import DataAssets as DataAssets
 from biodata_registry_api_client.models.http_validation_error import HTTPValidationError as HTTPValidationError
 from biodata_registry_api_client.models.instrument_create import InstrumentCreate as InstrumentCreate

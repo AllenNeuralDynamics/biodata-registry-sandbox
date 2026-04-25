@@ -1,4 +1,3 @@
-import json
 from typing import List, Dict
 from collections import defaultdict
 
@@ -9,6 +8,8 @@ from pymongo import MongoClient, ReplaceOne
 from bson.binary import UuidRepresentation
 from bson.codec_options import CodecOptions
 import uuid
+import os
+import json
 
 TOPICS = [
     "registry.public.data_assets",
@@ -22,13 +23,29 @@ TOPICS = [
     "registry.public.processes"
 ]
 
+KAFKA_SERVER=os.environ['KAFKA_SERVER']
+MONGO_HOST=os.environ['MONGO_HOST']
+MONGO_PORT=int(os.environ['MONGO_PORT'])
+MONGO_USERNAME=os.environ['MONGO_USERNAME']
+MONGO_PASSWORD=os.environ['MONGO_PASSWORD']
+PG_USER=os.environ['PG_USER']
+PG_PASSWORD=os.environ['PG_PASSWORD']
+PG_HOST=os.environ['PG_HOST']
+PG_PORT=os.environ['PG_PORT']
+PG_DBNAME=os.environ['PG_DBNAME']
+PG_INFO=f"host={PG_HOST} port={PG_PORT} dbname={PG_DBNAME} user={PG_USER} password={PG_PASSWORD}"
+
+print("Starting Kafka consumer...")
+
 consumer = KafkaConsumer(
     *TOPICS,
-    bootstrap_servers=['localhost:29092'],
+    bootstrap_servers=[KAFKA_SERVER],
     auto_offset_reset='earliest',
     allow_auto_create_topics=False,
     value_deserializer=lambda m: json.loads(m.decode('utf-8'))
 )
+
+print("Kafka Consumer listening!")
 
 def flatten_data_asset_view_records(p_records: List[Dict]):
     subjects = []
@@ -91,6 +108,12 @@ def handle_subject_change(k_message, d_collection, p_conn):
                 )
         if replace_requests:
             d_collection.bulk_write(replace_requests)
+
+def handle_specimen_change(k_message, d_collection, p_conn):
+    pass
+
+def handle_specimen_procedure_change(k_message, d_collection, p_conn):
+    pass
 
 def handle_subject_procedure_change(k_message, d_collection, p_conn):
     k_subject_id = k_message.value["payload"]["after"].get("subject_id")
@@ -206,30 +229,33 @@ def handle_quality_controls_change(k_message, d_collection, p_conn):
             )
 
 try:
-    pg_conn_info = "host=localhost port=5432 dbname=registry user=user password=password"
+    pg_conn_info = PG_INFO
     namespace = uuid.NAMESPACE_DNS
+    print("Setting up clients...")
     with (
         MongoClient(
-            host="localhost",
-            port=27017,
-            username="admin",
-            password="admin_password"
+            host=MONGO_HOST,
+            port=MONGO_PORT,
+            username=MONGO_USERNAME,
+            password=MONGO_PASSWORD
         ) as mongodb_client,
         psycopg.connect(pg_conn_info, row_factory=dict_row) as conn
     ):
         db = mongodb_client["metadata"]
         opts = CodecOptions(uuid_representation=UuidRepresentation.STANDARD)
         collection = db.get_collection("data_assets", codec_options=opts)
+        print("Client for mongodb and postgres established!")
         for message in consumer:
+            print(f"Handling message: {message.topic}")
             match message.topic:
                 case "registry.public.data_assets":
                     handle_data_asset_change(message, collection, conn)
                 case "registry.public.subjects":
                     handle_subject_change(message, collection, conn)
                 case "registry.public.specimens":
-                    print(message.topic)
+                    handle_specimen_change(message, collection, conn)
                 case "registry.specimen_procedures":
-                    print(message.topic)
+                    handle_specimen_procedure_change(message, collection, conn)
                 case "registry.public.subject_procedures":
                     handle_subject_procedure_change(message, collection, conn)
                 case "registry.public.instruments":
@@ -245,4 +271,5 @@ try:
 except KeyboardInterrupt:
     print("Stopping consumer...")
 finally:
+    print("Closing consumer...")
     consumer.close()

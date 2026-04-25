@@ -16,8 +16,9 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 from typing_extensions import Annotated
+from biodata_registry_api_client.models.data_asset_view import DataAssetView
 
 from biodata_registry_api_client.api_client import ApiClient, RequestSerialized
 from biodata_registry_api_client.api_response import ApiResponse
@@ -63,7 +64,7 @@ class ViewsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[object]:
+    ) -> List[DataAssetView]:
         """Get Data Asset View
 
 
@@ -130,7 +131,7 @@ class ViewsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[object]",
+            '200': "List[DataAssetView]",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -170,7 +171,7 @@ class ViewsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[object]]:
+    ) -> ApiResponse[List[DataAssetView]]:
         """Get Data Asset View
 
 
@@ -237,7 +238,7 @@ class ViewsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[object]",
+            '200': "List[DataAssetView]",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -344,7 +345,7 @@ class ViewsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[object]",
+            '200': "List[DataAssetView]",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(

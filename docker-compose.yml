@@ -50,13 +50,44 @@ services:
   mongodb:
     image: mongo:latest
     container_name: mongodb
-    restart: unless-stopped
     ports: ["27017:27017"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin_password
     volumes:
       - mongo_data:/data/db
+
+  register_connector_sidecar:
+    build: ./register_connector_sidecar
+    container_name: register_connector_sidecar
+    depends_on: [connect]
+    environment:
+      CONNECT_URL: "http://connect:8083/connectors"
+      PG_USER: user
+      PG_PASSWORD: password
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_DBNAME: registry
+    entrypoint: ["python", "-u", "register_connector.py"]
+
+  lambda:
+    build: ./lambda
+    container_name: lambda
+    depends_on:
+      register_connector_sidecar:
+        condition: service_completed_successfully
+    environment:
+      MONGO_HOST: mongodb
+      MONGO_PORT: 27017
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: admin_password
+      PG_USER: user
+      PG_PASSWORD: password
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_DBNAME: registry
+      KAFKA_SERVER: "kafka:9092"
+    entrypoint: ["python", "-u", "sync_registry_docdb.py"]
 
 volumes:
   postgres_data:

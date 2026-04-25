@@ -230,6 +230,7 @@ Class | Method | HTTP request | Description
  - [Collections](docs/Collections.md)
  - [DataAssetCreate](docs/DataAssetCreate.md)
  - [DataAssetUpdate](docs/DataAssetUpdate.md)
+ - [DataAssetView](docs/DataAssetView.md)
  - [DataAssets](docs/DataAssets.md)
  - [HTTPValidationError](docs/HTTPValidationError.md)
  - [InstrumentCreate](docs/InstrumentCreate.md)
