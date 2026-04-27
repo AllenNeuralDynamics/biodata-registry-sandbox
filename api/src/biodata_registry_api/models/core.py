@@ -27,7 +27,6 @@ class SchemaCreate(SQLModel):
     version: str = Field(max_length=50)
     data: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     schema_entity_id: int | None = Field(default=None)
 
@@ -36,7 +35,6 @@ class SchemaUpdate(SQLModel):
     version: str | None = Field(default=None, max_length=50)
     data: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_entity_id: int | None = Field(default=None)
 
@@ -61,38 +59,32 @@ class DataAssetCreate(SQLModel):
     location: str = Field(max_length=254)
     external_links: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     data: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
-    # collection_ids: List[int] = Field(default=[])
 
 class DataAssetUpdate(SQLModel):
     name: str | None = Field(default=None, max_length=254)
     location: str | None = Field(default=None, max_length=254)
     external_links: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     data: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
-    # collection_ids: List[int] | None = Field(default=None)
 
 class DataAssets(SQLModel, table=True):
     __tablename__ = "data_assets"
@@ -126,34 +118,29 @@ class DataAssets(SQLModel, table=True):
         link_model=ProcessInputs,
         sa_relationship_kwargs={'lazy': 'selectin'}
     )
-    # processes: List["Processes"] = Relationship(
-    #     back_populates="processes", link_model=ProcessInputs
-    # )
 
 class SubjectCreate(SQLModel):
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
 
 class SubjectUpdate(SQLModel):
     name: str | None = Field(default=None, max_length=254)
     data: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
 
 class Subjects(SQLModel, table=True):
@@ -183,32 +170,30 @@ class SpecimenCreate(SQLModel):
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     subject_id: int | None = Field(
-        default=None, # foreign_key="subjects.id"
+        default=None,
     )
 
 class SpecimenUpdate(SQLModel):
     name: str | None = Field(default=None, max_length=254)
     data: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     subject_id: int | None = Field(
-        default=None, # foreign_key="subjects.id"
+        default=None,
     )
 
 class Specimens(SQLModel, table=True):
@@ -252,25 +237,23 @@ class Specimens(SQLModel, table=True):
 class SpecimenProcedureCreate(SQLModel):
     data: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
 
 class SpecimenProcedureUpdate(SQLModel):
     data: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
 
 class SpecimenProcedures(SQLModel, table=True):
@@ -300,31 +283,29 @@ class SpecimenProcedures(SQLModel, table=True):
 class SubjectProcedureCreate(SQLModel):
     data: List[Dict[str, Any]] = Field(
         default_factory=list,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     subject_id: int | None = Field(
-        default=None, # foreign_key="subjects.id"
+        default=None,
     )
 
 class SubjectProcedureUpdate(SQLModel):
     data: List[Dict[str, Any]] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     subject_id: int | None = Field(
-        default=None, # foreign_key="subjects.id"
+        default=None,
     )
 
 class SubjectProcedures(SQLModel, table=True):
@@ -353,26 +334,24 @@ class InstrumentCreate(SQLModel):
     name: str = Field(max_length=254)
     data: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
 
 class InstrumentUpdate(SQLModel):
     name: str | None = Field(default=None, max_length=254)
     data: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
 
 class Instruments(SQLModel, table=True):
@@ -396,37 +375,35 @@ class Instruments(SQLModel, table=True):
 class AcquisitionCreate(SQLModel):
     data: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     data_asset_id: int | None = Field(
-        default=None, # foreign_key="data_assets.id"
+        default=None,
     )
     instrument_id: int | None = Field(
-        default=None, # foreign_key="instruments.id"
+        default=None,
     )
 
 class AcquisitionUpdate(SQLModel):
     data: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     data_asset_id: int | None = Field(
-        default=None, # foreign_key="data_assets.id"
+        default=None,
     )
     instrument_id: int | None = Field(
-        default=None, # foreign_key="instruments.id"
+        default=None,
     )
 
 class Acquisitions(SQLModel, table=True):
@@ -462,31 +439,29 @@ class Acquisitions(SQLModel, table=True):
 class QualityControlCreate(SQLModel):
     data: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     data_asset_id: int | None = Field(
-        default=None, # foreign_key="data_assets.id"
+        default=None,
     )
 
 class QualityControlUpdate(SQLModel):
     data: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     data_asset_id: int | None = Field(
-        default=None, # foreign_key="data_assets.id"
+        default=None,
     )
 
 class QualityControls(SQLModel, table=True):
@@ -509,31 +484,29 @@ class QualityControls(SQLModel, table=True):
 class ProcessCreate(SQLModel):
     data: Dict[str, Any] = Field(
         default_factory=dict,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     output_data_asset_id: int | None = Field(
-        default=None, # foreign_key="data_assets.id"
+        default=None,
     )
 
 class ProcessUpdate(SQLModel):
     data: Dict[str, Any] | None = Field(
         default=None,
-        # sa_column=Column(JSONB)
     )
     schema_id: int | None = Field(
-        default=None, # foreign_key="schemas.id"
+        default=None,
     )
     space_id: int | None = Field(
-        default=None, # foreign_key="spaces.id"
+        default=None,
     )
     output_data_asset_id: int | None = Field(
-        default=None, # foreign_key="data_assets.id"
+        default=None,
     )
 
 class Processes(SQLModel, table=True):
@@ -557,6 +530,3 @@ class Processes(SQLModel, table=True):
         link_model=ProcessInputs,
         sa_relationship_kwargs={'lazy': 'selectin'}
     )
-#     data_assets: List["DataAssets"] = Relationship(
-#         back_populates="data_assets", link_model=ProcessInputs
-#     )

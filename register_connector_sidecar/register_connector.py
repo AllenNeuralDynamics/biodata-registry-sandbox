@@ -41,10 +41,13 @@ content = {
   }
 }
 
-json_bytes = json.dumps(content).encode('utf-8')
-
-req = urllib.request.Request(CONNECT_URL, data=json_bytes, method='POST')
-req.add_header('Content-Type', 'application/json; charset=utf-8')
+headers = {"Content-Type": "application/json"}
+req = urllib.request.Request(
+    CONNECT_URL,
+    headers=headers,
+    data=json.dumps(content).encode('utf-8'),
+    method='POST'
+)
 
 with urllib.request.urlopen(req) as response:
     result = json.loads(response.read().decode('utf-8'))

@@ -2,10 +2,29 @@
 
 Sandbox repo to prototype different ideas for a biodata registry.
 
-### Getting started
+## Getting started
+
+- To start all the necessary services from scratch, run:
+```
+docker compose up -d --build
+```
+- It will take a minute for everything to be up and running. To check the status:
+```
+docker ps
+```
+- If you see a container called "lambda" running, then everything is good to go.
+- For the initial database population, install the client library and run 
+the populate_database_v2.py script in the `examples` directory:
+```
+python populate_database_v2.py
+```
+It may take a few minutes to run and then several minutes for the `lambda` 
+function to sync changes to MongoDB and ElasticSearch.
+
+## Building the Services
 
 - Creating python client
-- From api directory:
+- From api directory (todo: the views table needs some work to automate):
 ```
 python templates/dump_sql.py
 ```
