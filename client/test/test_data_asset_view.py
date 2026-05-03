@@ -40,6 +40,7 @@ class TestDataAssetView(unittest.TestCase):
                 subject_id = 56,
                 process_id = 56,
                 subject_procedure_id = 56,
+                quality_control_id = 56,
                 acquisition_data = { },
                 processes_data = { },
                 instrument_name = '',

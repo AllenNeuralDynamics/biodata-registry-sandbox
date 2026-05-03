@@ -16,6 +16,7 @@ class DataAssetView(SQLModel, table=True):
     #         Subjects.id.label("subject_id"),
     #         Processes.id.label("process_id"),
     #         SubjectProcedures.id.label("subject_procedure_id"),
+    #         QualityControls.id.label("quality_control_id"),
     #         Instruments.id.label("instrument_id"),
     #         Processes.data.label("processes_data"),
     #         Acquisitions.data.label("acquisition_data"),
@@ -59,6 +60,9 @@ class DataAssetView(SQLModel, table=True):
         default=None, primary_key=True
     )
     subject_procedure_id: int | None = Field(
+        default=None, primary_key=True
+    )
+    quality_control_id: int | None = Field(
         default=None, primary_key=True
     )
     acquisition_data: Dict[str, Any] = Field(

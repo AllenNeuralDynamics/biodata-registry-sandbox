@@ -6572,6 +6572,17 @@
                   ],
                   "title": "Subject Procedure Id"
                },
+               "quality_control_id": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Quality Control Id"
+               },
                "acquisition_data": {
                   "additionalProperties": true,
                   "type": "object",

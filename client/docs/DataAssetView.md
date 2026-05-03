@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **subject_id** | **int** |  | [optional] 
 **process_id** | **int** |  | [optional] 
 **subject_procedure_id** | **int** |  | [optional] 
+**quality_control_id** | **int** |  | [optional] 
 **acquisition_data** | **Dict[str, object]** |  | [optional] 
 **processes_data** | **Dict[str, object]** |  | [optional] 
 **instrument_name** | **str** |  | [optional] 

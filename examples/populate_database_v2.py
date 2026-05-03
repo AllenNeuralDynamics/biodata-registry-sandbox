@@ -172,7 +172,7 @@ subjects_seen = set()
 instruments_seen = set()
 counter = 0
 total_records = len(filtered_records)
-for record in filtered_records[0:200]:
+for record in filtered_records[0:400]:
     counter += 1
     if counter % 100 == 0:
         print(f"On {counter} of {total_records}")
@@ -193,9 +193,10 @@ for record in filtered_records[0:200]:
     name = data_description["name"]
     acquisition = record["acquisition"]
     quality_controls = record["quality_control"]
+    quality_control_metrics = [] if quality_controls is None else quality_controls.get("metrics", [])
     processes = record["processing"]
     procedures = record["procedures"]
-    subject_procedures = procedures.get("subject_procedures")
+    subject_procedures = [] if procedures is None else procedures.get("subject_procedures", [])
     if subject_id not in subjects_seen:
         subjects_seen.add(subject["subject_id"])
         registered_subject = core_api.create_subject(
@@ -206,14 +207,15 @@ for record in filtered_records[0:200]:
                 data=subject
             )
         )
-        registered_subject_procedures = core_api.create_subject_procedure(
-            SubjectProcedureCreate(
-                space_id=1,
-                schema_id=schema_id_map["subject_procedures"],
-                subject_id=registered_subject.id,
-                data=subject_procedures,
+        for subject_procedure in subject_procedures:
+            registered_subject_procedures = core_api.create_subject_procedure(
+                SubjectProcedureCreate(
+                    space_id=1,
+                    schema_id=schema_id_map["subject_procedures"],
+                    subject_id=registered_subject.id,
+                    data=subject_procedures,
+                )
             )
-        )
     else:
         # TODO: Cache things to avoid fetching from DB
         registered_subject = core_api.get_subjects(name=subject_id)[0]
@@ -252,14 +254,15 @@ for record in filtered_records[0:200]:
         id=registered_acquisition.id,
         subject_id=registered_subject.id,
     )
-    registered_quality_control = core_api.create_quality_control(
-        QualityControlCreate(
-            space_id=1,
-            schema_id=schema_id_map["quality_control"],
-            data_asset_id=registered_data_asset.id,
-            data=quality_controls
+    for quality_control_metric in quality_control_metrics:
+        registered_quality_control = core_api.create_quality_control(
+            QualityControlCreate(
+                space_id=1,
+                schema_id=schema_id_map["quality_control"],
+                data_asset_id=registered_data_asset.id,
+                data=quality_control_metric
+            )
         )
-    )
     registered_processes = core_api.create_process(
         ProcessCreate(
             space_id=1,
