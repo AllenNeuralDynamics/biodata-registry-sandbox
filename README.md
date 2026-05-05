@@ -55,3 +55,11 @@ docker compose up --build
 ```
 curl -X POST -H "Content-Type: application/json" --data @lambda/register-postgres.json http://localhost:8083/connectors
 ```
+
+
+### Generating static redocs site
+```
+docker run --rm \
+  -u "$(id -u):$(id -g)" \
+  -v ${PWD}:/spec redocly/cli build-docs /spec/api/templates/openapi.json -o index.html
+```
