@@ -171,7 +171,7 @@ async def add_collection_data_asset(
         raise HTTPException(
             status_code=404, detail=f"{data_asset_id} not found!"
         )
-    row.data_assets.add(foreign_row)
+    row.data_assets.append(foreign_row)
     session.add(row)
     await session.commit()
     await session.refresh(row)
