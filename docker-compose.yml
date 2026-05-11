@@ -45,7 +45,12 @@ services:
     container_name: registry_api
     depends_on: [postgres]
     ports: ["5000:80"]
-    env_file: "./api/env/webapp.env"
+    environment:
+      REGISTRY_HOST: postgres
+      REGISTRY_USER: user
+      REGISTRY_PORT: 5432
+      REGISTRY_PASSWORD: password
+      REGISTRY_DATABASE: registry
 
   mongodb:
     image: mongo:latest
