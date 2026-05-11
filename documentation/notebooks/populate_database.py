@@ -26,6 +26,12 @@ import json
 import gzip
 import re
 
+try:
+    from tqdm.auto import tqdm
+except ImportError:
+    def tqdm(iterable, **_):
+        return iterable
+
 THIS_DIR = Path(__file__).resolve().parent
 SCHEMA_DIR = THIS_DIR / ".." / ".." / "examples" / "schema_definitions"
 
@@ -173,12 +179,8 @@ for record in docdb_records:
 
 subjects_seen = set()
 instruments_seen = set()
-counter = 0
-total_records = len(filtered_records)
-for record in filtered_records[0:400]:
-    counter += 1
-    if counter % 100 == 0:
-        print(f"On {counter} of {total_records}")
+records_to_load = filtered_records[0:400]
+for record in tqdm(records_to_load, desc="Populating registry", unit="record"):
     subject = record["subject"]
     subject_id = subject["subject_id"]
     instrument = record["instrument"]
