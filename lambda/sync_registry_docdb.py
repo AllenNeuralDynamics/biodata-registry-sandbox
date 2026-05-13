@@ -40,11 +40,15 @@ PG_INFO=f"host={PG_HOST} port={PG_PORT} dbname={PG_DBNAME} user={PG_USER} passwo
 
 print("Starting Kafka consumer...")
 
+# Use confluent-kafka (librdkafka) rather than kafka-python. The pure-Python client stalls in
+# a 100% CPU / busy-fetch loop when a record larger than its initial buffer arrives mid-session,
+# even with max_partition_fetch_bytes raised. librdkafka handles oversized records cleanly.
 consumer = Consumer({
     'bootstrap.servers': KAFKA_SERVER,
     'group.id': 'biodata-registry-sync',
     'auto.offset.reset': 'earliest',
     'enable.auto.commit': True,
+    # Match the broker/connect 16 MiB ceiling.
     'message.max.bytes': 16 * 1024 * 1024,
     'max.partition.fetch.bytes': 16 * 1024 * 1024,
 })
@@ -159,6 +163,9 @@ try:
             username=MONGO_USERNAME,
             password=MONGO_PASSWORD
         ) as mongodb_client,
+        # autocommit=True so each read-only handler query is its own transaction.
+        # Without this, psycopg keeps the connection in a single long-running transaction
+        # which postgres slows down progressively as MVCC snapshots accumulate.
         psycopg.connect(pg_conn_info, row_factory=dict_row, autocommit=True) as conn
     ):
         db = mongodb_client[MONGO_DBNAME]
