@@ -1,7 +1,7 @@
 from typing import List, Dict
 from collections import defaultdict
 
-from kafka import KafkaConsumer
+from confluent_kafka import Consumer, KafkaError
 import psycopg
 from psycopg.rows import dict_row
 from pymongo import MongoClient, ReplaceOne
@@ -40,13 +40,19 @@ PG_INFO=f"host={PG_HOST} port={PG_PORT} dbname={PG_DBNAME} user={PG_USER} passwo
 
 print("Starting Kafka consumer...")
 
-consumer = KafkaConsumer(
-    *TOPICS,
-    bootstrap_servers=[KAFKA_SERVER],
-    auto_offset_reset='earliest',
-    allow_auto_create_topics=False,
-    value_deserializer=lambda m: json.loads(m.decode('utf-8'))
-)
+# Use confluent-kafka (librdkafka) rather than kafka-python. The pure-Python client stalls in
+# a 100% CPU / busy-fetch loop when a record larger than its initial buffer arrives mid-session,
+# even with max_partition_fetch_bytes raised. librdkafka handles oversized records cleanly.
+consumer = Consumer({
+    'bootstrap.servers': KAFKA_SERVER,
+    'group.id': 'biodata-registry-sync',
+    'auto.offset.reset': 'earliest',
+    'enable.auto.commit': True,
+    # Match the broker/connect 16 MiB ceiling.
+    'message.max.bytes': 16 * 1024 * 1024,
+    'max.partition.fetch.bytes': 16 * 1024 * 1024,
+})
+consumer.subscribe(TOPICS)
 
 print("Kafka Consumer listening!")
 
@@ -157,39 +163,53 @@ try:
             username=MONGO_USERNAME,
             password=MONGO_PASSWORD
         ) as mongodb_client,
-        psycopg.connect(pg_conn_info, row_factory=dict_row) as conn
+        # autocommit=True so each read-only handler query is its own transaction.
+        # Without this, psycopg keeps the connection in a single long-running transaction
+        # which postgres slows down progressively as MVCC snapshots accumulate.
+        psycopg.connect(pg_conn_info, row_factory=dict_row, autocommit=True) as conn
     ):
         db = mongodb_client[MONGO_DBNAME]
         opts = CodecOptions(uuid_representation=UuidRepresentation.STANDARD)
         collection = db.get_collection(MONGO_DB_COLLECTION, codec_options=opts)
         print("Clients for databases established!")
-        for message in consumer:
-            print(f"Handling message: {message.topic}")
-            match message.topic:
+        while True:
+            message = consumer.poll(timeout=1.0)
+            if message is None:
+                continue
+            if message.error():
+                err = message.error()
+                if err.code() == KafkaError._PARTITION_EOF:
+                    continue
+                print(f"Consumer error: {err}")
+                continue
+            topic = message.topic()
+            value = json.loads(message.value().decode('utf-8'))
+            print(f"Handling message: {topic}")
+            match topic:
                 case "registry.public.data_assets":
-                    data_asset_id = message.value["payload"]["after"].get("id")
+                    data_asset_id = value["payload"]["after"].get("id")
                     handle_data_asset_change(collection, conn, data_asset_id)
                 case "registry.public.subjects":
-                    subject_id = message.value["payload"]["after"].get("id")
+                    subject_id = value["payload"]["after"].get("id")
                     handle_subject_change(collection, conn, subject_id)
                 case "registry.public.specimens":
                     handle_specimen_change(message, collection, conn)
                 case "registry.specimen_procedures":
                     handle_specimen_procedure_change(message, collection, conn)
                 case "registry.public.subject_procedures":
-                    subject_id = message.value["payload"]["after"].get("subject_id")
+                    subject_id = value["payload"]["after"].get("subject_id")
                     handle_subject_change(collection, conn, subject_id)
                 case "registry.public.instruments":
-                    instrument_id = message.value["payload"]["after"].get("instrument_id")
+                    instrument_id = value["payload"]["after"].get("instrument_id")
                     handle_instrument_change(collection, conn, instrument_id)
                 case "registry.public.acquisitions":
-                    data_asset_id = message.value["payload"]["after"].get("data_asset_id")
+                    data_asset_id = value["payload"]["after"].get("data_asset_id")
                     handle_data_asset_change(collection, conn, data_asset_id)
                 case "registry.public.quality_controls":
-                    data_asset_id = message.value["payload"]["after"].get("data_asset_id")
+                    data_asset_id = value["payload"]["after"].get("data_asset_id")
                     handle_data_asset_change(collection, conn, data_asset_id)
                 case "registry.public.processes":
-                    data_asset_id = message.value["payload"]["after"].get("output_data_asset_id")
+                    data_asset_id = value["payload"]["after"].get("output_data_asset_id")
                     handle_data_asset_change(collection, conn, data_asset_id)
                 case _:
                     print("Unknown topic")
