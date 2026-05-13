@@ -88,7 +88,7 @@ def add_records_to_databases(d_collection, p_records):
     for k_data_asset_id, p_records in p_records.items():
         mongo_db_record = flatten_data_asset_view_records(p_records)
         if mongo_db_record is not None:
-            hashed_uuid = str(uuid.uuid5(namespace, str(k_data_asset_id)))
+            hashed_uuid = str(uuid.uuid5(uuid.NAMESPACE_DNS, str(k_data_asset_id)))
             mongo_db_record["_id"] = hashed_uuid
             replace_requests.append(
                 ReplaceOne(
@@ -148,7 +148,6 @@ def handle_instrument_change(d_collection, p_conn, k_instrument_id):
 
 try:
     pg_conn_info = PG_INFO
-    namespace = uuid.NAMESPACE_DNS
     print("Setting up clients...")
     with (
         MongoClient(
@@ -157,7 +156,7 @@ try:
             username=MONGO_USERNAME,
             password=MONGO_PASSWORD
         ) as mongodb_client,
-        psycopg.connect(pg_conn_info, row_factory=dict_row) as conn
+        psycopg.connect(pg_conn_info, row_factory=dict_row, autocommit=True) as conn
     ):
         db = mongodb_client[MONGO_DBNAME]
         opts = CodecOptions(uuid_representation=UuidRepresentation.STANDARD)

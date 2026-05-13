@@ -14,6 +14,8 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_MESSAGE_MAX_BYTES: 10485760
+      KAFKA_REPLICA_FETCH_MAX_BYTES: 10485760
 
   connect:
     image: quay.io/debezium/connect:3.1
@@ -27,6 +29,7 @@ services:
       STATUS_STORAGE_TOPIC: connect_statuses
       KEY_CONVERTER_SCHEMAS_ENABLE: "false"
       VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_PRODUCER_MAX_REQUEST_SIZE: 10485760
 
   postgres:
     image: debezium/postgres:15
@@ -124,9 +127,31 @@ services:
       PG_PORT: 5432
       PG_DBNAME: registry
       KAFKA_SERVER: "kafka:9092"
-      ES_URL: "http://elasticsearch:9200"
-      ES_INDEX: data_assets
+#      ES_URL: "http://elasticsearch:9200"
+#      ES_INDEX: data_assets
     entrypoint: ["python", "-u", "sync_registry_docdb.py"]
+
+  cron_job:
+    build: ./cron_job
+    restart: unless-stopped
+    container_name: cron_job
+    depends_on:
+      lambda:
+        condition: service_started
+      mongodb:
+        condition: service_started
+    environment:
+      MONGO_HOST: mongodb
+      MONGO_PORT: 27017
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: admin_password
+      MONGO_DBNAME: metadata
+      MONGO_DB_COLLECTION: data_assets
+      PG_USER: user
+      PG_PASSWORD: password
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_DBNAME: registry
 
 volumes:
   postgres_data:
