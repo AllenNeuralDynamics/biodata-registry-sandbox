@@ -5,6 +5,7 @@ from urllib.parse import quote_plus
 from aind_settings_utils.aws import SecretsManagerBaseSettings
 from pydantic import Field, SecretStr
 from pydantic_settings import SettingsConfigDict
+from typing import Optional
 
 
 class Settings(SecretsManagerBaseSettings):
@@ -25,6 +26,10 @@ class Settings(SecretsManagerBaseSettings):
     )
     user: str = Field(..., title="User", description="User")
     password: SecretStr = Field(..., title="Password", description="Password")
+    ssl_cert: Optional[str] = Field(
+        default=None,
+        description="Path to SSL certificate file"
+    )
 
     @property
     def db_connection_str(self):
