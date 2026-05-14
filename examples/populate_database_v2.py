@@ -172,7 +172,7 @@ subjects_seen = set()
 instruments_seen = set()
 counter = 0
 total_records = len(filtered_records)
-for record in filtered_records[0:400]:
+for record in filtered_records:
     counter += 1
     if counter % 100 == 0:
         print(f"On {counter} of {total_records}")
