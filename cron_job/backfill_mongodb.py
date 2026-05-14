@@ -8,6 +8,7 @@ from bson.binary import UuidRepresentation
 from bson.codec_options import CodecOptions
 import uuid
 import os
+import argparse
 
 MONGO_HOST=os.environ['MONGO_HOST']
 MONGO_PORT=int(os.environ['MONGO_PORT'])
@@ -92,7 +93,7 @@ def handle_data_asset_changes(d_collection, p_conn, k_data_asset_ids):
                 p_record_groups[k_data_asset_id].append(p_record)
         add_records_to_databases(d_collection, p_record_groups)
 
-def main():
+def main(backfill_all: bool = False):
     # TODO add filter on last_modified when info is added
     pg_conn_info = PG_INFO
     with (
@@ -112,9 +113,17 @@ def main():
             cur.execute("SELECT id FROM data_assets")
             for p_record in cur:
                 data_asset_ids.append(p_record["id"])
-        mongodb_ids = [row["data_asset_id"] for row in collection.find({}, projection={"data_asset_id": 1}).to_list()]
-        missing_ids = list(set(data_asset_ids).difference(set(mongodb_ids)))
-        print(f"Backfilling {len(missing_ids)} missing records")
+        if backfill_all:
+            missing_ids = data_asset_ids
+        else:
+            mongodb_ids = [
+                row["data_asset_id"] for row in collection.find(
+                    {},
+                    projection={"data_asset_id": 1}
+                ).to_list()
+            ]
+            missing_ids = list(set(data_asset_ids).difference(set(mongodb_ids)))
+        print(f"Backfilling {len(missing_ids)} records")
         missing_ids.sort()
         pages = partition(missing_ids, 50)
         for page in pages:
@@ -123,6 +132,9 @@ def main():
 
 if __name__ == "__main__":
     try:
-        main()
+        parser = argparse.ArgumentParser(description="Run backfill.")
+        parser.add_argument('--all', action='store_true', help="Migrate all data asset records.")
+        args = parser.parse_args()
+        main(args.all)
     except Exception as e:
         print(f"There was an exception running the script: {e}")
