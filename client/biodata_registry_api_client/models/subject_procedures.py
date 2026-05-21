@@ -28,7 +28,7 @@ class SubjectProcedures(BaseModel):
     SubjectProcedures
     """ # noqa: E501
     id: Optional[StrictInt] = None
-    data: Optional[List[Dict[str, Any]]] = None
+    data: Optional[Dict[str, Any]] = None
     schema_id: Optional[StrictInt] = None
     space_id: Optional[StrictInt] = None
     subject_id: Optional[StrictInt] = None

@@ -27,7 +27,7 @@ class SubjectProcedureUpdate(BaseModel):
     """
     SubjectProcedureUpdate
     """ # noqa: E501
-    data: Optional[List[Optional[Dict[str, Any]]]] = None
+    data: Optional[Dict[str, Any]] = None
     schema_id: Optional[StrictInt] = None
     space_id: Optional[StrictInt] = None
     subject_id: Optional[StrictInt] = None

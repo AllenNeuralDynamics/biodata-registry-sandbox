@@ -38,13 +38,13 @@ class TestDataAssetView(unittest.TestCase):
                 data_asset_id = 56,
                 acquisition_id = 56,
                 subject_id = 56,
-                process_id = 56,
-                subject_procedure_id = 56,
-                quality_control_id = 56,
                 acquisition_data = { },
-                processes_data = { },
-                instrument_name = '',
-                instrument_data = { },
+                processes_data = [
+                    { }
+                    ],
+                instrument_data = [
+                    { }
+                    ],
                 data_asset_location = '',
                 data_asset_name = '',
                 data_asset_data = { },
@@ -54,10 +54,24 @@ class TestDataAssetView(unittest.TestCase):
                 subject_procedures_data = [
                     { }
                     ],
-                quality_control_data = { }
+                quality_control_data = [
+                    { }
+                    ]
             )
         else:
             return DataAssetView(
+                processes_data = [
+                    { }
+                    ],
+                instrument_data = [
+                    { }
+                    ],
+                subject_procedures_data = [
+                    { }
+                    ],
+                quality_control_data = [
+                    { }
+                    ],
         )
         """
 

@@ -2,6 +2,7 @@
 
 \c registry;
 
+CREATE EXTENSION IF NOT EXISTS pg_cron;
 
 CREATE TABLE users (
 	id SERIAL NOT NULL, 
@@ -285,5 +286,34 @@ CREATE TABLE acquisition_specimens (
 )
 
 ;
-CREATE VIEW data_asset_view AS SELECT data_assets.id AS data_asset_id, acquisitions.id AS acquisition_id, subjects.id AS subject_id, processes.id AS process_id, subject_procedures.id AS subject_procedure_id, quality_controls.id AS quality_control_id, instruments.id AS instrument_id, processes.data AS processes_data, acquisitions.data AS acquisition_data, instruments.name AS instrument_name, instruments.data AS instrument_data, data_assets.location AS data_asset_location, data_assets.name AS data_asset_name, data_assets.data AS data_asset_data, data_assets.external_links AS data_asset_external_links, subjects.name AS subject_name, subjects.data AS subject_data, subject_procedures.data AS subject_procedures_data, quality_controls.data AS quality_control_data 
-FROM data_assets LEFT OUTER JOIN acquisitions ON data_assets.id = acquisitions.data_asset_id LEFT OUTER JOIN instruments ON instruments.id = acquisitions.instrument_id LEFT OUTER JOIN quality_controls ON data_assets.id = quality_controls.data_asset_id LEFT OUTER JOIN processes ON data_assets.id = processes.output_data_asset_id JOIN acquisition_subjects ON acquisitions.id = acquisition_subjects.acquisition_id JOIN subjects ON subjects.id = acquisition_subjects.subject_id LEFT OUTER JOIN subject_procedures ON subject_procedures.subject_id = subjects.id;
+CREATE MATERIALIZED VIEW
+  data_asset_view
+AS SELECT
+  data_assets.id AS data_asset_id,
+  acquisitions.id AS acquisition_id,
+  subjects.id AS subject_id,
+  ARRAY_AGG(processes.data) FILTER (WHERE processes.data IS NOT NULL) AS processes_data ,
+  acquisitions.data AS acquisition_data,
+  ARRAY_AGG(instruments.data) FILTER (WHERE instruments.data IS NOT NULL) AS instrument_data ,
+  data_assets.location AS data_asset_location,
+  data_assets.name AS data_asset_name,
+  data_assets.data AS data_asset_data,
+  data_assets.external_links AS data_asset_external_links,
+  subjects.name AS subject_name,
+  subjects.data AS subject_data,
+  ARRAY_AGG(subject_procedures.data) FILTER (WHERE subject_procedures.data IS NOT NULL) AS subject_procedures_data,
+  ARRAY_AGG(quality_controls.data) FILTER (WHERE quality_controls.data IS NOT NULL) AS quality_control_data
+FROM
+  data_assets
+LEFT OUTER JOIN acquisitions ON data_assets.id = acquisitions.data_asset_id
+LEFT OUTER JOIN instruments ON instruments.id = acquisitions.instrument_id
+LEFT OUTER JOIN quality_controls ON data_assets.id = quality_controls.data_asset_id
+LEFT OUTER JOIN processes ON data_assets.id = processes.output_data_asset_id
+JOIN acquisition_subjects ON acquisitions.id = acquisition_subjects.acquisition_id
+JOIN subjects ON subjects.id = acquisition_subjects.subject_id
+LEFT OUTER JOIN subject_procedures ON subject_procedures.subject_id = subjects.id
+GROUP BY data_assets.id, subjects.id, acquisitions.id;
+
+CREATE UNIQUE INDEX idx_data_asset_view_ids ON data_asset_view (data_asset_id, acquisition_id, subject_id);
+
+SELECT cron.schedule('refresh_data_asset_view', '*/10 * * * *', 'REFRESH MATERIALIZED VIEW CONCURRENTLY data_asset_view;');

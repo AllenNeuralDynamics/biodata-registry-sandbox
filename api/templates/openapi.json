@@ -6550,64 +6550,39 @@
                   ],
                   "title": "Subject Id"
                },
-               "process_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Process Id"
-               },
-               "subject_procedure_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Subject Procedure Id"
-               },
-               "quality_control_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Quality Control Id"
-               },
                "acquisition_data": {
                   "additionalProperties": true,
                   "type": "object",
                   "title": "Acquisition Data"
                },
                "processes_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Processes Data"
-               },
-               "instrument_name": {
                   "anyOf": [
                      {
-                        "type": "string",
-                        "maxLength": 254
+                        "items": {
+                           "additionalProperties": true,
+                           "type": "object"
+                        },
+                        "type": "array"
                      },
                      {
                         "type": "null"
                      }
                   ],
-                  "title": "Instrument Name"
+                  "title": "Processes Data"
                },
                "instrument_data": {
-                  "additionalProperties": true,
-                  "type": "object",
+                  "anyOf": [
+                     {
+                        "items": {
+                           "additionalProperties": true,
+                           "type": "object"
+                        },
+                        "type": "array"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
                   "title": "Instrument Data"
                },
                "data_asset_location": {
@@ -6662,20 +6637,43 @@
                   "title": "Subject Data"
                },
                "subject_procedures_data": {
-                  "items": {
-                     "additionalProperties": true,
-                     "type": "object"
-                  },
-                  "type": "array",
+                  "anyOf": [
+                     {
+                        "items": {
+                           "additionalProperties": true,
+                           "type": "object"
+                        },
+                        "type": "array"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
                   "title": "Subject Procedures Data"
                },
                "quality_control_data": {
-                  "additionalProperties": true,
-                  "type": "object",
+                  "anyOf": [
+                     {
+                        "items": {
+                           "additionalProperties": true,
+                           "type": "object"
+                        },
+                        "type": "array"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
                   "title": "Quality Control Data"
                }
             },
             "type": "object",
+            "required": [
+               "processes_data",
+               "instrument_data",
+               "subject_procedures_data",
+               "quality_control_data"
+            ],
             "title": "DataAssetView"
          },
          "DataAssets": {
@@ -8078,11 +8076,8 @@
          "SubjectProcedureCreate": {
             "properties": {
                "data": {
-                  "items": {
-                     "additionalProperties": true,
-                     "type": "object"
-                  },
-                  "type": "array",
+                  "additionalProperties": true,
+                  "type": "object",
                   "title": "Data"
                },
                "schema_id": {
@@ -8127,11 +8122,8 @@
                "data": {
                   "anyOf": [
                      {
-                        "items": {
-                           "additionalProperties": true,
-                           "type": "object"
-                        },
-                        "type": "array"
+                        "additionalProperties": true,
+                        "type": "object"
                      },
                      {
                         "type": "null"
@@ -8190,11 +8182,8 @@
                   "title": "Id"
                },
                "data": {
-                  "items": {
-                     "additionalProperties": true,
-                     "type": "object"
-                  },
-                  "type": "array",
+                  "additionalProperties": true,
+                  "type": "object",
                   "title": "Data"
                },
                "schema_id": {

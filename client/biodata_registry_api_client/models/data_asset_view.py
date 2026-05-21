@@ -31,22 +31,18 @@ class DataAssetView(BaseModel):
     data_asset_id: Optional[StrictInt] = None
     acquisition_id: Optional[StrictInt] = None
     subject_id: Optional[StrictInt] = None
-    process_id: Optional[StrictInt] = None
-    subject_procedure_id: Optional[StrictInt] = None
-    quality_control_id: Optional[StrictInt] = None
     acquisition_data: Optional[Dict[str, Any]] = None
-    processes_data: Optional[Dict[str, Any]] = None
-    instrument_name: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
-    instrument_data: Optional[Dict[str, Any]] = None
+    processes_data: Optional[List[Optional[Dict[str, Any]]]]
+    instrument_data: Optional[List[Dict[str, Any]]]
     data_asset_location: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
     data_asset_name: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
     data_asset_data: Optional[Dict[str, Any]] = None
     data_asset_external_links: Optional[Dict[str, Any]] = None
     subject_name: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
     subject_data: Optional[Dict[str, Any]] = None
-    subject_procedures_data: Optional[List[Optional[Dict[str, Any]]]] = None
-    quality_control_data: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["data_asset_id", "acquisition_id", "subject_id", "process_id", "subject_procedure_id", "quality_control_id", "acquisition_data", "processes_data", "instrument_name", "instrument_data", "data_asset_location", "data_asset_name", "data_asset_data", "data_asset_external_links", "subject_name", "subject_data", "subject_procedures_data", "quality_control_data"]
+    subject_procedures_data: Optional[List[Dict[str, Any]]]
+    quality_control_data: Optional[List[Dict[str, Any]]]
+    __properties: ClassVar[List[str]] = ["data_asset_id", "acquisition_id", "subject_id", "acquisition_data", "processes_data", "instrument_data", "data_asset_location", "data_asset_name", "data_asset_data", "data_asset_external_links", "subject_name", "subject_data", "subject_procedures_data", "quality_control_data"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -102,25 +98,15 @@ class DataAssetView(BaseModel):
         if self.subject_id is None and "subject_id" in self.model_fields_set:
             _dict['subject_id'] = None
 
-        # set to None if process_id (nullable) is None
+        # set to None if processes_data (nullable) is None
         # and model_fields_set contains the field
-        if self.process_id is None and "process_id" in self.model_fields_set:
-            _dict['process_id'] = None
+        if self.processes_data is None and "processes_data" in self.model_fields_set:
+            _dict['processes_data'] = None
 
-        # set to None if subject_procedure_id (nullable) is None
+        # set to None if instrument_data (nullable) is None
         # and model_fields_set contains the field
-        if self.subject_procedure_id is None and "subject_procedure_id" in self.model_fields_set:
-            _dict['subject_procedure_id'] = None
-
-        # set to None if quality_control_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.quality_control_id is None and "quality_control_id" in self.model_fields_set:
-            _dict['quality_control_id'] = None
-
-        # set to None if instrument_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.instrument_name is None and "instrument_name" in self.model_fields_set:
-            _dict['instrument_name'] = None
+        if self.instrument_data is None and "instrument_data" in self.model_fields_set:
+            _dict['instrument_data'] = None
 
         # set to None if data_asset_location (nullable) is None
         # and model_fields_set contains the field
@@ -137,6 +123,16 @@ class DataAssetView(BaseModel):
         if self.subject_name is None and "subject_name" in self.model_fields_set:
             _dict['subject_name'] = None
 
+        # set to None if subject_procedures_data (nullable) is None
+        # and model_fields_set contains the field
+        if self.subject_procedures_data is None and "subject_procedures_data" in self.model_fields_set:
+            _dict['subject_procedures_data'] = None
+
+        # set to None if quality_control_data (nullable) is None
+        # and model_fields_set contains the field
+        if self.quality_control_data is None and "quality_control_data" in self.model_fields_set:
+            _dict['quality_control_data'] = None
+
         return _dict
 
     @classmethod
@@ -152,12 +148,8 @@ class DataAssetView(BaseModel):
             "data_asset_id": obj.get("data_asset_id"),
             "acquisition_id": obj.get("acquisition_id"),
             "subject_id": obj.get("subject_id"),
-            "process_id": obj.get("process_id"),
-            "subject_procedure_id": obj.get("subject_procedure_id"),
-            "quality_control_id": obj.get("quality_control_id"),
             "acquisition_data": obj.get("acquisition_data"),
             "processes_data": obj.get("processes_data"),
-            "instrument_name": obj.get("instrument_name"),
             "instrument_data": obj.get("instrument_data"),
             "data_asset_location": obj.get("data_asset_location"),
             "data_asset_name": obj.get("data_asset_name"),

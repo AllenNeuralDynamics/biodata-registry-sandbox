@@ -32,22 +32,22 @@ data_asset_view = views_api.get_data_asset_view(data_asset_id=1)
 ## Postgres
 pg_conn_info=f"host=localhost port=5432 dbname=registry user=user password=password"
 
-pg_results = defaultdict(list)
+pg_results = []
 with psycopg.connect(pg_conn_info, row_factory=dict_row) as conn:
     with conn.cursor() as cur:
-        cur.execute(
-            "SELECT * FROM data_asset_view WHERE data_asset_id = %s;",
-            (1,)
-        )
+        cur.execute("SELECT * FROM data_asset_view;")
         for p_record in cur:
-            k_data_asset_id = p_record["data_asset_id"]
-            pg_results[k_data_asset_id].append(p_record)
+            pg_results.append(p_record)
 pg_results = json.loads(json.dumps(pg_results))
 print(pg_results)
 
+with psycopg.connect(pg_conn_info) as conn:
+    with conn.cursor() as cur:
+        cur.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY data_asset_view;")
+
 ## MongoDB
 with MongoClient(
-        host="localhost",
+        host="aind-biodata-registry",
         port=27017,
         username="admin",
         password="admin_password"
@@ -55,7 +55,7 @@ with MongoClient(
     db = mongodb_client["metadata"]
     opts = CodecOptions(uuid_representation=UuidRepresentation.STANDARD)
     collection = db.get_collection("data_assets", codec_options=opts)
-    mongodb_results = collection.find().limit(500).to_list()
+    mongodb_results = collection.count_documents({})
     # mongodb_results = collection.find().limit(1).to_list()
 
 print(mongodb_results[0]["subjects"])

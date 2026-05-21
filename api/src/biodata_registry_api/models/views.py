@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel, select, Field, Column
 from sqlalchemy_utils.view import create_view
 from typing import Dict, Any, List
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.dialects.postgresql import JSONB, JSON
 from biodata_registry_api.models.core import Acquisitions, DataAssets, Subjects, QualityControls, Instruments, Processes, SubjectProcedures
 from biodata_registry_api.models.link_tables import AcquisitionSubjects
 
@@ -47,6 +47,7 @@ class DataAssetView(SQLModel, table=True):
     #     )
     # )
     __tablename__ = "data_asset_view"
+
     data_asset_id: int | None = Field(
         default=None, primary_key=True
     )
@@ -56,27 +57,17 @@ class DataAssetView(SQLModel, table=True):
     subject_id: int | None = Field(
         default=None, primary_key=True
     )
-    process_id: int | None = Field(
-        default=None, primary_key=True
-    )
-    subject_procedure_id: int | None = Field(
-        default=None, primary_key=True
-    )
-    quality_control_id: int | None = Field(
-        default=None, primary_key=True
-    )
     acquisition_data: Dict[str, Any] = Field(
         default_factory=dict,
         sa_column=Column(JSONB)
     )
-    processes_data: Dict[str, Any] = Field(
-        default_factory=dict,
-        sa_column=Column(JSONB)
+    processes_data: List[Dict[str, Any]] | None = Field(
+        default_factory=None,
+        sa_column=Column(JSON)
     )
-    instrument_name: str | None = Field(default=None, max_length=254)
-    instrument_data: Dict[str, Any] = Field(
-        default_factory=dict,
-        sa_column=Column(JSONB)
+    instrument_data: List[Dict[str, Any]] | None = Field(
+        default_factory=None,
+        sa_column=Column(JSON)
     )
     data_asset_location: str | None = Field(default=None, max_length=254)
     data_asset_name: str | None = Field(default=None, max_length=254)
@@ -93,11 +84,11 @@ class DataAssetView(SQLModel, table=True):
         default_factory=dict,
         sa_column=Column(JSONB)
     )
-    subject_procedures_data: List[Dict[str, Any]] = Field(
-        default_factory=list,
-        sa_column=Column(JSONB)
+    subject_procedures_data: List[Dict[str, Any]] | None = Field(
+        default_factory=None,
+        sa_column=Column(JSON)
     )
-    quality_control_data: Dict[str, Any] = Field(
-        default_factory=dict,
-        sa_column=Column(JSONB)
+    quality_control_data: List[Dict[str, Any]] | None = Field(
+        default_factory=None,
+        sa_column=Column(JSON)
     )

@@ -8,21 +8,17 @@ Name | Type | Description | Notes
 **data_asset_id** | **int** |  | [optional] 
 **acquisition_id** | **int** |  | [optional] 
 **subject_id** | **int** |  | [optional] 
-**process_id** | **int** |  | [optional] 
-**subject_procedure_id** | **int** |  | [optional] 
-**quality_control_id** | **int** |  | [optional] 
 **acquisition_data** | **Dict[str, object]** |  | [optional] 
-**processes_data** | **Dict[str, object]** |  | [optional] 
-**instrument_name** | **str** |  | [optional] 
-**instrument_data** | **Dict[str, object]** |  | [optional] 
+**processes_data** | **List[Optional[Dict[str, object]]]** |  | 
+**instrument_data** | **List[Dict[str, object]]** |  | 
 **data_asset_location** | **str** |  | [optional] 
 **data_asset_name** | **str** |  | [optional] 
 **data_asset_data** | **Dict[str, object]** |  | [optional] 
 **data_asset_external_links** | **Dict[str, object]** |  | [optional] 
 **subject_name** | **str** |  | [optional] 
 **subject_data** | **Dict[str, object]** |  | [optional] 
-**subject_procedures_data** | **List[Optional[Dict[str, object]]]** |  | [optional] 
-**quality_control_data** | **Dict[str, object]** |  | [optional] 
+**subject_procedures_data** | **List[Dict[str, object]]** |  | 
+**quality_control_data** | **List[Dict[str, object]]** |  | 
 
 ## Example
 

@@ -281,7 +281,7 @@ class SpecimenProcedures(SQLModel, table=True):
     )
 
 class SubjectProcedureCreate(SQLModel):
-    data: List[Dict[str, Any]] = Field(
+    data: Dict[str, Any] = Field(
         default_factory=list,
     )
     schema_id: int | None = Field(
@@ -295,7 +295,7 @@ class SubjectProcedureCreate(SQLModel):
     )
 
 class SubjectProcedureUpdate(SQLModel):
-    data: List[Dict[str, Any]] | None = Field(
+    data: Dict[str, Any] | None = Field(
         default=None,
     )
     schema_id: int | None = Field(
@@ -311,7 +311,7 @@ class SubjectProcedureUpdate(SQLModel):
 class SubjectProcedures(SQLModel, table=True):
     __tablename__ = "subject_procedures"
     id: int | None = Field(default=None, primary_key=True)
-    data: List[Dict[str, Any]] = Field(
+    data: Dict[str, Any] = Field(
         default_factory=list,
         sa_column=Column(JSONB)
     )

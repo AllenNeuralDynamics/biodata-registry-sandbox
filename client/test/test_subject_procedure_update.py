@@ -35,9 +35,7 @@ class TestSubjectProcedureUpdate(unittest.TestCase):
         model = SubjectProcedureUpdate()
         if include_optional:
             return SubjectProcedureUpdate(
-                data = [
-                    { }
-                    ],
+                data = { },
                 schema_id = 56,
                 space_id = 56,
                 subject_id = 56
