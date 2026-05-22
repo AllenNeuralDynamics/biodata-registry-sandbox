@@ -44,7 +44,7 @@ services:
     build: ./api
     container_name: registry_api
     depends_on: [postgres]
-    ports: ["5000:80"]
+    ports: ["8080:80"]
     environment:
       REGISTRY_HOST: postgres
       REGISTRY_USER: user
