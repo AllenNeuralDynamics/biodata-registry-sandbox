@@ -6539,17 +6539,6 @@
                   ],
                   "title": "Acquisition Id"
                },
-               "subject_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Subject Id"
-               },
                "process_id": {
                   "anyOf": [
                      {
@@ -6561,7 +6550,7 @@
                   ],
                   "title": "Process Id"
                },
-               "subject_procedure_id": {
+               "instrument_id": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -6570,18 +6559,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Subject Procedure Id"
-               },
-               "quality_control_id": {
-                  "anyOf": [
-                     {
-                        "type": "integer"
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Quality Control Id"
+                  "title": "Instrument Id"
                },
                "acquisition_data": {
                   "additionalProperties": true,
@@ -6644,35 +6622,29 @@
                   "type": "object",
                   "title": "Data Asset External Links"
                },
-               "subject_name": {
-                  "anyOf": [
-                     {
-                        "type": "string",
-                        "maxLength": 254
-                     },
-                     {
-                        "type": "null"
-                     }
-                  ],
-                  "title": "Subject Name"
-               },
-               "subject_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Subject Data"
-               },
-               "subject_procedures_data": {
+               "subjects": {
                   "items": {
                      "additionalProperties": true,
                      "type": "object"
                   },
                   "type": "array",
-                  "title": "Subject Procedures Data"
+                  "title": "Subjects"
                },
-               "quality_control_data": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Quality Control Data"
+               "subject_procedures": {
+                  "items": {
+                     "additionalProperties": true,
+                     "type": "object"
+                  },
+                  "type": "array",
+                  "title": "Subject Procedures"
+               },
+               "quality_control_metrics": {
+                  "items": {
+                     "additionalProperties": true,
+                     "type": "object"
+                  },
+                  "type": "array",
+                  "title": "Quality Control Metrics"
                }
             },
             "type": "object",

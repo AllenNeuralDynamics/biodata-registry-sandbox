@@ -30,10 +30,8 @@ class DataAssetView(BaseModel):
     """ # noqa: E501
     data_asset_id: Optional[StrictInt] = None
     acquisition_id: Optional[StrictInt] = None
-    subject_id: Optional[StrictInt] = None
     process_id: Optional[StrictInt] = None
-    subject_procedure_id: Optional[StrictInt] = None
-    quality_control_id: Optional[StrictInt] = None
+    instrument_id: Optional[StrictInt] = None
     acquisition_data: Optional[Dict[str, Any]] = None
     processes_data: Optional[Dict[str, Any]] = None
     instrument_name: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
@@ -42,11 +40,10 @@ class DataAssetView(BaseModel):
     data_asset_name: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
     data_asset_data: Optional[Dict[str, Any]] = None
     data_asset_external_links: Optional[Dict[str, Any]] = None
-    subject_name: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
-    subject_data: Optional[Dict[str, Any]] = None
-    subject_procedures_data: Optional[List[Optional[Dict[str, Any]]]] = None
-    quality_control_data: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["data_asset_id", "acquisition_id", "subject_id", "process_id", "subject_procedure_id", "quality_control_id", "acquisition_data", "processes_data", "instrument_name", "instrument_data", "data_asset_location", "data_asset_name", "data_asset_data", "data_asset_external_links", "subject_name", "subject_data", "subject_procedures_data", "quality_control_data"]
+    subjects: Optional[List[Optional[Dict[str, Any]]]] = None
+    subject_procedures: Optional[List[Optional[Dict[str, Any]]]] = None
+    quality_control_metrics: Optional[List[Optional[Dict[str, Any]]]] = None
+    __properties: ClassVar[List[str]] = ["data_asset_id", "acquisition_id", "process_id", "instrument_id", "acquisition_data", "processes_data", "instrument_name", "instrument_data", "data_asset_location", "data_asset_name", "data_asset_data", "data_asset_external_links", "subjects", "subject_procedures", "quality_control_metrics"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -97,25 +94,15 @@ class DataAssetView(BaseModel):
         if self.acquisition_id is None and "acquisition_id" in self.model_fields_set:
             _dict['acquisition_id'] = None
 
-        # set to None if subject_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.subject_id is None and "subject_id" in self.model_fields_set:
-            _dict['subject_id'] = None
-
         # set to None if process_id (nullable) is None
         # and model_fields_set contains the field
         if self.process_id is None and "process_id" in self.model_fields_set:
             _dict['process_id'] = None
 
-        # set to None if subject_procedure_id (nullable) is None
+        # set to None if instrument_id (nullable) is None
         # and model_fields_set contains the field
-        if self.subject_procedure_id is None and "subject_procedure_id" in self.model_fields_set:
-            _dict['subject_procedure_id'] = None
-
-        # set to None if quality_control_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.quality_control_id is None and "quality_control_id" in self.model_fields_set:
-            _dict['quality_control_id'] = None
+        if self.instrument_id is None and "instrument_id" in self.model_fields_set:
+            _dict['instrument_id'] = None
 
         # set to None if instrument_name (nullable) is None
         # and model_fields_set contains the field
@@ -132,11 +119,6 @@ class DataAssetView(BaseModel):
         if self.data_asset_name is None and "data_asset_name" in self.model_fields_set:
             _dict['data_asset_name'] = None
 
-        # set to None if subject_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.subject_name is None and "subject_name" in self.model_fields_set:
-            _dict['subject_name'] = None
-
         return _dict
 
     @classmethod
@@ -151,10 +133,8 @@ class DataAssetView(BaseModel):
         _obj = cls.model_validate({
             "data_asset_id": obj.get("data_asset_id"),
             "acquisition_id": obj.get("acquisition_id"),
-            "subject_id": obj.get("subject_id"),
             "process_id": obj.get("process_id"),
-            "subject_procedure_id": obj.get("subject_procedure_id"),
-            "quality_control_id": obj.get("quality_control_id"),
+            "instrument_id": obj.get("instrument_id"),
             "acquisition_data": obj.get("acquisition_data"),
             "processes_data": obj.get("processes_data"),
             "instrument_name": obj.get("instrument_name"),
@@ -163,10 +143,9 @@ class DataAssetView(BaseModel):
             "data_asset_name": obj.get("data_asset_name"),
             "data_asset_data": obj.get("data_asset_data"),
             "data_asset_external_links": obj.get("data_asset_external_links"),
-            "subject_name": obj.get("subject_name"),
-            "subject_data": obj.get("subject_data"),
-            "subject_procedures_data": obj.get("subject_procedures_data"),
-            "quality_control_data": obj.get("quality_control_data")
+            "subjects": obj.get("subjects"),
+            "subject_procedures": obj.get("subject_procedures"),
+            "quality_control_metrics": obj.get("quality_control_metrics")
         })
         return _obj
 

@@ -50,43 +50,44 @@ consumer = KafkaConsumer(
 
 print("Kafka Consumer listening!")
 
-def flatten_data_asset_view_records(p_records: List[Dict]):
-    if len(p_records) > 0:
-        p_subject_seen = set()
-        p_subject_procedure_seen = set()
-        p_quality_control_seen = set()
-        p_subjects = dict()
-        p_subject_procedures = defaultdict(list)
-        p_quality_control = []
-        p_record = dict()
-        for p_record in p_records:
-            _ = p_record.pop("subject_name", None)
-            p_subject_id = str(p_record.pop("subject_id", None))
-            p_subject_procedure_id = p_record.pop("subject_procedure_id", None)
-            p_quality_control_id = p_record.pop("quality_control_id", None)
-            p_subject_data = p_record.pop("subject_data", None)
-            p_subject_procedure_data = p_record.pop("subject_procedures_data", None)
-            p_quality_control_data = p_record.pop("quality_control_data", None)
-            if p_subject_data is not None and p_subject_id not in p_subject_seen and p_subject_id is not None:
-                p_subject_seen.add(p_subject_id)
-                p_subjects[p_subject_id] = p_subject_data
-            if p_subject_procedure_data is not None and p_subject_procedure_id not in p_subject_procedure_seen and p_subject_id is not None:
-                p_subject_procedure_seen.add(p_subject_procedure_id)
-                p_subject_procedures[p_subject_id].append(p_subject_procedure_data)
-            if p_quality_control_data is not None and p_quality_control_id not in p_quality_control_seen:
-                p_quality_control_seen.add(p_quality_control_id)
-                p_quality_control.append(p_quality_control_data)
-        p_record["subjects"] = p_subjects
-        p_record["subject_procedures"] = p_subject_procedures
-        p_record["quality_control"] = p_quality_control
-        return p_record
-    else:
-        return None
+# def flatten_data_asset_view_records(p_records: List[Dict]):
+#     if len(p_records) > 0:
+#         p_subject_seen = set()
+#         p_subject_procedure_seen = set()
+#         p_quality_control_seen = set()
+#         p_subjects = dict()
+#         p_subject_procedures = defaultdict(list)
+#         p_quality_control = []
+#         p_record = dict()
+#         for p_record in p_records:
+#             _ = p_record.pop("subject_name", None)
+#             p_subject_id = str(p_record.pop("subject_id", None))
+#             p_subject_procedure_id = p_record.pop("subject_procedure_id", None)
+#             p_quality_control_id = p_record.pop("quality_control_id", None)
+#             p_subject_data = p_record.pop("subject_data", None)
+#             p_subject_procedure_data = p_record.pop("subject_procedures_data", None)
+#             p_quality_control_data = p_record.pop("quality_control_data", None)
+#             if p_subject_data is not None and p_subject_id not in p_subject_seen and p_subject_id is not None:
+#                 p_subject_seen.add(p_subject_id)
+#                 p_subjects[p_subject_id] = p_subject_data
+#             if p_subject_procedure_data is not None and p_subject_procedure_id not in p_subject_procedure_seen and p_subject_id is not None:
+#                 p_subject_procedure_seen.add(p_subject_procedure_id)
+#                 p_subject_procedures[p_subject_id].append(p_subject_procedure_data)
+#             if p_quality_control_data is not None and p_quality_control_id not in p_quality_control_seen:
+#                 p_quality_control_seen.add(p_quality_control_id)
+#                 p_quality_control.append(p_quality_control_data)
+#         p_record["subjects"] = p_subjects
+#         p_record["subject_procedures"] = p_subject_procedures
+#         p_record["quality_control"] = p_quality_control
+#         return p_record
+#     else:
+#         return None
 
 def add_records_to_databases(d_collection, p_records):
     replace_requests = []
-    for k_data_asset_id, p_records in p_records.items():
-        mongo_db_record = flatten_data_asset_view_records(p_records)
+    for p_record in p_records:
+        mongo_db_record = p_record
+        k_data_asset_id = mongo_db_record['data_asset_id']
         if mongo_db_record is not None:
             hashed_uuid = str(uuid.uuid5(namespace, str(k_data_asset_id)))
             mongo_db_record["_id"] = hashed_uuid
@@ -103,28 +104,27 @@ def add_records_to_databases(d_collection, p_records):
 
 def handle_data_asset_change(d_collection, p_conn, k_data_asset_id):
     if k_data_asset_id is not None:
-        p_record_groups = defaultdict(list)
+        p_records = []
         with p_conn.cursor() as cur:
             cur.execute(
                 "SELECT * FROM data_asset_view WHERE data_asset_id = %s;",
                 (k_data_asset_id,)
             )
             for p_record in cur:
-                p_record_groups[k_data_asset_id].append(p_record)
-        add_records_to_databases(d_collection, p_record_groups)
+                p_records.append(p_record)
+        add_records_to_databases(d_collection, p_records)
 
 def handle_subject_change(d_collection, p_conn, k_subject_id):
     if k_subject_id is not None:
-        p_record_groups = defaultdict(list)
+        p_records = []
         with p_conn.cursor() as cur:
             cur.execute(
-                "SELECT * FROM data_asset_view WHERE subject_id = %s;",
+                "SELECT * FROM data_asset_view WHERE acquisition_id IN (SELECT acquisition_id FROM acquisition_subjects WHERE subject_id = %s);",
                 (k_subject_id,)
             )
             for p_record in cur:
-                k_data_asset_id = p_record["data_asset_id"]
-                p_record_groups[k_data_asset_id].append(p_record)
-        add_records_to_databases(d_collection, p_record_groups)
+                p_records.append(p_record)
+        add_records_to_databases(d_collection, p_records)
 
 
 def handle_specimen_change(k_message, d_collection, p_conn):
@@ -164,7 +164,7 @@ try:
         collection = db.get_collection(MONGO_DB_COLLECTION, codec_options=opts)
         print("Clients for databases established!")
         for message in consumer:
-            print(f"Handling message: {message.topic}")
+            # print(f"Handling message: {message.topic}")
             match message.topic:
                 case "registry.public.data_assets":
                     data_asset_id = message.value["payload"]["after"].get("id")

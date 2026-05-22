@@ -37,10 +37,8 @@ class TestDataAssetView(unittest.TestCase):
             return DataAssetView(
                 data_asset_id = 56,
                 acquisition_id = 56,
-                subject_id = 56,
                 process_id = 56,
-                subject_procedure_id = 56,
-                quality_control_id = 56,
+                instrument_id = 56,
                 acquisition_data = { },
                 processes_data = { },
                 instrument_name = '',
@@ -49,12 +47,15 @@ class TestDataAssetView(unittest.TestCase):
                 data_asset_name = '',
                 data_asset_data = { },
                 data_asset_external_links = { },
-                subject_name = '',
-                subject_data = { },
-                subject_procedures_data = [
+                subjects = [
                     { }
                     ],
-                quality_control_data = { }
+                subject_procedures = [
+                    { }
+                    ],
+                quality_control_metrics = [
+                    { }
+                    ]
             )
         else:
             return DataAssetView(

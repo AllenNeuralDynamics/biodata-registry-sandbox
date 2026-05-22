@@ -55,8 +55,7 @@ with MongoClient(
     db = mongodb_client["metadata"]
     opts = CodecOptions(uuid_representation=UuidRepresentation.STANDARD)
     collection = db.get_collection("data_assets", codec_options=opts)
-    mongodb_results = collection.find().limit(500).to_list()
-    # mongodb_results = collection.find().limit(1).to_list()
+    mongodb_results = collection.find({"data_asset_id": 2}).to_list()
 
 print(mongodb_results[0]["subjects"])
 
