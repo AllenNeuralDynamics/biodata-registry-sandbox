@@ -30,6 +30,22 @@ SCHEMA_DIR = Path("../examples/schema_definitions")
 DOCDB_RECORDS_FILE = Path(
     "../examples/records/docdb_records_10_percent_sample.json.gz"
 )
+
+
+## There are 3 qc metrics with values that are causing integer overflow errors
+def fix_qc_metric(docdb_record: dict):
+    if docdb_record["name"] == "behavior_705599_2024-06-27_12-22-52_processed_2025-12-11_07-06-33":
+        print(docdb_record["name"], docdb_record["quality_control"]["metrics"][49]["value"]["t_slow"][0])
+        docdb_record["quality_control"]["metrics"][49]["value"]["t_slow"][0] = None
+    elif docdb_record["name"] == "behavior_775745_2025-03-17_09-28-54_processed_2025-11-26_09-01-26":
+        print(docdb_record["name"], docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1])
+        docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1] = None
+    elif docdb_record["name"] == "behavior_775745_2025-03-17_09-28-54_processed_2025-12-17_11-47-47":
+        print(docdb_record["name"], docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1])
+        docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1] = None
+    else:
+        pass
+
 SCHEMA_DEFINITIONS = {
     "acquisition": {
         "filename": "acquisition_schema.json",
@@ -169,6 +185,7 @@ for record in docdb_records:
         dd_name = record["data_description"]["name"]
         if record_name == dd_name and record_name not in names_seen and size_in_bytes < 1024*100:
             names_seen.add(record_name)
+            fix_qc_metric(record)
             filtered_records.append(record)
 
 
