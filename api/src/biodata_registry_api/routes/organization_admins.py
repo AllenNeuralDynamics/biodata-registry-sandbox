@@ -4,12 +4,14 @@ OrganizationAdmins
 """
 from typing import List
 
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.admin import OrganizationAdmins, OrganizationAdminCreate, OrganizationAdminUpdate
+from biodata_registry_api.models.crud.admin import OrganizationAdminsPage, OrganizationAdminsFilter, OrganizationAdminCreate, OrganizationAdminUpdate
+from biodata_registry_api.models.admin import OrganizationAdmins
 
 from biodata_registry_api.session import get_session
+from biodata_registry_api.routes import encode_next_token, decode_next_token
 
 router = APIRouter()
 
@@ -49,18 +51,29 @@ async def get_organization_admin(
 @router.get(
     "/organization_admins",
     tags=["admin"],
-    response_model=List[OrganizationAdmins],
+    response_model=OrganizationAdminsPage,
     operation_id="get_organization_admins"
 )
 async def get_organization_admins(
-        offset: int = Query(default=0),
-        limit: int = Query(default=10, le=1000),
+        filter_query: OrganizationAdminsFilter = Depends(),
         session: AsyncSession = Depends(get_session),
 ):
-    rows = await session.exec(
-        select(OrganizationAdmins).offset(offset).limit(limit)
+    next_token = filter_query.next_token
+    limit = filter_query.limit
+    previous_id = decode_next_token(next_token)
+    statement = select(OrganizationAdmins).order_by(OrganizationAdmins.id.asc())
+    statement = filter_query.filter(statement)
+    if previous_id is not None:
+        statement = statement.where(OrganizationAdmins.id > previous_id)
+    statement = statement.limit(limit)
+    rows = await session.exec(statement)
+    items = rows.all()
+    next_token = None if not items else encode_next_token(items[-1].id)
+    return OrganizationAdminsPage(
+        next_token=next_token,
+        has_more=len(items) == limit,
+        results=items
     )
-    return rows.all()
 
 @router.delete(
     "/organization_admin",

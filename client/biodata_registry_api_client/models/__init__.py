@@ -64,6 +64,7 @@ from biodata_registry_api_client.models.subject_procedure_update import SubjectP
 from biodata_registry_api_client.models.subject_procedures import SubjectProcedures
 from biodata_registry_api_client.models.subject_update import SubjectUpdate
 from biodata_registry_api_client.models.subjects import Subjects
+from biodata_registry_api_client.models.subjects_response import SubjectsResponse
 from biodata_registry_api_client.models.user_create import UserCreate
 from biodata_registry_api_client.models.user_update import UserUpdate
 from biodata_registry_api_client.models.users import Users

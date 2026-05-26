@@ -1,12 +1,19 @@
+\c registry;
+
 -- SQLModel Generated Schema
 
-\c registry;
 
 CREATE TABLE users (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	contact VARCHAR(254) NOT NULL, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	UNIQUE (contact)
 )
 
@@ -14,17 +21,46 @@ CREATE TABLE users (
 
 CREATE TABLE organizations (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	UNIQUE (name)
 )
 
 ;
 
-CREATE TABLE schema_entities (
-	name VARCHAR(50) NOT NULL,
-	id SERIAL NOT NULL,
+CREATE TABLE collections (
+	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
+	name VARCHAR(254) NOT NULL, 
+	description VARCHAR(254) NOT NULL, 
+	owner_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(owner_id) REFERENCES users (id)
+)
+
+;
+
+CREATE TABLE schema_entities (
+	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
+	name VARCHAR(50) NOT NULL, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	UNIQUE (name)
 )
 
@@ -32,9 +68,15 @@ CREATE TABLE schema_entities (
 
 CREATE TABLE spaces (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	organization_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(organization_id) REFERENCES organizations (id)
 )
 
@@ -42,34 +84,35 @@ CREATE TABLE spaces (
 
 CREATE TABLE organization_admins (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	user_id INTEGER, 
 	organization_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(user_id) REFERENCES users (id), 
 	FOREIGN KEY(organization_id) REFERENCES organizations (id)
 )
 
 ;
 
-CREATE TABLE collections (
-	id SERIAL NOT NULL, 
-	name VARCHAR(254) NOT NULL, 
-	description VARCHAR(254) NOT NULL, 
-	owner_id INTEGER, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(owner_id) REFERENCES users (id)
-)
-
-;
-
 CREATE TABLE schemas (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	name VARCHAR(50) NOT NULL, 
 	version VARCHAR(50) NOT NULL, 
 	data JSONB, 
 	schema_entity_id INTEGER, 
 	PRIMARY KEY (id), 
 	CONSTRAINT unique_schema_name_version UNIQUE (name, version), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_entity_id) REFERENCES schema_entities (id)
 )
 
@@ -77,9 +120,15 @@ CREATE TABLE schemas (
 
 CREATE TABLE space_admins (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	user_id INTEGER, 
 	space_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(user_id) REFERENCES users (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
@@ -88,6 +137,10 @@ CREATE TABLE space_admins (
 
 CREATE TABLE data_assets (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	name VARCHAR(254), 
 	location VARCHAR(254), 
 	external_links JSONB, 
@@ -96,20 +149,29 @@ CREATE TABLE data_assets (
 	space_id INTEGER, 
 	PRIMARY KEY (id), 
 	CONSTRAINT unique_data_asset_name_space_id UNIQUE (name, space_id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
 
 ;
+CREATE INDEX ix_data_assets_location ON data_assets (location);
 
 CREATE TABLE subjects (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	PRIMARY KEY (id), 
 	CONSTRAINT unique_subject_name_space_id UNIQUE (name, space_id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
@@ -118,10 +180,16 @@ CREATE TABLE subjects (
 
 CREATE TABLE specimen_procedures (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
@@ -130,12 +198,18 @@ CREATE TABLE specimen_procedures (
 
 CREATE TABLE instruments (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	PRIMARY KEY (id), 
 	CONSTRAINT unique_instrument_name_space_id UNIQUE (name, space_id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
@@ -151,50 +225,65 @@ CREATE TABLE collection_data_assets (
 )
 
 ;
-
-CREATE INDEX collection_data_assets_index ON collection_data_assets (data_asset_id);
+CREATE INDEX ix_collection_data_assets_r ON collection_data_assets (data_asset_id, collection_id);
 
 CREATE TABLE specimens (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	subject_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(subject_id) REFERENCES subjects (id)
 )
 
 ;
-
-CREATE INDEX specimens_index ON specimens (name, subject_id);
+CREATE INDEX ix_specimens_subject_id ON specimens (subject_id);
 
 CREATE TABLE subject_procedures (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	subject_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(subject_id) REFERENCES subjects (id)
 )
 
 ;
-
-CREATE INDEX subject_procedures_index ON subject_procedures (subject_id);
+CREATE INDEX ix_subject_procedures_subject_id ON subject_procedures (subject_id);
 
 CREATE TABLE acquisitions (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	data_asset_id INTEGER, 
 	instrument_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(data_asset_id) REFERENCES data_assets (id), 
@@ -202,40 +291,50 @@ CREATE TABLE acquisitions (
 )
 
 ;
-
-CREATE INDEX acquisitions_index ON acquisitions (data_asset_id, instrument_id);
+CREATE INDEX ix_acquisitions_data_asset_id ON acquisitions (data_asset_id);
+CREATE INDEX ix_acquisitions_instrument_id ON acquisitions (instrument_id);
 
 CREATE TABLE quality_controls (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	data_asset_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(data_asset_id) REFERENCES data_assets (id)
 )
 
 ;
-
-CREATE INDEX quality_controls_index ON quality_controls (data_asset_id);
+CREATE INDEX ix_quality_controls_data_asset_id ON quality_controls (data_asset_id);
 
 CREATE TABLE processes (
 	id SERIAL NOT NULL, 
+	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
+	created_by INTEGER, 
+	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
+	last_updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	output_data_asset_id INTEGER, 
 	PRIMARY KEY (id), 
+	FOREIGN KEY(created_by) REFERENCES users (id), 
+	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(output_data_asset_id) REFERENCES data_assets (id)
 )
 
 ;
-
-CREATE INDEX processes_index ON processes (output_data_asset_id);
+CREATE INDEX ix_processes_output_data_asset_id ON processes (output_data_asset_id);
 
 CREATE TABLE process_inputs (
 	data_asset_id INTEGER NOT NULL, 
@@ -246,8 +345,7 @@ CREATE TABLE process_inputs (
 )
 
 ;
-
-CREATE INDEX process_inputs_index ON process_inputs (process_id);
+CREATE INDEX ix_process_inputs_r ON process_inputs (process_id, data_asset_id);
 
 CREATE TABLE subject_procedure_outputs (
 	specimen_id INTEGER NOT NULL, 
@@ -258,8 +356,7 @@ CREATE TABLE subject_procedure_outputs (
 )
 
 ;
-
-CREATE INDEX subject_procedure_outputs_index ON subject_procedure_outputs (subject_procedure_id);
+CREATE INDEX ix_subject_procedure_outputs_r ON subject_procedure_outputs (subject_procedure_id, specimen_id);
 
 CREATE TABLE specimen_procedure_inputs (
 	specimen_id INTEGER NOT NULL, 
@@ -270,8 +367,7 @@ CREATE TABLE specimen_procedure_inputs (
 )
 
 ;
-
-CREATE INDEX specimen_procedure_inputs_index ON specimen_procedure_inputs (specimen_procedure_id);
+CREATE INDEX ix_specimen_procedure_inputs_r ON specimen_procedure_inputs (specimen_procedure_id, specimen_id);
 
 CREATE TABLE specimen_procedure_outputs (
 	specimen_id INTEGER NOT NULL, 
@@ -282,8 +378,7 @@ CREATE TABLE specimen_procedure_outputs (
 )
 
 ;
-
-CREATE INDEX specimen_procedure_outputs_index ON specimen_procedure_outputs (specimen_procedure_id);
+CREATE INDEX ix_specimen_procedure_outputs_r ON specimen_procedure_outputs (specimen_procedure_id, specimen_id);
 
 CREATE TABLE acquisition_subjects (
 	acquisition_id INTEGER NOT NULL, 
@@ -294,8 +389,7 @@ CREATE TABLE acquisition_subjects (
 )
 
 ;
-
-CREATE INDEX acquisition_subjects_index ON acquisition_subjects (subject_id);
+CREATE INDEX ix_acquisition_subjects_r ON acquisition_subjects (subject_id, acquisition_id);
 
 CREATE TABLE acquisition_specimens (
 	acquisition_id INTEGER NOT NULL, 
@@ -306,8 +400,10 @@ CREATE TABLE acquisition_specimens (
 )
 
 ;
+CREATE INDEX ix_acquisition_specimens_r ON acquisition_specimens (specimen_id, acquisition_id);
 
-CREATE INDEX acquisition_specimens_index ON acquisition_specimens (specimen_id);
+-- Views
+
 
 CREATE VIEW data_asset_view
 AS SELECT
@@ -331,19 +427,62 @@ LEFT OUTER JOIN acquisitions ON data_assets.id = acquisitions.data_asset_id
 LEFT OUTER JOIN instruments ON instruments.id = acquisitions.instrument_id
 LEFT OUTER JOIN processes ON data_assets.id = processes.output_data_asset_id
 LEFT JOIN LATERAL (
-    SELECT COALESCE(jsonb_agg(jsonb_build_object('quality_control_id', quality_controls.id, 'data', quality_controls.data)), '[]') as items
+    SELECT COALESCE(
+        jsonb_agg(jsonb_build_object(
+            'quality_control_id', quality_controls.id, 
+            'data', quality_controls.data
+        )), '[]') as items
     FROM quality_controls
     WHERE quality_controls.data_asset_id = data_assets.id
 ) agg1 ON true
 JOIN acquisition_subjects ON acquisitions.id = acquisition_subjects.acquisition_id
 LEFT JOIN LATERAL (
-    SELECT COALESCE(jsonb_agg(jsonb_build_object('subject_id', subjects.id, 'data', subjects.data)), '[]') as items
+    SELECT COALESCE(
+        jsonb_agg(jsonb_build_object(
+            'subject_id', subjects.id, 
+            'data', subjects.data
+        )), '[]') as items
     FROM subjects
     WHERE subjects.id = acquisition_subjects.subject_id
 ) agg2 ON true
 LEFT JOIN LATERAL (
-    SELECT COALESCE(jsonb_agg(jsonb_build_object('subject_id', subject_procedures.subject_id, 'subject_procedures_id',  subject_procedures.id,'data', subject_procedures.data)), '[]') as items
+    SELECT COALESCE(
+        jsonb_agg(jsonb_build_object(
+            'subject_id', subject_procedures.subject_id, 
+            'subject_procedures_id', subject_procedures.id,
+            'data', subject_procedures.data
+        )), '[]') as items
     FROM subject_procedures
     WHERE subject_procedures.subject_id = acquisition_subjects.subject_id
 ) agg3 ON true
 ;
+
+-- Add methods for timestamp management
+
+
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = now();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+DO $$
+DECLARE
+    t text;
+BEGIN
+    FOR t IN
+        SELECT table_name
+        FROM information_schema.columns
+        WHERE column_name = 'updated_at'
+          AND table_schema = 'public'
+    LOOP
+        EXECUTE format('
+            CREATE TRIGGER trg_update_updated_at
+            BEFORE UPDATE ON %I
+            FOR EACH ROW
+            EXECUTE PROCEDURE update_updated_at_column()', t);
+    END LOOP;
+END;
+$$ language 'plpgsql';

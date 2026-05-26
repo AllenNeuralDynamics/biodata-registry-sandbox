@@ -195,7 +195,7 @@ counter = 0
 total_records = len(filtered_records)
 registered_subjects = dict()
 registered_instruments = dict()
-for record in filtered_records:
+for record in filtered_records[0:1000]:
     counter += 1
     if counter % 100 == 0:
         print(f"On {counter} of {total_records}")

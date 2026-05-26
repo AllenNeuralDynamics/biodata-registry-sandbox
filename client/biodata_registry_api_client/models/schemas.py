@@ -17,6 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
@@ -29,11 +30,15 @@ class Schemas(BaseModel):
     Schemas
     """ # noqa: E501
     id: Optional[StrictInt] = None
+    created_at: Optional[datetime] = None
+    created_by: Optional[StrictInt] = None
+    updated_at: Optional[datetime] = None
+    last_updated_by: Optional[StrictInt] = None
     name: Annotated[str, Field(strict=True, max_length=50)]
     version: Annotated[str, Field(strict=True, max_length=50)]
     data: Optional[Dict[str, Any]] = None
     schema_entity_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "version", "data", "schema_entity_id"]
+    __properties: ClassVar[List[str]] = ["id", "created_at", "created_by", "updated_at", "last_updated_by", "name", "version", "data", "schema_entity_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -79,6 +84,16 @@ class Schemas(BaseModel):
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
 
+        # set to None if created_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.created_by is None and "created_by" in self.model_fields_set:
+            _dict['created_by'] = None
+
+        # set to None if last_updated_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_updated_by is None and "last_updated_by" in self.model_fields_set:
+            _dict['last_updated_by'] = None
+
         # set to None if schema_entity_id (nullable) is None
         # and model_fields_set contains the field
         if self.schema_entity_id is None and "schema_entity_id" in self.model_fields_set:
@@ -97,6 +112,10 @@ class Schemas(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "created_at": obj.get("created_at"),
+            "created_by": obj.get("created_by"),
+            "updated_at": obj.get("updated_at"),
+            "last_updated_by": obj.get("last_updated_by"),
             "name": obj.get("name"),
             "version": obj.get("version"),
             "data": obj.get("data"),

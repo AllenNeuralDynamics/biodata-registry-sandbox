@@ -4,10 +4,12 @@ Users
 """
 from typing import List
 
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.admin import Users, UserCreate, UserUpdate
+from biodata_registry_api.models.admin import Users
+from biodata_registry_api.models.crud.admin import UserCreate, UserUpdate, UsersPage, UsersFilter
+from biodata_registry_api.routes import encode_next_token, decode_next_token
 
 from biodata_registry_api.session import get_session
 
@@ -49,18 +51,29 @@ async def get_user(
 @router.get(
     "/users",
     tags=["admin"],
-    response_model=List[Users],
+    response_model=UsersPage,
     operation_id="get_users"
 )
 async def get_users(
-        offset: int = Query(default=0),
-        limit: int = Query(default=10, le=1000),
+        filter_query: UsersFilter = Depends(),
         session: AsyncSession = Depends(get_session),
 ):
-    rows = await session.exec(
-        select(Users).offset(offset).limit(limit)
+    next_token = filter_query.next_token
+    limit = filter_query.limit
+    previous_id = decode_next_token(next_token)
+    statement = select(Users).order_by(Users.id.asc())
+    statement = filter_query.filter(statement)
+    if previous_id is not None:
+        statement = statement.where(Users.id > previous_id)
+    statement = statement.limit(limit)
+    rows = await session.exec(statement)
+    items = rows.all()
+    next_token = None if not items else encode_next_token(items[-1].id)
+    return UsersPage(
+        next_token=next_token,
+        has_more=len(items) == limit,
+        results=items
     )
-    return rows.all()
 
 @router.delete(
     "/user",

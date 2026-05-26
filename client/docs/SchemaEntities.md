@@ -5,8 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
 **id** | **int** |  | [optional] 
+**created_at** | **datetime** |  | [optional] 
+**created_by** | **int** |  | [optional] 
+**updated_at** | **datetime** |  | [optional] 
+**last_updated_by** | **int** |  | [optional] 
+**name** | **str** |  | 
 
 ## Example
 

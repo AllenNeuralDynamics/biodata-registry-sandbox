@@ -273,6 +273,7 @@ Class | Method | HTTP request | Description
  - [SubjectProcedures](docs/SubjectProcedures.md)
  - [SubjectUpdate](docs/SubjectUpdate.md)
  - [Subjects](docs/Subjects.md)
+ - [SubjectsResponse](docs/SubjectsResponse.md)
  - [UserCreate](docs/UserCreate.md)
  - [UserUpdate](docs/UserUpdate.md)
  - [Users](docs/Users.md)

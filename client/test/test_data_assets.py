@@ -36,6 +36,10 @@ class TestDataAssets(unittest.TestCase):
         if include_optional:
             return DataAssets(
                 id = 56,
+                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                created_by = 56,
+                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                last_updated_by = 56,
                 name = '',
                 location = '',
                 external_links = { },

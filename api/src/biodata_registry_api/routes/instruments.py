@@ -4,12 +4,14 @@ Instruments
 """
 from typing import List
 
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.core import Instruments, InstrumentCreate, InstrumentUpdate
+from biodata_registry_api.models.crud.core import InstrumentCreate, InstrumentUpdate, InstrumentsPage, InstrumentsFilter
+from biodata_registry_api.models.core import Instruments
 
 from biodata_registry_api.session import get_session
+from biodata_registry_api.routes import encode_next_token, decode_next_token
 
 router = APIRouter()
 
@@ -49,20 +51,29 @@ async def get_instrument(
 @router.get(
     "/instruments",
     tags=["core"],
-    response_model=List[Instruments],
+    response_model=InstrumentsPage,
     operation_id="get_instruments"
 )
 async def get_instruments(
-        name: str | None = Query(default=None),
-        offset: int = Query(default=0),
-        limit: int = Query(default=10, le=1000),
+        filter_query: InstrumentsFilter = Depends(),
         session: AsyncSession = Depends(get_session),
 ):
-    statement = select(Instruments).offset(offset).limit(limit)
-    if name is not None:
-        statement = statement.where(Instruments.name == name)
+    next_token = filter_query.next_token
+    limit = filter_query.limit
+    previous_id = decode_next_token(next_token)
+    statement = select(Instruments).order_by(Instruments.id.asc())
+    statement = filter_query.filter(statement)
+    if previous_id is not None:
+        statement = statement.where(Instruments.id > previous_id)
+    statement = statement.limit(limit)
     rows = await session.exec(statement)
-    return rows.all()
+    items = rows.all()
+    next_token = None if not items else encode_next_token(items[-1].id)
+    return InstrumentsPage(
+        next_token=next_token,
+        has_more=len(items) == limit,
+        results=items
+    )
 
 @router.delete(
     "/instrument",

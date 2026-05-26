@@ -17,6 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
@@ -28,11 +29,15 @@ class SubjectProcedures(BaseModel):
     SubjectProcedures
     """ # noqa: E501
     id: Optional[StrictInt] = None
+    created_at: Optional[datetime] = None
+    created_by: Optional[StrictInt] = None
+    updated_at: Optional[datetime] = None
+    last_updated_by: Optional[StrictInt] = None
     data: Optional[List[Dict[str, Any]]] = None
     schema_id: Optional[StrictInt] = None
     space_id: Optional[StrictInt] = None
     subject_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["id", "data", "schema_id", "space_id", "subject_id"]
+    __properties: ClassVar[List[str]] = ["id", "created_at", "created_by", "updated_at", "last_updated_by", "data", "schema_id", "space_id", "subject_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -78,6 +83,16 @@ class SubjectProcedures(BaseModel):
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
 
+        # set to None if created_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.created_by is None and "created_by" in self.model_fields_set:
+            _dict['created_by'] = None
+
+        # set to None if last_updated_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_updated_by is None and "last_updated_by" in self.model_fields_set:
+            _dict['last_updated_by'] = None
+
         # set to None if schema_id (nullable) is None
         # and model_fields_set contains the field
         if self.schema_id is None and "schema_id" in self.model_fields_set:
@@ -106,6 +121,10 @@ class SubjectProcedures(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "created_at": obj.get("created_at"),
+            "created_by": obj.get("created_by"),
+            "updated_at": obj.get("updated_at"),
+            "last_updated_by": obj.get("last_updated_by"),
             "data": obj.get("data"),
             "schema_id": obj.get("schema_id"),
             "space_id": obj.get("space_id"),

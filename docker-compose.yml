@@ -131,28 +131,6 @@ services:
 #      ES_INDEX: data_assets
     entrypoint: ["python", "-u", "sync_registry_docdb.py"]
 
-  cron_job:
-    build: ./cron_job
-    restart: unless-stopped
-    container_name: cron_job
-    depends_on:
-      lambda:
-        condition: service_started
-      mongodb:
-        condition: service_started
-    environment:
-      MONGO_HOST: mongodb
-      MONGO_PORT: 27017
-      MONGO_USERNAME: admin
-      MONGO_PASSWORD: admin_password
-      MONGO_DBNAME: metadata
-      MONGO_DB_COLLECTION: data_assets
-      PG_USER: user
-      PG_PASSWORD: password
-      PG_HOST: postgres
-      PG_PORT: 5432
-      PG_DBNAME: registry
-
 volumes:
   postgres_data:
   mongo_data:

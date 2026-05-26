@@ -4,11 +4,12 @@ Specimens
 """
 from typing import List
 
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.core import Specimens, SpecimenCreate, SpecimenUpdate, Acquisitions, SubjectProcedures, \
-    SpecimenProcedures
+from biodata_registry_api.models.crud.core import SpecimenCreate, SpecimenUpdate, SpecimensPage, SpecimensFilter
+from biodata_registry_api.models.core import Specimens, Acquisitions, SubjectProcedures, SpecimenProcedures
+from biodata_registry_api.routes import encode_next_token, decode_next_token
 
 from biodata_registry_api.session import get_session
 
@@ -50,18 +51,29 @@ async def get_specimen(
 @router.get(
     "/specimens",
     tags=["core"],
-    response_model=List[Specimens],
+    response_model=SpecimensPage,
     operation_id="get_specimens"
 )
 async def get_specimens(
-        offset: int = Query(default=0),
-        limit: int = Query(default=10, le=1000),
+        filter_query: SpecimensFilter = Depends(),
         session: AsyncSession = Depends(get_session),
 ):
-    rows = await session.exec(
-        select(Specimens).offset(offset).limit(limit)
+    next_token = filter_query.next_token
+    limit = filter_query.limit
+    previous_id = decode_next_token(next_token)
+    statement = select(Specimens).order_by(Specimens.id.asc())
+    statement = filter_query.filter(statement)
+    if previous_id is not None:
+        statement = statement.where(Specimens.id > previous_id)
+    statement = statement.limit(limit)
+    rows = await session.exec(statement)
+    items = rows.all()
+    next_token = None if not items else encode_next_token(items[-1].id)
+    return SpecimensPage(
+        next_token=next_token,
+        has_more=len(items) == limit,
+        results=items
     )
-    return rows.all()
 
 @router.delete(
     "/specimen",

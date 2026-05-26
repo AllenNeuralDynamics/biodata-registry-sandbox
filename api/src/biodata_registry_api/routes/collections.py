@@ -4,13 +4,15 @@ Collections
 """
 from typing import List
 
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.admin import Collections, CollectionCreate, CollectionUpdate
+from biodata_registry_api.models.crud.admin import CollectionCreate, CollectionUpdate, CollectionsPage, CollectionsFilter
+from biodata_registry_api.models.admin import Collections
 from biodata_registry_api.models.core import DataAssets
 
 from biodata_registry_api.session import get_session
+from biodata_registry_api.routes import encode_next_token, decode_next_token
 
 router = APIRouter()
 
@@ -50,18 +52,29 @@ async def get_collection(
 @router.get(
     "/collections",
     tags=["admin"],
-    response_model=List[Collections],
+    response_model=CollectionsPage,
     operation_id="get_collections"
 )
 async def get_collections(
-        offset: int = Query(default=0),
-        limit: int = Query(default=10, le=1000),
+        filter_query: CollectionsFilter = Depends(),
         session: AsyncSession = Depends(get_session),
 ):
-    rows = await session.exec(
-        select(Collections).offset(offset).limit(limit)
+    next_token = filter_query.next_token
+    limit = filter_query.limit
+    previous_id = decode_next_token(next_token)
+    statement = select(Collections).order_by(Collections.id.asc())
+    statement = filter_query.filter(statement)
+    if previous_id is not None:
+        statement = statement.where(Collections.id > previous_id)
+    statement = statement.limit(limit)
+    rows = await session.exec(statement)
+    items = rows.all()
+    next_token = None if not items else encode_next_token(items[-1].id)
+    return CollectionsPage(
+        next_token=next_token,
+        has_more=len(items) == limit,
+        results=items
     )
-    return rows.all()
 
 @router.delete(
     "/collection",

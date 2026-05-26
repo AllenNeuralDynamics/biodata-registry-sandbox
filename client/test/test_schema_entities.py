@@ -35,8 +35,12 @@ class TestSchemaEntities(unittest.TestCase):
         model = SchemaEntities()
         if include_optional:
             return SchemaEntities(
-                name = '',
-                id = 56
+                id = 56,
+                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                created_by = 56,
+                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                last_updated_by = 56,
+                name = ''
             )
         else:
             return SchemaEntities(

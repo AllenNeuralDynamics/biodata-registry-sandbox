@@ -6,6 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | [optional] 
+**created_at** | **datetime** |  | [optional] 
+**created_by** | **int** |  | [optional] 
+**updated_at** | **datetime** |  | [optional] 
+**last_updated_by** | **int** |  | [optional] 
 **user_id** | **int** |  | [optional] 
 **organization_id** | **int** |  | [optional] 
 

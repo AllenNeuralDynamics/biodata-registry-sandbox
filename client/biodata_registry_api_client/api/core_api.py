@@ -52,6 +52,7 @@ from biodata_registry_api_client.models.subject_procedure_update import SubjectP
 from biodata_registry_api_client.models.subject_procedures import SubjectProcedures
 from biodata_registry_api_client.models.subject_update import SubjectUpdate
 from biodata_registry_api_client.models.subjects import Subjects
+from biodata_registry_api_client.models.subjects_response import SubjectsResponse
 
 from biodata_registry_api_client.api_client import ApiClient, RequestSerialized
 from biodata_registry_api_client.api_response import ApiResponse
@@ -15055,8 +15056,8 @@ class CoreApi:
     def get_subjects(
         self,
         name: Optional[StrictStr] = None,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15069,14 +15070,14 @@ class CoreApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[Subjects]:
+    ) -> SubjectsResponse:
         """Get Subjects
 
 
         :param name:
         :type name: str
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
         :param _request_timeout: timeout setting for this request. If one
@@ -15103,7 +15104,7 @@ class CoreApi:
 
         _param = self._get_subjects_serialize(
             name=name,
-            offset=offset,
+            next_token=next_token,
             limit=limit,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -15112,7 +15113,7 @@ class CoreApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Subjects]",
+            '200': "SubjectsResponse",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -15130,8 +15131,8 @@ class CoreApi:
     def get_subjects_with_http_info(
         self,
         name: Optional[StrictStr] = None,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15144,14 +15145,14 @@ class CoreApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[Subjects]]:
+    ) -> ApiResponse[SubjectsResponse]:
         """Get Subjects
 
 
         :param name:
         :type name: str
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
         :param _request_timeout: timeout setting for this request. If one
@@ -15178,7 +15179,7 @@ class CoreApi:
 
         _param = self._get_subjects_serialize(
             name=name,
-            offset=offset,
+            next_token=next_token,
             limit=limit,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -15187,7 +15188,7 @@ class CoreApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Subjects]",
+            '200': "SubjectsResponse",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -15205,8 +15206,8 @@ class CoreApi:
     def get_subjects_without_preload_content(
         self,
         name: Optional[StrictStr] = None,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -15225,8 +15226,8 @@ class CoreApi:
 
         :param name:
         :type name: str
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
         :param _request_timeout: timeout setting for this request. If one
@@ -15253,7 +15254,7 @@ class CoreApi:
 
         _param = self._get_subjects_serialize(
             name=name,
-            offset=offset,
+            next_token=next_token,
             limit=limit,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -15262,7 +15263,7 @@ class CoreApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Subjects]",
+            '200': "SubjectsResponse",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -15275,7 +15276,7 @@ class CoreApi:
     def _get_subjects_serialize(
         self,
         name,
-        offset,
+        next_token,
         limit,
         _request_auth,
         _content_type,
@@ -15303,9 +15304,9 @@ class CoreApi:
             
             _query_params.append(('name', name))
             
-        if offset is not None:
+        if next_token is not None:
             
-            _query_params.append(('offset', offset))
+            _query_params.append(('next_token', next_token))
             
         if limit is not None:
             

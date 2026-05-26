@@ -4,11 +4,12 @@ SubjectProcedures
 """
 from typing import List
 
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.core import SubjectProcedures, SubjectProcedureCreate, SubjectProcedureUpdate, \
-    Specimens
+from biodata_registry_api.models.crud.core import SubjectProceduresFilter, SubjectProceduresPage, SubjectProcedureCreate, SubjectProcedureUpdate
+from biodata_registry_api.models.core import SubjectProcedures, Specimens
+from biodata_registry_api.routes import encode_next_token, decode_next_token
 
 from biodata_registry_api.session import get_session
 
@@ -50,18 +51,29 @@ async def get_subject_procedure(
 @router.get(
     "/subject_procedures",
     tags=["core"],
-    response_model=List[SubjectProcedures],
+    response_model=SubjectProceduresPage,
     operation_id="get_subject_procedures"
 )
 async def get_subject_procedures(
-        offset: int = Query(default=0),
-        limit: int = Query(default=10, le=1000),
+        filter_query: SubjectProceduresFilter = Depends(),
         session: AsyncSession = Depends(get_session),
 ):
-    rows = await session.exec(
-        select(SubjectProcedures).offset(offset).limit(limit)
+    next_token = filter_query.next_token
+    limit = filter_query.limit
+    previous_id = decode_next_token(next_token)
+    statement = select(SubjectProcedures).order_by(SubjectProcedures.id.asc())
+    statement = filter_query.filter(statement)
+    if previous_id is not None:
+        statement = statement.where(SubjectProcedures.id > previous_id)
+    statement = statement.limit(limit)
+    rows = await session.exec(statement)
+    items = rows.all()
+    next_token = None if not items else encode_next_token(items[-1].id)
+    return SubjectProceduresPage(
+        next_token=next_token,
+        has_more=len(items) == limit,
+        results=items
     )
-    return rows.all()
 
 @router.delete(
     "/subject_procedure",

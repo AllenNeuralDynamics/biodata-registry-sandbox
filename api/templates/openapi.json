@@ -5467,13 +5467,19 @@
                   }
                },
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -5483,7 +5489,8 @@
                   "schema": {
                      "type": "integer",
                      "maximum": 1000,
-                     "default": 10,
+                     "minimum": 1,
+                     "default": 100,
                      "title": "Limit"
                   }
                }
@@ -5494,11 +5501,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Subjects"
-                           },
-                           "title": "Response Get Subjects"
+                           "$ref": "#/components/schemas/SubjectsResponse"
                         }
                      }
                   }
@@ -6220,6 +6223,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "data": {
                   "additionalProperties": true,
                   "type": "object",
@@ -6357,6 +6392,38 @@
                      }
                   ],
                   "title": "Id"
+               },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
                },
                "name": {
                   "type": "string",
@@ -6663,6 +6730,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "name": {
                   "anyOf": [
                      {
@@ -6842,6 +6941,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "name": {
                   "type": "string",
                   "maxLength": 254,
@@ -6950,6 +7081,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "user_id": {
                   "anyOf": [
                      {
@@ -7020,6 +7183,38 @@
                      }
                   ],
                   "title": "Id"
+               },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
                },
                "name": {
                   "type": "string",
@@ -7140,6 +7335,38 @@
                      }
                   ],
                   "title": "Id"
+               },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
                },
                "data": {
                   "additionalProperties": true,
@@ -7291,6 +7518,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "data": {
                   "additionalProperties": true,
                   "type": "object",
@@ -7371,11 +7630,6 @@
          },
          "SchemaEntities": {
             "properties": {
-               "name": {
-                  "type": "string",
-                  "maxLength": 50,
-                  "title": "Name"
-               },
                "id": {
                   "anyOf": [
                      {
@@ -7386,6 +7640,43 @@
                      }
                   ],
                   "title": "Id"
+               },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
+               "name": {
+                  "type": "string",
+                  "maxLength": 50,
+                  "title": "Name"
                }
             },
             "type": "object",
@@ -7492,6 +7783,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "name": {
                   "type": "string",
                   "maxLength": 50,
@@ -7595,6 +7918,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "user_id": {
                   "anyOf": [
                      {
@@ -7687,6 +8042,38 @@
                      }
                   ],
                   "title": "Id"
+               },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
                },
                "name": {
                   "type": "string",
@@ -7849,6 +8236,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "data": {
                   "additionalProperties": true,
                   "type": "object",
@@ -7955,6 +8374,38 @@
                      }
                   ],
                   "title": "Id"
+               },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
                },
                "name": {
                   "type": "string",
@@ -8161,6 +8612,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "data": {
                   "items": {
                      "additionalProperties": true,
@@ -8271,6 +8754,38 @@
                   ],
                   "title": "Id"
                },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
+               },
                "name": {
                   "type": "string",
                   "maxLength": 254,
@@ -8309,6 +8824,39 @@
                "name"
             ],
             "title": "Subjects"
+         },
+         "SubjectsResponse": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More"
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Subjects"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "next_token",
+               "has_more",
+               "results"
+            ],
+            "title": "SubjectsResponse"
          },
          "UserCreate": {
             "properties": {
@@ -8372,6 +8920,38 @@
                      }
                   ],
                   "title": "Id"
+               },
+               "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Updated At"
+               },
+               "last_updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Last Updated By"
                },
                "name": {
                   "type": "string",

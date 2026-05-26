@@ -17,26 +17,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, StrictInt
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from biodata_registry_api_client.models.subjects import Subjects
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class SpecimenProcedures(BaseModel):
+class SubjectsResponse(BaseModel):
     """
-    SpecimenProcedures
+    SubjectsResponse
     """ # noqa: E501
-    id: Optional[StrictInt] = None
-    created_at: Optional[datetime] = None
-    created_by: Optional[StrictInt] = None
-    updated_at: Optional[datetime] = None
-    last_updated_by: Optional[StrictInt] = None
-    data: Optional[Dict[str, Any]] = None
-    schema_id: Optional[StrictInt] = None
-    space_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["id", "created_at", "created_by", "updated_at", "last_updated_by", "data", "schema_id", "space_id"]
+    next_token: Optional[StrictStr]
+    has_more: StrictBool
+    results: List[Subjects]
+    __properties: ClassVar[List[str]] = ["next_token", "has_more", "results"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -56,7 +51,7 @@ class SpecimenProcedures(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of SpecimenProcedures from a JSON string"""
+        """Create an instance of SubjectsResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -77,36 +72,23 @@ class SpecimenProcedures(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if id (nullable) is None
+        # override the default output from pydantic by calling `to_dict()` of each item in results (list)
+        _items = []
+        if self.results:
+            for _item_results in self.results:
+                if _item_results:
+                    _items.append(_item_results.to_dict())
+            _dict['results'] = _items
+        # set to None if next_token (nullable) is None
         # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
-
-        # set to None if created_by (nullable) is None
-        # and model_fields_set contains the field
-        if self.created_by is None and "created_by" in self.model_fields_set:
-            _dict['created_by'] = None
-
-        # set to None if last_updated_by (nullable) is None
-        # and model_fields_set contains the field
-        if self.last_updated_by is None and "last_updated_by" in self.model_fields_set:
-            _dict['last_updated_by'] = None
-
-        # set to None if schema_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.schema_id is None and "schema_id" in self.model_fields_set:
-            _dict['schema_id'] = None
-
-        # set to None if space_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.space_id is None and "space_id" in self.model_fields_set:
-            _dict['space_id'] = None
+        if self.next_token is None and "next_token" in self.model_fields_set:
+            _dict['next_token'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of SpecimenProcedures from a dict"""
+        """Create an instance of SubjectsResponse from a dict"""
         if obj is None:
             return None
 
@@ -114,14 +96,9 @@ class SpecimenProcedures(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "created_at": obj.get("created_at"),
-            "created_by": obj.get("created_by"),
-            "updated_at": obj.get("updated_at"),
-            "last_updated_by": obj.get("last_updated_by"),
-            "data": obj.get("data"),
-            "schema_id": obj.get("schema_id"),
-            "space_id": obj.get("space_id")
+            "next_token": obj.get("next_token"),
+            "has_more": obj.get("has_more"),
+            "results": [Subjects.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None
         })
         return _obj
 

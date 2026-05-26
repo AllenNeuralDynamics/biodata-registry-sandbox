@@ -3875,7 +3875,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_subjects**
-> List[Subjects] get_subjects(name=name, offset=offset, limit=limit)
+> SubjectsResponse get_subjects(name=name, next_token=next_token, limit=limit)
 
 Get Subjects
 
@@ -3884,7 +3884,7 @@ Get Subjects
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.subjects import Subjects
+from biodata_registry_api_client.models.subjects_response import SubjectsResponse
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -3900,12 +3900,12 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
     name = 'name_example' # str |  (optional)
-    offset = 0 # int |  (optional) (default to 0)
-    limit = 10 # int |  (optional) (default to 10)
+    next_token = 'next_token_example' # str |  (optional)
+    limit = 100 # int |  (optional) (default to 100)
 
     try:
         # Get Subjects
-        api_response = api_instance.get_subjects(name=name, offset=offset, limit=limit)
+        api_response = api_instance.get_subjects(name=name, next_token=next_token, limit=limit)
         print("The response of CoreApi->get_subjects:\n")
         pprint(api_response)
     except Exception as e:
@@ -3920,12 +3920,12 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **name** | **str**|  | [optional] 
- **offset** | **int**|  | [optional] [default to 0]
- **limit** | **int**|  | [optional] [default to 10]
+ **next_token** | **str**|  | [optional] 
+ **limit** | **int**|  | [optional] [default to 100]
 
 ### Return type
 
-[**List[Subjects]**](Subjects.md)
+[**SubjectsResponse**](SubjectsResponse.md)
 
 ### Authorization
 

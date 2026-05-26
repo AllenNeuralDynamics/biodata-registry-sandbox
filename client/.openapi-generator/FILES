@@ -65,6 +65,7 @@ biodata_registry_api_client/models/subject_procedure_update.py
 biodata_registry_api_client/models/subject_procedures.py
 biodata_registry_api_client/models/subject_update.py
 biodata_registry_api_client/models/subjects.py
+biodata_registry_api_client/models/subjects_response.py
 biodata_registry_api_client/models/user_create.py
 biodata_registry_api_client/models/user_update.py
 biodata_registry_api_client/models/users.py
@@ -124,6 +125,7 @@ docs/SubjectProcedureUpdate.md
 docs/SubjectProcedures.md
 docs/SubjectUpdate.md
 docs/Subjects.md
+docs/SubjectsResponse.md
 docs/UserCreate.md
 docs/UserUpdate.md
 docs/Users.md
@@ -189,6 +191,7 @@ test/test_subject_procedure_update.py
 test/test_subject_procedures.py
 test/test_subject_update.py
 test/test_subjects.py
+test/test_subjects_response.py
 test/test_user_create.py
 test/test_user_update.py
 test/test_users.py

@@ -17,6 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
@@ -29,13 +30,17 @@ class DataAssets(BaseModel):
     DataAssets
     """ # noqa: E501
     id: Optional[StrictInt] = None
+    created_at: Optional[datetime] = None
+    created_by: Optional[StrictInt] = None
+    updated_at: Optional[datetime] = None
+    last_updated_by: Optional[StrictInt] = None
     name: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
     location: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
     external_links: Optional[Dict[str, Any]] = None
     data: Optional[Dict[str, Any]] = None
     schema_id: Optional[StrictInt] = None
     space_id: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "location", "external_links", "data", "schema_id", "space_id"]
+    __properties: ClassVar[List[str]] = ["id", "created_at", "created_by", "updated_at", "last_updated_by", "name", "location", "external_links", "data", "schema_id", "space_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -81,6 +86,16 @@ class DataAssets(BaseModel):
         if self.id is None and "id" in self.model_fields_set:
             _dict['id'] = None
 
+        # set to None if created_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.created_by is None and "created_by" in self.model_fields_set:
+            _dict['created_by'] = None
+
+        # set to None if last_updated_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_updated_by is None and "last_updated_by" in self.model_fields_set:
+            _dict['last_updated_by'] = None
+
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -114,6 +129,10 @@ class DataAssets(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
+            "created_at": obj.get("created_at"),
+            "created_by": obj.get("created_by"),
+            "updated_at": obj.get("updated_at"),
+            "last_updated_by": obj.get("last_updated_by"),
             "name": obj.get("name"),
             "location": obj.get("location"),
             "external_links": obj.get("external_links"),
