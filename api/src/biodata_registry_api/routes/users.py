@@ -2,9 +2,8 @@
 Auto-generated module to handle endpoint responses for
 Users
 """
-from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from biodata_registry_api.models.admin import Users
@@ -12,6 +11,7 @@ from biodata_registry_api.models.crud.admin import UserCreate, UserUpdate, Users
 from biodata_registry_api.routes import encode_next_token, decode_next_token
 
 from biodata_registry_api.session import get_session
+from fastapi_filter import FilterDepends
 
 router = APIRouter()
 
@@ -55,11 +55,11 @@ async def get_user(
     operation_id="get_users"
 )
 async def get_users(
-        filter_query: UsersFilter = Depends(),
+        next_token: str | None = Query(default=None),
+        limit: int = Query(default=10, le=100, ge=1),
+        filter_query: UsersFilter = FilterDepends(UsersFilter),
         session: AsyncSession = Depends(get_session),
 ):
-    next_token = filter_query.next_token
-    limit = filter_query.limit
     previous_id = decode_next_token(next_token)
     statement = select(Users).order_by(Users.id.asc())
     statement = filter_query.filter(statement)

@@ -2,9 +2,8 @@
 Auto-generated module to handle endpoint responses for
 Organizations
 """
-from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from biodata_registry_api.models.crud.admin import OrganizationCreate, OrganizationUpdate, OrganizationsPage, OrganizationsFilter
@@ -12,6 +11,7 @@ from biodata_registry_api.models.admin import Organizations
 
 from biodata_registry_api.session import get_session
 from biodata_registry_api.routes import encode_next_token, decode_next_token
+from fastapi_filter import FilterDepends
 
 router = APIRouter()
 
@@ -55,11 +55,11 @@ async def get_organization(
     operation_id="get_organizations"
 )
 async def get_organizations(
-        filter_query: OrganizationsFilter = Depends(),
+        next_token: str | None = Query(default=None),
+        limit: int = Query(default=10, le=100, ge=1),
+        filter_query: OrganizationsFilter = FilterDepends(OrganizationsFilter),
         session: AsyncSession = Depends(get_session),
 ):
-    next_token = filter_query.next_token
-    limit = filter_query.limit
     previous_id = decode_next_token(next_token)
     statement = select(Organizations).order_by(Organizations.id.asc())
     statement = filter_query.filter(statement)

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **get_data_asset_view**
-> List[DataAssetView] get_data_asset_view(data_asset_id=data_asset_id, acquisition_id=acquisition_id, subject_id=subject_id, subject_procedure_id=subject_procedure_id, instrument_id=instrument_id, data_asset_name=data_asset_name, subject_name=subject_name, instrument_name=instrument_name, data_asset_location=data_asset_location, offset=offset, limit=limit)
+> DataAssetViewsPage get_data_asset_view(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, data_asset_id=data_asset_id, acquisition_id=acquisition_id, instrument_id=instrument_id, instrument_name__ilike=instrument_name__ilike, data_asset_name__ilike=data_asset_name__ilike, data_asset_location__ilike=data_asset_location__ilike)
 
 Get Data Asset View
 
@@ -17,7 +17,7 @@ Get Data Asset View
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.data_asset_view import DataAssetView
+from biodata_registry_api_client.models.data_asset_views_page import DataAssetViewsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -32,21 +32,26 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.ViewsApi(api_client)
+    next_token = 'next_token_example' # str |  (optional)
+    limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
     data_asset_id = 56 # int |  (optional)
     acquisition_id = 56 # int |  (optional)
-    subject_id = 56 # int |  (optional)
-    subject_procedure_id = 56 # int |  (optional)
     instrument_id = 56 # int |  (optional)
-    data_asset_name = 'data_asset_name_example' # str |  (optional)
-    subject_name = 'subject_name_example' # str |  (optional)
-    instrument_name = 'instrument_name_example' # str |  (optional)
-    data_asset_location = 'data_asset_location_example' # str |  (optional)
-    offset = 0 # int |  (optional) (default to 0)
-    limit = 10 # int |  (optional) (default to 10)
+    instrument_name__ilike = 'instrument_name__ilike_example' # str |  (optional)
+    data_asset_name__ilike = 'data_asset_name__ilike_example' # str |  (optional)
+    data_asset_location__ilike = 'data_asset_location__ilike_example' # str |  (optional)
 
     try:
         # Get Data Asset View
-        api_response = api_instance.get_data_asset_view(data_asset_id=data_asset_id, acquisition_id=acquisition_id, subject_id=subject_id, subject_procedure_id=subject_procedure_id, instrument_id=instrument_id, data_asset_name=data_asset_name, subject_name=subject_name, instrument_name=instrument_name, data_asset_location=data_asset_location, offset=offset, limit=limit)
+        api_response = api_instance.get_data_asset_view(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, data_asset_id=data_asset_id, acquisition_id=acquisition_id, instrument_id=instrument_id, instrument_name__ilike=instrument_name__ilike, data_asset_name__ilike=data_asset_name__ilike, data_asset_location__ilike=data_asset_location__ilike)
         print("The response of ViewsApi->get_data_asset_view:\n")
         pprint(api_response)
     except Exception as e:
@@ -60,21 +65,26 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **next_token** | **str**|  | [optional] 
+ **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
  **data_asset_id** | **int**|  | [optional] 
  **acquisition_id** | **int**|  | [optional] 
- **subject_id** | **int**|  | [optional] 
- **subject_procedure_id** | **int**|  | [optional] 
  **instrument_id** | **int**|  | [optional] 
- **data_asset_name** | **str**|  | [optional] 
- **subject_name** | **str**|  | [optional] 
- **instrument_name** | **str**|  | [optional] 
- **data_asset_location** | **str**|  | [optional] 
- **offset** | **int**|  | [optional] [default to 0]
- **limit** | **int**|  | [optional] [default to 10]
+ **instrument_name__ilike** | **str**|  | [optional] 
+ **data_asset_name__ilike** | **str**|  | [optional] 
+ **data_asset_location__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[DataAssetView]**](DataAssetView.md)
+[**DataAssetViewsPage**](DataAssetViewsPage.md)
 
 ### Authorization
 

@@ -184,13 +184,19 @@
             "operationId": "get_acquisitions",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -199,9 +205,146 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
                   }
                }
             ],
@@ -211,11 +354,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Acquisitions"
-                           },
-                           "title": "Response Get Acquisitions"
+                           "$ref": "#/components/schemas/AcquisitionsPage"
                         }
                      }
                   }
@@ -695,13 +834,19 @@
             "operationId": "get_collections",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -710,9 +855,178 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
+                  }
+               },
+               {
+                  "name": "description__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Description  Ilike"
                   }
                }
             ],
@@ -722,11 +1036,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Collections"
-                           },
-                           "title": "Response Get Collections"
+                           "$ref": "#/components/schemas/CollectionsPage"
                         }
                      }
                   }
@@ -1064,13 +1374,19 @@
             "operationId": "get_data_assets",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -1079,9 +1395,178 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
+                  }
+               },
+               {
+                  "name": "location__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Location  Ilike"
                   }
                }
             ],
@@ -1091,11 +1576,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/DataAssets"
-                           },
-                           "title": "Response Get Data Assets"
+                           "$ref": "#/components/schemas/DataAssetsPage"
                         }
                      }
                   }
@@ -1575,7 +2056,7 @@
             "operationId": "get_instruments",
             "parameters": [
                {
-                  "name": "name",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
@@ -1587,17 +2068,7 @@
                            "type": "null"
                         }
                      ],
-                     "title": "Name"
-                  }
-               },
-               {
-                  "name": "offset",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "title": "Next Token"
                   }
                },
                {
@@ -1606,9 +2077,162 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
                   }
                }
             ],
@@ -1618,11 +2242,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Instruments"
-                           },
-                           "title": "Response Get Instruments"
+                           "$ref": "#/components/schemas/InstrumentsPage"
                         }
                      }
                   }
@@ -1818,13 +2438,19 @@
             "operationId": "get_organization_admins",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -1833,9 +2459,146 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
                   }
                }
             ],
@@ -1845,11 +2608,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/OrganizationAdmins"
-                           },
-                           "title": "Response Get Organization Admins"
+                           "$ref": "#/components/schemas/OrganizationAdminsPage"
                         }
                      }
                   }
@@ -2045,13 +2804,19 @@
             "operationId": "get_organizations",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -2060,9 +2825,162 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
                   }
                }
             ],
@@ -2072,11 +2990,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Organizations"
-                           },
-                           "title": "Response Get Organizations"
+                           "$ref": "#/components/schemas/OrganizationsPage"
                         }
                      }
                   }
@@ -2272,13 +3186,19 @@
             "operationId": "get_processes",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -2287,9 +3207,146 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
                   }
                }
             ],
@@ -2299,11 +3356,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Processes"
-                           },
-                           "title": "Response Get Processes"
+                           "$ref": "#/components/schemas/ProcessesPage"
                         }
                      }
                   }
@@ -2641,13 +3694,19 @@
             "operationId": "get_quality_controls",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -2656,9 +3715,146 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
                   }
                }
             ],
@@ -2668,11 +3864,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/QualityControls"
-                           },
-                           "title": "Response Get Quality Controls"
+                           "$ref": "#/components/schemas/QualityControlsPage"
                         }
                      }
                   }
@@ -2868,13 +4060,19 @@
             "operationId": "get_schema_entities",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -2883,9 +4081,162 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
                   }
                }
             ],
@@ -2895,11 +4246,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/SchemaEntities"
-                           },
-                           "title": "Response Get Schema Entities"
+                           "$ref": "#/components/schemas/SchemaEntitiesPage"
                         }
                      }
                   }
@@ -3095,13 +4442,19 @@
             "operationId": "get_schemas",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -3110,9 +4463,178 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
+                  }
+               },
+               {
+                  "name": "version",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Version"
                   }
                }
             ],
@@ -3122,11 +4644,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Schemas"
-                           },
-                           "title": "Response Get Schemas"
+                           "$ref": "#/components/schemas/SchemasPage"
                         }
                      }
                   }
@@ -3322,13 +4840,19 @@
             "operationId": "get_space_admins",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -3337,9 +4861,146 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
                   }
                }
             ],
@@ -3349,11 +5010,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/SpaceAdmins"
-                           },
-                           "title": "Response Get Space Admins"
+                           "$ref": "#/components/schemas/SpaceAdminsPage"
                         }
                      }
                   }
@@ -3549,13 +5206,19 @@
             "operationId": "get_spaces",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -3564,9 +5227,162 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
                   }
                }
             ],
@@ -3576,11 +5392,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Spaces"
-                           },
-                           "title": "Response Get Spaces"
+                           "$ref": "#/components/schemas/SpacesPage"
                         }
                      }
                   }
@@ -3776,13 +5588,19 @@
             "operationId": "get_specimen_procedures",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -3791,9 +5609,146 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
                   }
                }
             ],
@@ -3803,11 +5758,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/SpecimenProcedures"
-                           },
-                           "title": "Response Get Specimen Procedures"
+                           "$ref": "#/components/schemas/SpecimenProceduresPage"
                         }
                      }
                   }
@@ -4287,13 +6238,19 @@
             "operationId": "get_specimens",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -4302,9 +6259,162 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
                   }
                }
             ],
@@ -4314,11 +6424,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Specimens"
-                           },
-                           "title": "Response Get Specimens"
+                           "$ref": "#/components/schemas/SpecimensPage"
                         }
                      }
                   }
@@ -5082,13 +7188,19 @@
             "operationId": "get_subject_procedures",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -5097,9 +7209,146 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
                   }
                }
             ],
@@ -5109,11 +7358,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/SubjectProcedures"
-                           },
-                           "title": "Response Get Subject Procedures"
+                           "$ref": "#/components/schemas/SubjectProceduresPage"
                         }
                      }
                   }
@@ -5451,22 +7696,6 @@
             "operationId": "get_subjects",
             "parameters": [
                {
-                  "name": "name",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "string"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Name"
-                  }
-               },
-               {
                   "name": "next_token",
                   "in": "query",
                   "required": false,
@@ -5488,10 +7717,162 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
                      "minimum": 1,
-                     "default": 100,
+                     "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
                   }
                }
             ],
@@ -5501,7 +7882,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "$ref": "#/components/schemas/SubjectsResponse"
+                           "$ref": "#/components/schemas/SubjectsPage"
                         }
                      }
                   }
@@ -5839,13 +8220,19 @@
             "operationId": "get_users",
             "parameters": [
                {
-                  "name": "offset",
+                  "name": "next_token",
                   "in": "query",
                   "required": false,
                   "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
                   }
                },
                {
@@ -5854,9 +8241,178 @@
                   "required": false,
                   "schema": {
                      "type": "integer",
-                     "maximum": 1000,
+                     "maximum": 100,
+                     "minimum": 1,
                      "default": 10,
                      "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
+               {
+                  "name": "name__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Name  Ilike"
+                  }
+               },
+               {
+                  "name": "contact__ilike",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Contact  Ilike"
                   }
                }
             ],
@@ -5866,11 +8422,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/Users"
-                           },
-                           "title": "Response Get Users"
+                           "$ref": "#/components/schemas/UsersPage"
                         }
                      }
                   }
@@ -5896,6 +8448,170 @@
             "summary": "Get Data Asset View",
             "operationId": "get_data_asset_view",
             "parameters": [
+               {
+                  "name": "next_token",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Next Token"
+                  }
+               },
+               {
+                  "name": "limit",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "type": "integer",
+                     "maximum": 100,
+                     "minimum": 1,
+                     "default": 10,
+                     "title": "Limit"
+                  }
+               },
+               {
+                  "name": "created_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gt"
+                  }
+               },
+               {
+                  "name": "created_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lt"
+                  }
+               },
+               {
+                  "name": "created_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Gte"
+                  }
+               },
+               {
+                  "name": "created_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Created At  Lte"
+                  }
+               },
+               {
+                  "name": "updated_at__gt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gt"
+                  }
+               },
+               {
+                  "name": "updated_at__lt",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lt"
+                  }
+               },
+               {
+                  "name": "updated_at__gte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Gte"
+                  }
+               },
+               {
+                  "name": "updated_at__lte",
+                  "in": "query",
+                  "required": false,
+                  "schema": {
+                     "anyOf": [
+                        {
+                           "type": "string",
+                           "format": "date-time"
+                        },
+                        {
+                           "type": "null"
+                        }
+                     ],
+                     "title": "Updated At  Lte"
+                  }
+               },
                {
                   "name": "data_asset_id",
                   "in": "query",
@@ -5929,38 +8645,6 @@
                   }
                },
                {
-                  "name": "subject_id",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "integer"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Subject Id"
-                  }
-               },
-               {
-                  "name": "subject_procedure_id",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "integer"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Subject Procedure Id"
-                  }
-               },
-               {
                   "name": "instrument_id",
                   "in": "query",
                   "required": false,
@@ -5977,7 +8661,7 @@
                   }
                },
                {
-                  "name": "data_asset_name",
+                  "name": "instrument_name__ilike",
                   "in": "query",
                   "required": false,
                   "schema": {
@@ -5989,11 +8673,11 @@
                            "type": "null"
                         }
                      ],
-                     "title": "Data Asset Name"
+                     "title": "Instrument Name  Ilike"
                   }
                },
                {
-                  "name": "subject_name",
+                  "name": "data_asset_name__ilike",
                   "in": "query",
                   "required": false,
                   "schema": {
@@ -6005,11 +8689,11 @@
                            "type": "null"
                         }
                      ],
-                     "title": "Subject Name"
+                     "title": "Data Asset Name  Ilike"
                   }
                },
                {
-                  "name": "instrument_name",
+                  "name": "data_asset_location__ilike",
                   "in": "query",
                   "required": false,
                   "schema": {
@@ -6021,44 +8705,7 @@
                            "type": "null"
                         }
                      ],
-                     "title": "Instrument Name"
-                  }
-               },
-               {
-                  "name": "data_asset_location",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "anyOf": [
-                        {
-                           "type": "string"
-                        },
-                        {
-                           "type": "null"
-                        }
-                     ],
-                     "title": "Data Asset Location"
-                  }
-               },
-               {
-                  "name": "offset",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "type": "integer",
-                     "default": 0,
-                     "title": "Offset"
-                  }
-               },
-               {
-                  "name": "limit",
-                  "in": "query",
-                  "required": false,
-                  "schema": {
-                     "type": "integer",
-                     "maximum": 1000,
-                     "default": 10,
-                     "title": "Limit"
+                     "title": "Data Asset Location  Ilike"
                   }
                }
             ],
@@ -6068,11 +8715,7 @@
                   "content": {
                      "application/json": {
                         "schema": {
-                           "type": "array",
-                           "items": {
-                              "$ref": "#/components/schemas/DataAssetView"
-                           },
-                           "title": "Response Get Data Asset View"
+                           "$ref": "#/components/schemas/DataAssetViewsPage"
                         }
                      }
                   }
@@ -6244,7 +8887,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -6253,7 +8896,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "data": {
                   "additionalProperties": true,
@@ -6307,6 +8950,38 @@
             },
             "type": "object",
             "title": "Acquisitions"
+         },
+         "AcquisitionsPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Acquisitions"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "AcquisitionsPage"
          },
          "CollectionCreate": {
             "properties": {
@@ -6414,7 +9089,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -6423,7 +9098,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "type": "string",
@@ -6453,6 +9128,38 @@
                "description"
             ],
             "title": "Collections"
+         },
+         "CollectionsPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Collections"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "CollectionsPage"
          },
          "DataAssetCreate": {
             "properties": {
@@ -6584,6 +9291,52 @@
          },
          "DataAssetView": {
             "properties": {
+               "created_at": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "format": "date-time"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created At"
+               },
+               "created_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Created By"
+               },
+               "updated_at": {
+                  "anyOf": [
+                     {
+                        "type": "string",
+                        "format": "date-time"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Updated At"
+               },
+               "updated_by": {
+                  "anyOf": [
+                     {
+                        "type": "integer"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Updated By"
+               },
                "data_asset_id": {
                   "anyOf": [
                      {
@@ -6717,6 +9470,38 @@
             "type": "object",
             "title": "DataAssetView"
          },
+         "DataAssetViewsPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/DataAssetView"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "DataAssetViewsPage"
+         },
          "DataAssets": {
             "properties": {
                "id": {
@@ -6751,7 +9536,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -6760,7 +9545,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "anyOf": [
@@ -6821,6 +9606,38 @@
             },
             "type": "object",
             "title": "DataAssets"
+         },
+         "DataAssetsPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/DataAssets"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "DataAssetsPage"
          },
          "HTTPValidationError": {
             "properties": {
@@ -6962,7 +9779,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -6971,7 +9788,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "type": "string",
@@ -7011,6 +9828,38 @@
                "name"
             ],
             "title": "Instruments"
+         },
+         "InstrumentsPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Instruments"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "InstrumentsPage"
          },
          "OrganizationAdminCreate": {
             "properties": {
@@ -7102,7 +9951,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -7111,7 +9960,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "user_id": {
                   "anyOf": [
@@ -7138,6 +9987,38 @@
             },
             "type": "object",
             "title": "OrganizationAdmins"
+         },
+         "OrganizationAdminsPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/OrganizationAdmins"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "OrganizationAdminsPage"
          },
          "OrganizationCreate": {
             "properties": {
@@ -7205,7 +10086,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -7214,7 +10095,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "type": "string",
@@ -7227,6 +10108,38 @@
                "name"
             ],
             "title": "Organizations"
+         },
+         "OrganizationsPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Organizations"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "OrganizationsPage"
          },
          "ProcessCreate": {
             "properties": {
@@ -7357,7 +10270,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -7366,7 +10279,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "data": {
                   "additionalProperties": true,
@@ -7409,6 +10322,38 @@
             },
             "type": "object",
             "title": "Processes"
+         },
+         "ProcessesPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Processes"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "ProcessesPage"
          },
          "QualityControlCreate": {
             "properties": {
@@ -7539,7 +10484,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -7548,7 +10493,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "data": {
                   "additionalProperties": true,
@@ -7591,6 +10536,38 @@
             },
             "type": "object",
             "title": "QualityControls"
+         },
+         "QualityControlsPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/QualityControls"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "QualityControlsPage"
          },
          "SchemaCreate": {
             "properties": {
@@ -7662,7 +10639,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -7671,7 +10648,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "type": "string",
@@ -7684,6 +10661,38 @@
                "name"
             ],
             "title": "SchemaEntities"
+         },
+         "SchemaEntitiesPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/SchemaEntities"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "SchemaEntitiesPage"
          },
          "SchemaEntityCreate": {
             "properties": {
@@ -7804,7 +10813,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -7813,7 +10822,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "type": "string",
@@ -7848,6 +10857,38 @@
                "version"
             ],
             "title": "Schemas"
+         },
+         "SchemasPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Schemas"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "SchemasPage"
          },
          "SpaceAdminCreate": {
             "properties": {
@@ -7939,7 +10980,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -7948,7 +10989,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "user_id": {
                   "anyOf": [
@@ -7975,6 +11016,38 @@
             },
             "type": "object",
             "title": "SpaceAdmins"
+         },
+         "SpaceAdminsPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/SpaceAdmins"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "SpaceAdminsPage"
          },
          "SpaceCreate": {
             "properties": {
@@ -8064,7 +11137,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -8073,7 +11146,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "type": "string",
@@ -8097,6 +11170,38 @@
                "name"
             ],
             "title": "Spaces"
+         },
+         "SpacesPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Spaces"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "SpacesPage"
          },
          "SpecimenCreate": {
             "properties": {
@@ -8257,7 +11362,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -8266,7 +11371,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "data": {
                   "additionalProperties": true,
@@ -8298,6 +11403,38 @@
             },
             "type": "object",
             "title": "SpecimenProcedures"
+         },
+         "SpecimenProceduresPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/SpecimenProcedures"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "SpecimenProceduresPage"
          },
          "SpecimenUpdate": {
             "properties": {
@@ -8396,7 +11533,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -8405,7 +11542,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "type": "string",
@@ -8456,6 +11593,38 @@
                "name"
             ],
             "title": "Specimens"
+         },
+         "SpecimensPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Specimens"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "SpecimensPage"
          },
          "SubjectCreate": {
             "properties": {
@@ -8633,7 +11802,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -8642,7 +11811,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "data": {
                   "items": {
@@ -8688,6 +11857,38 @@
             },
             "type": "object",
             "title": "SubjectProcedures"
+         },
+         "SubjectProceduresPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/SubjectProcedures"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "SubjectProceduresPage"
          },
          "SubjectUpdate": {
             "properties": {
@@ -8775,7 +11976,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -8784,7 +11985,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "type": "string",
@@ -8825,7 +12026,7 @@
             ],
             "title": "Subjects"
          },
-         "SubjectsResponse": {
+         "SubjectsPage": {
             "properties": {
                "next_token": {
                   "anyOf": [
@@ -8840,7 +12041,8 @@
                },
                "has_more": {
                   "type": "boolean",
-                  "title": "Has More"
+                  "title": "Has More",
+                  "default": false
                },
                "results": {
                   "items": {
@@ -8852,11 +12054,9 @@
             },
             "type": "object",
             "required": [
-               "next_token",
-               "has_more",
                "results"
             ],
-            "title": "SubjectsResponse"
+            "title": "SubjectsPage"
          },
          "UserCreate": {
             "properties": {
@@ -8942,7 +12142,7 @@
                   "format": "date-time",
                   "title": "Updated At"
                },
-               "last_updated_by": {
+               "updated_by": {
                   "anyOf": [
                      {
                         "type": "integer"
@@ -8951,7 +12151,7 @@
                         "type": "null"
                      }
                   ],
-                  "title": "Last Updated By"
+                  "title": "Updated By"
                },
                "name": {
                   "type": "string",
@@ -8970,6 +12170,38 @@
                "contact"
             ],
             "title": "Users"
+         },
+         "UsersPage": {
+            "properties": {
+               "next_token": {
+                  "anyOf": [
+                     {
+                        "type": "string"
+                     },
+                     {
+                        "type": "null"
+                     }
+                  ],
+                  "title": "Next Token"
+               },
+               "has_more": {
+                  "type": "boolean",
+                  "title": "Has More",
+                  "default": false
+               },
+               "results": {
+                  "items": {
+                     "$ref": "#/components/schemas/Users"
+                  },
+                  "type": "array",
+                  "title": "Results"
+               }
+            },
+            "type": "object",
+            "required": [
+               "results"
+            ],
+            "title": "UsersPage"
          },
          "ValidationError": {
             "properties": {

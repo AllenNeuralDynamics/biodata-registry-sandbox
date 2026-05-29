@@ -15,28 +15,35 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt
+from datetime import datetime
+from pydantic import Field, StrictInt, StrictStr
 from typing import Any, List, Optional
 from typing_extensions import Annotated
 from biodata_registry_api_client.models.collection_create import CollectionCreate
 from biodata_registry_api_client.models.collection_update import CollectionUpdate
 from biodata_registry_api_client.models.collections import Collections
+from biodata_registry_api_client.models.collections_page import CollectionsPage
 from biodata_registry_api_client.models.data_assets import DataAssets
 from biodata_registry_api_client.models.organization_admin_create import OrganizationAdminCreate
 from biodata_registry_api_client.models.organization_admin_update import OrganizationAdminUpdate
 from biodata_registry_api_client.models.organization_admins import OrganizationAdmins
+from biodata_registry_api_client.models.organization_admins_page import OrganizationAdminsPage
 from biodata_registry_api_client.models.organization_create import OrganizationCreate
 from biodata_registry_api_client.models.organization_update import OrganizationUpdate
 from biodata_registry_api_client.models.organizations import Organizations
+from biodata_registry_api_client.models.organizations_page import OrganizationsPage
 from biodata_registry_api_client.models.space_admin_create import SpaceAdminCreate
 from biodata_registry_api_client.models.space_admin_update import SpaceAdminUpdate
 from biodata_registry_api_client.models.space_admins import SpaceAdmins
+from biodata_registry_api_client.models.space_admins_page import SpaceAdminsPage
 from biodata_registry_api_client.models.space_create import SpaceCreate
 from biodata_registry_api_client.models.space_update import SpaceUpdate
 from biodata_registry_api_client.models.spaces import Spaces
+from biodata_registry_api_client.models.spaces_page import SpacesPage
 from biodata_registry_api_client.models.user_create import UserCreate
 from biodata_registry_api_client.models.user_update import UserUpdate
 from biodata_registry_api_client.models.users import Users
+from biodata_registry_api_client.models.users_page import UsersPage
 
 from biodata_registry_api_client.api_client import ApiClient, RequestSerialized
 from biodata_registry_api_client.api_response import ApiResponse
@@ -3793,8 +3800,18 @@ class AdminApi:
     @validate_call
     def get_collections(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
+        description__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3807,14 +3824,34 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[Collections]:
+    ) -> CollectionsPage:
         """Get Collections
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
+        :param description__ilike:
+        :type description__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3838,8 +3875,18 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_collections_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
+            description__ilike=description__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3847,7 +3894,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Collections]",
+            '200': "CollectionsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3864,8 +3911,18 @@ class AdminApi:
     @validate_call
     def get_collections_with_http_info(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
+        description__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3878,14 +3935,34 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[Collections]]:
+    ) -> ApiResponse[CollectionsPage]:
         """Get Collections
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
+        :param description__ilike:
+        :type description__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3909,8 +3986,18 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_collections_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
+            description__ilike=description__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3918,7 +4005,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Collections]",
+            '200': "CollectionsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -3935,8 +4022,18 @@ class AdminApi:
     @validate_call
     def get_collections_without_preload_content(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
+        description__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3953,10 +4050,30 @@ class AdminApi:
         """Get Collections
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
+        :param description__ilike:
+        :type description__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3980,8 +4097,18 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_collections_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
+            description__ilike=description__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3989,7 +4116,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Collections]",
+            '200': "CollectionsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4001,8 +4128,18 @@ class AdminApi:
 
     def _get_collections_serialize(
         self,
-        offset,
+        next_token,
         limit,
+        created_at__gt,
+        created_at__lt,
+        created_at__gte,
+        created_at__lte,
+        updated_at__gt,
+        updated_at__lt,
+        updated_at__gte,
+        updated_at__lte,
+        name__ilike,
+        description__ilike,
         _request_auth,
         _content_type,
         _headers,
@@ -4025,13 +4162,125 @@ class AdminApi:
 
         # process the path parameters
         # process the query parameters
-        if offset is not None:
+        if next_token is not None:
             
-            _query_params.append(('offset', offset))
+            _query_params.append(('next_token', next_token))
             
         if limit is not None:
             
             _query_params.append(('limit', limit))
+            
+        if created_at__gt is not None:
+            if isinstance(created_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gt',
+                        created_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gt', created_at__gt))
+            
+        if created_at__lt is not None:
+            if isinstance(created_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lt',
+                        created_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lt', created_at__lt))
+            
+        if created_at__gte is not None:
+            if isinstance(created_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gte',
+                        created_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gte', created_at__gte))
+            
+        if created_at__lte is not None:
+            if isinstance(created_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lte',
+                        created_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lte', created_at__lte))
+            
+        if updated_at__gt is not None:
+            if isinstance(updated_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gt',
+                        updated_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gt', updated_at__gt))
+            
+        if updated_at__lt is not None:
+            if isinstance(updated_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lt',
+                        updated_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lt', updated_at__lt))
+            
+        if updated_at__gte is not None:
+            if isinstance(updated_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gte',
+                        updated_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gte', updated_at__gte))
+            
+        if updated_at__lte is not None:
+            if isinstance(updated_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lte',
+                        updated_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lte', updated_at__lte))
+            
+        if name__ilike is not None:
+            
+            _query_params.append(('name__ilike', name__ilike))
+            
+        if description__ilike is not None:
+            
+            _query_params.append(('description__ilike', description__ilike))
             
         # process the header parameters
         # process the form parameters
@@ -4596,8 +4845,16 @@ class AdminApi:
     @validate_call
     def get_organization_admins(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4610,14 +4867,30 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[OrganizationAdmins]:
+    ) -> OrganizationAdminsPage:
         """Get Organization Admins
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4641,8 +4914,16 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_organization_admins_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4650,7 +4931,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[OrganizationAdmins]",
+            '200': "OrganizationAdminsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4667,8 +4948,16 @@ class AdminApi:
     @validate_call
     def get_organization_admins_with_http_info(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4681,14 +4970,30 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[OrganizationAdmins]]:
+    ) -> ApiResponse[OrganizationAdminsPage]:
         """Get Organization Admins
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4712,8 +5017,16 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_organization_admins_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4721,7 +5034,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[OrganizationAdmins]",
+            '200': "OrganizationAdminsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4738,8 +5051,16 @@ class AdminApi:
     @validate_call
     def get_organization_admins_without_preload_content(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4756,10 +5077,26 @@ class AdminApi:
         """Get Organization Admins
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4783,8 +5120,16 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_organization_admins_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4792,7 +5137,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[OrganizationAdmins]",
+            '200': "OrganizationAdminsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4804,8 +5149,16 @@ class AdminApi:
 
     def _get_organization_admins_serialize(
         self,
-        offset,
+        next_token,
         limit,
+        created_at__gt,
+        created_at__lt,
+        created_at__gte,
+        created_at__lte,
+        updated_at__gt,
+        updated_at__lt,
+        updated_at__gte,
+        updated_at__lte,
         _request_auth,
         _content_type,
         _headers,
@@ -4828,13 +5181,117 @@ class AdminApi:
 
         # process the path parameters
         # process the query parameters
-        if offset is not None:
+        if next_token is not None:
             
-            _query_params.append(('offset', offset))
+            _query_params.append(('next_token', next_token))
             
         if limit is not None:
             
             _query_params.append(('limit', limit))
+            
+        if created_at__gt is not None:
+            if isinstance(created_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gt',
+                        created_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gt', created_at__gt))
+            
+        if created_at__lt is not None:
+            if isinstance(created_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lt',
+                        created_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lt', created_at__lt))
+            
+        if created_at__gte is not None:
+            if isinstance(created_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gte',
+                        created_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gte', created_at__gte))
+            
+        if created_at__lte is not None:
+            if isinstance(created_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lte',
+                        created_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lte', created_at__lte))
+            
+        if updated_at__gt is not None:
+            if isinstance(updated_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gt',
+                        updated_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gt', updated_at__gt))
+            
+        if updated_at__lt is not None:
+            if isinstance(updated_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lt',
+                        updated_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lt', updated_at__lt))
+            
+        if updated_at__gte is not None:
+            if isinstance(updated_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gte',
+                        updated_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gte', updated_at__gte))
+            
+        if updated_at__lte is not None:
+            if isinstance(updated_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lte',
+                        updated_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lte', updated_at__lte))
             
         # process the header parameters
         # process the form parameters
@@ -4875,8 +5332,17 @@ class AdminApi:
     @validate_call
     def get_organizations(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4889,14 +5355,32 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[Organizations]:
+    ) -> OrganizationsPage:
         """Get Organizations
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4920,8 +5404,17 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_organizations_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4929,7 +5422,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Organizations]",
+            '200': "OrganizationsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4946,8 +5439,17 @@ class AdminApi:
     @validate_call
     def get_organizations_with_http_info(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4960,14 +5462,32 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[Organizations]]:
+    ) -> ApiResponse[OrganizationsPage]:
         """Get Organizations
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4991,8 +5511,17 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_organizations_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5000,7 +5529,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Organizations]",
+            '200': "OrganizationsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5017,8 +5546,17 @@ class AdminApi:
     @validate_call
     def get_organizations_without_preload_content(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5035,10 +5573,28 @@ class AdminApi:
         """Get Organizations
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5062,8 +5618,17 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_organizations_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5071,7 +5636,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Organizations]",
+            '200': "OrganizationsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5083,8 +5648,17 @@ class AdminApi:
 
     def _get_organizations_serialize(
         self,
-        offset,
+        next_token,
         limit,
+        created_at__gt,
+        created_at__lt,
+        created_at__gte,
+        created_at__lte,
+        updated_at__gt,
+        updated_at__lt,
+        updated_at__gte,
+        updated_at__lte,
+        name__ilike,
         _request_auth,
         _content_type,
         _headers,
@@ -5107,13 +5681,121 @@ class AdminApi:
 
         # process the path parameters
         # process the query parameters
-        if offset is not None:
+        if next_token is not None:
             
-            _query_params.append(('offset', offset))
+            _query_params.append(('next_token', next_token))
             
         if limit is not None:
             
             _query_params.append(('limit', limit))
+            
+        if created_at__gt is not None:
+            if isinstance(created_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gt',
+                        created_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gt', created_at__gt))
+            
+        if created_at__lt is not None:
+            if isinstance(created_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lt',
+                        created_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lt', created_at__lt))
+            
+        if created_at__gte is not None:
+            if isinstance(created_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gte',
+                        created_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gte', created_at__gte))
+            
+        if created_at__lte is not None:
+            if isinstance(created_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lte',
+                        created_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lte', created_at__lte))
+            
+        if updated_at__gt is not None:
+            if isinstance(updated_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gt',
+                        updated_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gt', updated_at__gt))
+            
+        if updated_at__lt is not None:
+            if isinstance(updated_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lt',
+                        updated_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lt', updated_at__lt))
+            
+        if updated_at__gte is not None:
+            if isinstance(updated_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gte',
+                        updated_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gte', updated_at__gte))
+            
+        if updated_at__lte is not None:
+            if isinstance(updated_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lte',
+                        updated_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lte', updated_at__lte))
+            
+        if name__ilike is not None:
+            
+            _query_params.append(('name__ilike', name__ilike))
             
         # process the header parameters
         # process the form parameters
@@ -5678,8 +6360,16 @@ class AdminApi:
     @validate_call
     def get_space_admins(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5692,14 +6382,30 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[SpaceAdmins]:
+    ) -> SpaceAdminsPage:
         """Get Space Admins
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5723,8 +6429,16 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_space_admins_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5732,7 +6446,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[SpaceAdmins]",
+            '200': "SpaceAdminsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5749,8 +6463,16 @@ class AdminApi:
     @validate_call
     def get_space_admins_with_http_info(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5763,14 +6485,30 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[SpaceAdmins]]:
+    ) -> ApiResponse[SpaceAdminsPage]:
         """Get Space Admins
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5794,8 +6532,16 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_space_admins_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5803,7 +6549,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[SpaceAdmins]",
+            '200': "SpaceAdminsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5820,8 +6566,16 @@ class AdminApi:
     @validate_call
     def get_space_admins_without_preload_content(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5838,10 +6592,26 @@ class AdminApi:
         """Get Space Admins
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -5865,8 +6635,16 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_space_admins_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -5874,7 +6652,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[SpaceAdmins]",
+            '200': "SpaceAdminsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -5886,8 +6664,16 @@ class AdminApi:
 
     def _get_space_admins_serialize(
         self,
-        offset,
+        next_token,
         limit,
+        created_at__gt,
+        created_at__lt,
+        created_at__gte,
+        created_at__lte,
+        updated_at__gt,
+        updated_at__lt,
+        updated_at__gte,
+        updated_at__lte,
         _request_auth,
         _content_type,
         _headers,
@@ -5910,13 +6696,117 @@ class AdminApi:
 
         # process the path parameters
         # process the query parameters
-        if offset is not None:
+        if next_token is not None:
             
-            _query_params.append(('offset', offset))
+            _query_params.append(('next_token', next_token))
             
         if limit is not None:
             
             _query_params.append(('limit', limit))
+            
+        if created_at__gt is not None:
+            if isinstance(created_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gt',
+                        created_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gt', created_at__gt))
+            
+        if created_at__lt is not None:
+            if isinstance(created_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lt',
+                        created_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lt', created_at__lt))
+            
+        if created_at__gte is not None:
+            if isinstance(created_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gte',
+                        created_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gte', created_at__gte))
+            
+        if created_at__lte is not None:
+            if isinstance(created_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lte',
+                        created_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lte', created_at__lte))
+            
+        if updated_at__gt is not None:
+            if isinstance(updated_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gt',
+                        updated_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gt', updated_at__gt))
+            
+        if updated_at__lt is not None:
+            if isinstance(updated_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lt',
+                        updated_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lt', updated_at__lt))
+            
+        if updated_at__gte is not None:
+            if isinstance(updated_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gte',
+                        updated_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gte', updated_at__gte))
+            
+        if updated_at__lte is not None:
+            if isinstance(updated_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lte',
+                        updated_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lte', updated_at__lte))
             
         # process the header parameters
         # process the form parameters
@@ -5957,8 +6847,17 @@ class AdminApi:
     @validate_call
     def get_spaces(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -5971,14 +6870,32 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[Spaces]:
+    ) -> SpacesPage:
         """Get Spaces
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6002,8 +6919,17 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_spaces_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6011,7 +6937,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Spaces]",
+            '200': "SpacesPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -6028,8 +6954,17 @@ class AdminApi:
     @validate_call
     def get_spaces_with_http_info(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6042,14 +6977,32 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[Spaces]]:
+    ) -> ApiResponse[SpacesPage]:
         """Get Spaces
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6073,8 +7026,17 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_spaces_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6082,7 +7044,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Spaces]",
+            '200': "SpacesPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -6099,8 +7061,17 @@ class AdminApi:
     @validate_call
     def get_spaces_without_preload_content(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6117,10 +7088,28 @@ class AdminApi:
         """Get Spaces
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6144,8 +7133,17 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_spaces_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6153,7 +7151,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Spaces]",
+            '200': "SpacesPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -6165,8 +7163,17 @@ class AdminApi:
 
     def _get_spaces_serialize(
         self,
-        offset,
+        next_token,
         limit,
+        created_at__gt,
+        created_at__lt,
+        created_at__gte,
+        created_at__lte,
+        updated_at__gt,
+        updated_at__lt,
+        updated_at__gte,
+        updated_at__lte,
+        name__ilike,
         _request_auth,
         _content_type,
         _headers,
@@ -6189,13 +7196,121 @@ class AdminApi:
 
         # process the path parameters
         # process the query parameters
-        if offset is not None:
+        if next_token is not None:
             
-            _query_params.append(('offset', offset))
+            _query_params.append(('next_token', next_token))
             
         if limit is not None:
             
             _query_params.append(('limit', limit))
+            
+        if created_at__gt is not None:
+            if isinstance(created_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gt',
+                        created_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gt', created_at__gt))
+            
+        if created_at__lt is not None:
+            if isinstance(created_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lt',
+                        created_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lt', created_at__lt))
+            
+        if created_at__gte is not None:
+            if isinstance(created_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gte',
+                        created_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gte', created_at__gte))
+            
+        if created_at__lte is not None:
+            if isinstance(created_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lte',
+                        created_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lte', created_at__lte))
+            
+        if updated_at__gt is not None:
+            if isinstance(updated_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gt',
+                        updated_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gt', updated_at__gt))
+            
+        if updated_at__lt is not None:
+            if isinstance(updated_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lt',
+                        updated_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lt', updated_at__lt))
+            
+        if updated_at__gte is not None:
+            if isinstance(updated_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gte',
+                        updated_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gte', updated_at__gte))
+            
+        if updated_at__lte is not None:
+            if isinstance(updated_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lte',
+                        updated_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lte', updated_at__lte))
+            
+        if name__ilike is not None:
+            
+            _query_params.append(('name__ilike', name__ilike))
             
         # process the header parameters
         # process the form parameters
@@ -6498,8 +7613,18 @@ class AdminApi:
     @validate_call
     def get_users(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
+        contact__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6512,14 +7637,34 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[Users]:
+    ) -> UsersPage:
         """Get Users
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
+        :param contact__ilike:
+        :type contact__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6543,8 +7688,18 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_users_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
+            contact__ilike=contact__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6552,7 +7707,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Users]",
+            '200': "UsersPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -6569,8 +7724,18 @@ class AdminApi:
     @validate_call
     def get_users_with_http_info(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
+        contact__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6583,14 +7748,34 @@ class AdminApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[Users]]:
+    ) -> ApiResponse[UsersPage]:
         """Get Users
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
+        :param contact__ilike:
+        :type contact__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6614,8 +7799,18 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_users_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
+            contact__ilike=contact__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6623,7 +7818,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Users]",
+            '200': "UsersPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -6640,8 +7835,18 @@ class AdminApi:
     @validate_call
     def get_users_without_preload_content(
         self,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
+        name__ilike: Optional[StrictStr] = None,
+        contact__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6658,10 +7863,30 @@ class AdminApi:
         """Get Users
 
 
-        :param offset:
-        :type offset: int
+        :param next_token:
+        :type next_token: str
         :param limit:
         :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
+        :param name__ilike:
+        :type name__ilike: str
+        :param contact__ilike:
+        :type contact__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6685,8 +7910,18 @@ class AdminApi:
         """ # noqa: E501
 
         _param = self._get_users_serialize(
-            offset=offset,
+            next_token=next_token,
             limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
+            name__ilike=name__ilike,
+            contact__ilike=contact__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6694,7 +7929,7 @@ class AdminApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[Users]",
+            '200': "UsersPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -6706,8 +7941,18 @@ class AdminApi:
 
     def _get_users_serialize(
         self,
-        offset,
+        next_token,
         limit,
+        created_at__gt,
+        created_at__lt,
+        created_at__gte,
+        created_at__lte,
+        updated_at__gt,
+        updated_at__lt,
+        updated_at__gte,
+        updated_at__lte,
+        name__ilike,
+        contact__ilike,
         _request_auth,
         _content_type,
         _headers,
@@ -6730,13 +7975,125 @@ class AdminApi:
 
         # process the path parameters
         # process the query parameters
-        if offset is not None:
+        if next_token is not None:
             
-            _query_params.append(('offset', offset))
+            _query_params.append(('next_token', next_token))
             
         if limit is not None:
             
             _query_params.append(('limit', limit))
+            
+        if created_at__gt is not None:
+            if isinstance(created_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gt',
+                        created_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gt', created_at__gt))
+            
+        if created_at__lt is not None:
+            if isinstance(created_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lt',
+                        created_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lt', created_at__lt))
+            
+        if created_at__gte is not None:
+            if isinstance(created_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gte',
+                        created_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gte', created_at__gte))
+            
+        if created_at__lte is not None:
+            if isinstance(created_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lte',
+                        created_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lte', created_at__lte))
+            
+        if updated_at__gt is not None:
+            if isinstance(updated_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gt',
+                        updated_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gt', updated_at__gt))
+            
+        if updated_at__lt is not None:
+            if isinstance(updated_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lt',
+                        updated_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lt', updated_at__lt))
+            
+        if updated_at__gte is not None:
+            if isinstance(updated_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gte',
+                        updated_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gte', updated_at__gte))
+            
+        if updated_at__lte is not None:
+            if isinstance(updated_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lte',
+                        updated_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lte', updated_at__lte))
+            
+        if name__ilike is not None:
+            
+            _query_params.append(('name__ilike', name__ilike))
+            
+        if contact__ilike is not None:
+            
+            _query_params.append(('contact__ilike', contact__ilike))
             
         # process the header parameters
         # process the form parameters

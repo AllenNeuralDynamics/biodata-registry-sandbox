@@ -33,58 +33,75 @@ __all__ = [
     "AcquisitionCreate",
     "AcquisitionUpdate",
     "Acquisitions",
+    "AcquisitionsPage",
     "CollectionCreate",
     "CollectionUpdate",
     "Collections",
+    "CollectionsPage",
     "DataAssetCreate",
     "DataAssetUpdate",
     "DataAssetView",
+    "DataAssetViewsPage",
     "DataAssets",
+    "DataAssetsPage",
     "HTTPValidationError",
     "InstrumentCreate",
     "InstrumentUpdate",
     "Instruments",
+    "InstrumentsPage",
     "LocationInner",
     "OrganizationAdminCreate",
     "OrganizationAdminUpdate",
     "OrganizationAdmins",
+    "OrganizationAdminsPage",
     "OrganizationCreate",
     "OrganizationUpdate",
     "Organizations",
+    "OrganizationsPage",
     "ProcessCreate",
     "ProcessUpdate",
     "Processes",
+    "ProcessesPage",
     "QualityControlCreate",
     "QualityControlUpdate",
     "QualityControls",
+    "QualityControlsPage",
     "SchemaCreate",
     "SchemaEntities",
+    "SchemaEntitiesPage",
     "SchemaEntityCreate",
     "SchemaEntityUpdate",
     "SchemaUpdate",
     "Schemas",
+    "SchemasPage",
     "SpaceAdminCreate",
     "SpaceAdminUpdate",
     "SpaceAdmins",
+    "SpaceAdminsPage",
     "SpaceCreate",
     "SpaceUpdate",
     "Spaces",
+    "SpacesPage",
     "SpecimenCreate",
     "SpecimenProcedureCreate",
     "SpecimenProcedureUpdate",
     "SpecimenProcedures",
+    "SpecimenProceduresPage",
     "SpecimenUpdate",
     "Specimens",
+    "SpecimensPage",
     "SubjectCreate",
     "SubjectProcedureCreate",
     "SubjectProcedureUpdate",
     "SubjectProcedures",
+    "SubjectProceduresPage",
     "SubjectUpdate",
     "Subjects",
-    "SubjectsResponse",
+    "SubjectsPage",
     "UserCreate",
     "UserUpdate",
     "Users",
+    "UsersPage",
     "ValidationError",
 ]
 
@@ -108,57 +125,74 @@ from biodata_registry_api_client.exceptions import ApiException as ApiException
 from biodata_registry_api_client.models.acquisition_create import AcquisitionCreate as AcquisitionCreate
 from biodata_registry_api_client.models.acquisition_update import AcquisitionUpdate as AcquisitionUpdate
 from biodata_registry_api_client.models.acquisitions import Acquisitions as Acquisitions
+from biodata_registry_api_client.models.acquisitions_page import AcquisitionsPage as AcquisitionsPage
 from biodata_registry_api_client.models.collection_create import CollectionCreate as CollectionCreate
 from biodata_registry_api_client.models.collection_update import CollectionUpdate as CollectionUpdate
 from biodata_registry_api_client.models.collections import Collections as Collections
+from biodata_registry_api_client.models.collections_page import CollectionsPage as CollectionsPage
 from biodata_registry_api_client.models.data_asset_create import DataAssetCreate as DataAssetCreate
 from biodata_registry_api_client.models.data_asset_update import DataAssetUpdate as DataAssetUpdate
 from biodata_registry_api_client.models.data_asset_view import DataAssetView as DataAssetView
+from biodata_registry_api_client.models.data_asset_views_page import DataAssetViewsPage as DataAssetViewsPage
 from biodata_registry_api_client.models.data_assets import DataAssets as DataAssets
+from biodata_registry_api_client.models.data_assets_page import DataAssetsPage as DataAssetsPage
 from biodata_registry_api_client.models.http_validation_error import HTTPValidationError as HTTPValidationError
 from biodata_registry_api_client.models.instrument_create import InstrumentCreate as InstrumentCreate
 from biodata_registry_api_client.models.instrument_update import InstrumentUpdate as InstrumentUpdate
 from biodata_registry_api_client.models.instruments import Instruments as Instruments
+from biodata_registry_api_client.models.instruments_page import InstrumentsPage as InstrumentsPage
 from biodata_registry_api_client.models.location_inner import LocationInner as LocationInner
 from biodata_registry_api_client.models.organization_admin_create import OrganizationAdminCreate as OrganizationAdminCreate
 from biodata_registry_api_client.models.organization_admin_update import OrganizationAdminUpdate as OrganizationAdminUpdate
 from biodata_registry_api_client.models.organization_admins import OrganizationAdmins as OrganizationAdmins
+from biodata_registry_api_client.models.organization_admins_page import OrganizationAdminsPage as OrganizationAdminsPage
 from biodata_registry_api_client.models.organization_create import OrganizationCreate as OrganizationCreate
 from biodata_registry_api_client.models.organization_update import OrganizationUpdate as OrganizationUpdate
 from biodata_registry_api_client.models.organizations import Organizations as Organizations
+from biodata_registry_api_client.models.organizations_page import OrganizationsPage as OrganizationsPage
 from biodata_registry_api_client.models.process_create import ProcessCreate as ProcessCreate
 from biodata_registry_api_client.models.process_update import ProcessUpdate as ProcessUpdate
 from biodata_registry_api_client.models.processes import Processes as Processes
+from biodata_registry_api_client.models.processes_page import ProcessesPage as ProcessesPage
 from biodata_registry_api_client.models.quality_control_create import QualityControlCreate as QualityControlCreate
 from biodata_registry_api_client.models.quality_control_update import QualityControlUpdate as QualityControlUpdate
 from biodata_registry_api_client.models.quality_controls import QualityControls as QualityControls
+from biodata_registry_api_client.models.quality_controls_page import QualityControlsPage as QualityControlsPage
 from biodata_registry_api_client.models.schema_create import SchemaCreate as SchemaCreate
 from biodata_registry_api_client.models.schema_entities import SchemaEntities as SchemaEntities
+from biodata_registry_api_client.models.schema_entities_page import SchemaEntitiesPage as SchemaEntitiesPage
 from biodata_registry_api_client.models.schema_entity_create import SchemaEntityCreate as SchemaEntityCreate
 from biodata_registry_api_client.models.schema_entity_update import SchemaEntityUpdate as SchemaEntityUpdate
 from biodata_registry_api_client.models.schema_update import SchemaUpdate as SchemaUpdate
 from biodata_registry_api_client.models.schemas import Schemas as Schemas
+from biodata_registry_api_client.models.schemas_page import SchemasPage as SchemasPage
 from biodata_registry_api_client.models.space_admin_create import SpaceAdminCreate as SpaceAdminCreate
 from biodata_registry_api_client.models.space_admin_update import SpaceAdminUpdate as SpaceAdminUpdate
 from biodata_registry_api_client.models.space_admins import SpaceAdmins as SpaceAdmins
+from biodata_registry_api_client.models.space_admins_page import SpaceAdminsPage as SpaceAdminsPage
 from biodata_registry_api_client.models.space_create import SpaceCreate as SpaceCreate
 from biodata_registry_api_client.models.space_update import SpaceUpdate as SpaceUpdate
 from biodata_registry_api_client.models.spaces import Spaces as Spaces
+from biodata_registry_api_client.models.spaces_page import SpacesPage as SpacesPage
 from biodata_registry_api_client.models.specimen_create import SpecimenCreate as SpecimenCreate
 from biodata_registry_api_client.models.specimen_procedure_create import SpecimenProcedureCreate as SpecimenProcedureCreate
 from biodata_registry_api_client.models.specimen_procedure_update import SpecimenProcedureUpdate as SpecimenProcedureUpdate
 from biodata_registry_api_client.models.specimen_procedures import SpecimenProcedures as SpecimenProcedures
+from biodata_registry_api_client.models.specimen_procedures_page import SpecimenProceduresPage as SpecimenProceduresPage
 from biodata_registry_api_client.models.specimen_update import SpecimenUpdate as SpecimenUpdate
 from biodata_registry_api_client.models.specimens import Specimens as Specimens
+from biodata_registry_api_client.models.specimens_page import SpecimensPage as SpecimensPage
 from biodata_registry_api_client.models.subject_create import SubjectCreate as SubjectCreate
 from biodata_registry_api_client.models.subject_procedure_create import SubjectProcedureCreate as SubjectProcedureCreate
 from biodata_registry_api_client.models.subject_procedure_update import SubjectProcedureUpdate as SubjectProcedureUpdate
 from biodata_registry_api_client.models.subject_procedures import SubjectProcedures as SubjectProcedures
+from biodata_registry_api_client.models.subject_procedures_page import SubjectProceduresPage as SubjectProceduresPage
 from biodata_registry_api_client.models.subject_update import SubjectUpdate as SubjectUpdate
 from biodata_registry_api_client.models.subjects import Subjects as Subjects
-from biodata_registry_api_client.models.subjects_response import SubjectsResponse as SubjectsResponse
+from biodata_registry_api_client.models.subjects_page import SubjectsPage as SubjectsPage
 from biodata_registry_api_client.models.user_create import UserCreate as UserCreate
 from biodata_registry_api_client.models.user_update import UserUpdate as UserUpdate
 from biodata_registry_api_client.models.users import Users as Users
+from biodata_registry_api_client.models.users_page import UsersPage as UsersPage
 from biodata_registry_api_client.models.validation_error import ValidationError as ValidationError
 

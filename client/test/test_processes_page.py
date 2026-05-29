@@ -14,10 +14,10 @@
 
 import unittest
 
-from biodata_registry_api_client.models.subjects_response import SubjectsResponse
+from biodata_registry_api_client.models.processes_page import ProcessesPage
 
-class TestSubjectsResponse(unittest.TestCase):
-    """SubjectsResponse unit test stubs"""
+class TestProcessesPage(unittest.TestCase):
+    """ProcessesPage unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,52 +25,50 @@ class TestSubjectsResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> SubjectsResponse:
-        """Test SubjectsResponse
+    def make_instance(self, include_optional) -> ProcessesPage:
+        """Test ProcessesPage
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `SubjectsResponse`
+        # uncomment below to create an instance of `ProcessesPage`
         """
-        model = SubjectsResponse()
+        model = ProcessesPage()
         if include_optional:
-            return SubjectsResponse(
+            return ProcessesPage(
                 next_token = '',
                 has_more = True,
                 results = [
-                    biodata_registry_api_client.models.subjects.Subjects(
+                    biodata_registry_api_client.models.processes.Processes(
                         id = 56, 
                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         created_by = 56, 
                         updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                        last_updated_by = 56, 
-                        name = '', 
+                        updated_by = 56, 
                         data = { }, 
                         schema_id = 56, 
-                        space_id = 56, )
+                        space_id = 56, 
+                        output_data_asset_id = 56, )
                     ]
             )
         else:
-            return SubjectsResponse(
-                next_token = '',
-                has_more = True,
+            return ProcessesPage(
                 results = [
-                    biodata_registry_api_client.models.subjects.Subjects(
+                    biodata_registry_api_client.models.processes.Processes(
                         id = 56, 
                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         created_by = 56, 
                         updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                        last_updated_by = 56, 
-                        name = '', 
+                        updated_by = 56, 
                         data = { }, 
                         schema_id = 56, 
-                        space_id = 56, )
+                        space_id = 56, 
+                        output_data_asset_id = 56, )
                     ],
         )
         """
 
-    def testSubjectsResponse(self):
-        """Test SubjectsResponse"""
+    def testProcessesPage(self):
+        """Test ProcessesPage"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

@@ -15,10 +15,11 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from datetime import datetime
 from pydantic import Field, StrictInt, StrictStr
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Annotated
-from biodata_registry_api_client.models.data_asset_view import DataAssetView
+from biodata_registry_api_client.models.data_asset_views_page import DataAssetViewsPage
 
 from biodata_registry_api_client.api_client import ApiClient, RequestSerialized
 from biodata_registry_api_client.api_response import ApiResponse
@@ -41,17 +42,22 @@ class ViewsApi:
     @validate_call
     def get_data_asset_view(
         self,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
         data_asset_id: Optional[StrictInt] = None,
         acquisition_id: Optional[StrictInt] = None,
-        subject_id: Optional[StrictInt] = None,
-        subject_procedure_id: Optional[StrictInt] = None,
         instrument_id: Optional[StrictInt] = None,
-        data_asset_name: Optional[StrictStr] = None,
-        subject_name: Optional[StrictStr] = None,
-        instrument_name: Optional[StrictStr] = None,
-        data_asset_location: Optional[StrictStr] = None,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        instrument_name__ilike: Optional[StrictStr] = None,
+        data_asset_name__ilike: Optional[StrictStr] = None,
+        data_asset_location__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -64,32 +70,42 @@ class ViewsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[DataAssetView]:
+    ) -> DataAssetViewsPage:
         """Get Data Asset View
 
 
+        :param next_token:
+        :type next_token: str
+        :param limit:
+        :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
         :param data_asset_id:
         :type data_asset_id: int
         :param acquisition_id:
         :type acquisition_id: int
-        :param subject_id:
-        :type subject_id: int
-        :param subject_procedure_id:
-        :type subject_procedure_id: int
         :param instrument_id:
         :type instrument_id: int
-        :param data_asset_name:
-        :type data_asset_name: str
-        :param subject_name:
-        :type subject_name: str
-        :param instrument_name:
-        :type instrument_name: str
-        :param data_asset_location:
-        :type data_asset_location: str
-        :param offset:
-        :type offset: int
-        :param limit:
-        :type limit: int
+        :param instrument_name__ilike:
+        :type instrument_name__ilike: str
+        :param data_asset_name__ilike:
+        :type data_asset_name__ilike: str
+        :param data_asset_location__ilike:
+        :type data_asset_location__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -113,17 +129,22 @@ class ViewsApi:
         """ # noqa: E501
 
         _param = self._get_data_asset_view_serialize(
+            next_token=next_token,
+            limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
             data_asset_id=data_asset_id,
             acquisition_id=acquisition_id,
-            subject_id=subject_id,
-            subject_procedure_id=subject_procedure_id,
             instrument_id=instrument_id,
-            data_asset_name=data_asset_name,
-            subject_name=subject_name,
-            instrument_name=instrument_name,
-            data_asset_location=data_asset_location,
-            offset=offset,
-            limit=limit,
+            instrument_name__ilike=instrument_name__ilike,
+            data_asset_name__ilike=data_asset_name__ilike,
+            data_asset_location__ilike=data_asset_location__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -131,7 +152,7 @@ class ViewsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[DataAssetView]",
+            '200': "DataAssetViewsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -148,17 +169,22 @@ class ViewsApi:
     @validate_call
     def get_data_asset_view_with_http_info(
         self,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
         data_asset_id: Optional[StrictInt] = None,
         acquisition_id: Optional[StrictInt] = None,
-        subject_id: Optional[StrictInt] = None,
-        subject_procedure_id: Optional[StrictInt] = None,
         instrument_id: Optional[StrictInt] = None,
-        data_asset_name: Optional[StrictStr] = None,
-        subject_name: Optional[StrictStr] = None,
-        instrument_name: Optional[StrictStr] = None,
-        data_asset_location: Optional[StrictStr] = None,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        instrument_name__ilike: Optional[StrictStr] = None,
+        data_asset_name__ilike: Optional[StrictStr] = None,
+        data_asset_location__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -171,32 +197,42 @@ class ViewsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[DataAssetView]]:
+    ) -> ApiResponse[DataAssetViewsPage]:
         """Get Data Asset View
 
 
+        :param next_token:
+        :type next_token: str
+        :param limit:
+        :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
         :param data_asset_id:
         :type data_asset_id: int
         :param acquisition_id:
         :type acquisition_id: int
-        :param subject_id:
-        :type subject_id: int
-        :param subject_procedure_id:
-        :type subject_procedure_id: int
         :param instrument_id:
         :type instrument_id: int
-        :param data_asset_name:
-        :type data_asset_name: str
-        :param subject_name:
-        :type subject_name: str
-        :param instrument_name:
-        :type instrument_name: str
-        :param data_asset_location:
-        :type data_asset_location: str
-        :param offset:
-        :type offset: int
-        :param limit:
-        :type limit: int
+        :param instrument_name__ilike:
+        :type instrument_name__ilike: str
+        :param data_asset_name__ilike:
+        :type data_asset_name__ilike: str
+        :param data_asset_location__ilike:
+        :type data_asset_location__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -220,17 +256,22 @@ class ViewsApi:
         """ # noqa: E501
 
         _param = self._get_data_asset_view_serialize(
+            next_token=next_token,
+            limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
             data_asset_id=data_asset_id,
             acquisition_id=acquisition_id,
-            subject_id=subject_id,
-            subject_procedure_id=subject_procedure_id,
             instrument_id=instrument_id,
-            data_asset_name=data_asset_name,
-            subject_name=subject_name,
-            instrument_name=instrument_name,
-            data_asset_location=data_asset_location,
-            offset=offset,
-            limit=limit,
+            instrument_name__ilike=instrument_name__ilike,
+            data_asset_name__ilike=data_asset_name__ilike,
+            data_asset_location__ilike=data_asset_location__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -238,7 +279,7 @@ class ViewsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[DataAssetView]",
+            '200': "DataAssetViewsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -255,17 +296,22 @@ class ViewsApi:
     @validate_call
     def get_data_asset_view_without_preload_content(
         self,
+        next_token: Optional[StrictStr] = None,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        created_at__gt: Optional[datetime] = None,
+        created_at__lt: Optional[datetime] = None,
+        created_at__gte: Optional[datetime] = None,
+        created_at__lte: Optional[datetime] = None,
+        updated_at__gt: Optional[datetime] = None,
+        updated_at__lt: Optional[datetime] = None,
+        updated_at__gte: Optional[datetime] = None,
+        updated_at__lte: Optional[datetime] = None,
         data_asset_id: Optional[StrictInt] = None,
         acquisition_id: Optional[StrictInt] = None,
-        subject_id: Optional[StrictInt] = None,
-        subject_procedure_id: Optional[StrictInt] = None,
         instrument_id: Optional[StrictInt] = None,
-        data_asset_name: Optional[StrictStr] = None,
-        subject_name: Optional[StrictStr] = None,
-        instrument_name: Optional[StrictStr] = None,
-        data_asset_location: Optional[StrictStr] = None,
-        offset: Optional[StrictInt] = None,
-        limit: Optional[Annotated[int, Field(le=1000, strict=True)]] = None,
+        instrument_name__ilike: Optional[StrictStr] = None,
+        data_asset_name__ilike: Optional[StrictStr] = None,
+        data_asset_location__ilike: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -282,28 +328,38 @@ class ViewsApi:
         """Get Data Asset View
 
 
+        :param next_token:
+        :type next_token: str
+        :param limit:
+        :type limit: int
+        :param created_at__gt:
+        :type created_at__gt: datetime
+        :param created_at__lt:
+        :type created_at__lt: datetime
+        :param created_at__gte:
+        :type created_at__gte: datetime
+        :param created_at__lte:
+        :type created_at__lte: datetime
+        :param updated_at__gt:
+        :type updated_at__gt: datetime
+        :param updated_at__lt:
+        :type updated_at__lt: datetime
+        :param updated_at__gte:
+        :type updated_at__gte: datetime
+        :param updated_at__lte:
+        :type updated_at__lte: datetime
         :param data_asset_id:
         :type data_asset_id: int
         :param acquisition_id:
         :type acquisition_id: int
-        :param subject_id:
-        :type subject_id: int
-        :param subject_procedure_id:
-        :type subject_procedure_id: int
         :param instrument_id:
         :type instrument_id: int
-        :param data_asset_name:
-        :type data_asset_name: str
-        :param subject_name:
-        :type subject_name: str
-        :param instrument_name:
-        :type instrument_name: str
-        :param data_asset_location:
-        :type data_asset_location: str
-        :param offset:
-        :type offset: int
-        :param limit:
-        :type limit: int
+        :param instrument_name__ilike:
+        :type instrument_name__ilike: str
+        :param data_asset_name__ilike:
+        :type data_asset_name__ilike: str
+        :param data_asset_location__ilike:
+        :type data_asset_location__ilike: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -327,17 +383,22 @@ class ViewsApi:
         """ # noqa: E501
 
         _param = self._get_data_asset_view_serialize(
+            next_token=next_token,
+            limit=limit,
+            created_at__gt=created_at__gt,
+            created_at__lt=created_at__lt,
+            created_at__gte=created_at__gte,
+            created_at__lte=created_at__lte,
+            updated_at__gt=updated_at__gt,
+            updated_at__lt=updated_at__lt,
+            updated_at__gte=updated_at__gte,
+            updated_at__lte=updated_at__lte,
             data_asset_id=data_asset_id,
             acquisition_id=acquisition_id,
-            subject_id=subject_id,
-            subject_procedure_id=subject_procedure_id,
             instrument_id=instrument_id,
-            data_asset_name=data_asset_name,
-            subject_name=subject_name,
-            instrument_name=instrument_name,
-            data_asset_location=data_asset_location,
-            offset=offset,
-            limit=limit,
+            instrument_name__ilike=instrument_name__ilike,
+            data_asset_name__ilike=data_asset_name__ilike,
+            data_asset_location__ilike=data_asset_location__ilike,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -345,7 +406,7 @@ class ViewsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[DataAssetView]",
+            '200': "DataAssetViewsPage",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -357,17 +418,22 @@ class ViewsApi:
 
     def _get_data_asset_view_serialize(
         self,
+        next_token,
+        limit,
+        created_at__gt,
+        created_at__lt,
+        created_at__gte,
+        created_at__lte,
+        updated_at__gt,
+        updated_at__lt,
+        updated_at__gte,
+        updated_at__lte,
         data_asset_id,
         acquisition_id,
-        subject_id,
-        subject_procedure_id,
         instrument_id,
-        data_asset_name,
-        subject_name,
-        instrument_name,
-        data_asset_location,
-        offset,
-        limit,
+        instrument_name__ilike,
+        data_asset_name__ilike,
+        data_asset_location__ilike,
         _request_auth,
         _content_type,
         _headers,
@@ -390,6 +456,118 @@ class ViewsApi:
 
         # process the path parameters
         # process the query parameters
+        if next_token is not None:
+            
+            _query_params.append(('next_token', next_token))
+            
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if created_at__gt is not None:
+            if isinstance(created_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gt',
+                        created_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gt', created_at__gt))
+            
+        if created_at__lt is not None:
+            if isinstance(created_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lt',
+                        created_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lt', created_at__lt))
+            
+        if created_at__gte is not None:
+            if isinstance(created_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__gte',
+                        created_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__gte', created_at__gte))
+            
+        if created_at__lte is not None:
+            if isinstance(created_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'created_at__lte',
+                        created_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('created_at__lte', created_at__lte))
+            
+        if updated_at__gt is not None:
+            if isinstance(updated_at__gt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gt',
+                        updated_at__gt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gt', updated_at__gt))
+            
+        if updated_at__lt is not None:
+            if isinstance(updated_at__lt, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lt',
+                        updated_at__lt.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lt', updated_at__lt))
+            
+        if updated_at__gte is not None:
+            if isinstance(updated_at__gte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__gte',
+                        updated_at__gte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__gte', updated_at__gte))
+            
+        if updated_at__lte is not None:
+            if isinstance(updated_at__lte, datetime):
+                _query_params.append(
+                    (
+                        'updated_at__lte',
+                        updated_at__lte.strftime(
+                            self.api_client.configuration.datetime_format
+                        )
+                    )
+                )
+            else:
+                _query_params.append(('updated_at__lte', updated_at__lte))
+            
         if data_asset_id is not None:
             
             _query_params.append(('data_asset_id', data_asset_id))
@@ -398,41 +576,21 @@ class ViewsApi:
             
             _query_params.append(('acquisition_id', acquisition_id))
             
-        if subject_id is not None:
-            
-            _query_params.append(('subject_id', subject_id))
-            
-        if subject_procedure_id is not None:
-            
-            _query_params.append(('subject_procedure_id', subject_procedure_id))
-            
         if instrument_id is not None:
             
             _query_params.append(('instrument_id', instrument_id))
             
-        if data_asset_name is not None:
+        if instrument_name__ilike is not None:
             
-            _query_params.append(('data_asset_name', data_asset_name))
+            _query_params.append(('instrument_name__ilike', instrument_name__ilike))
             
-        if subject_name is not None:
+        if data_asset_name__ilike is not None:
             
-            _query_params.append(('subject_name', subject_name))
+            _query_params.append(('data_asset_name__ilike', data_asset_name__ilike))
             
-        if instrument_name is not None:
+        if data_asset_location__ilike is not None:
             
-            _query_params.append(('instrument_name', instrument_name))
-            
-        if data_asset_location is not None:
-            
-            _query_params.append(('data_asset_location', data_asset_location))
-            
-        if offset is not None:
-            
-            _query_params.append(('offset', offset))
-            
-        if limit is not None:
-            
-            _query_params.append(('limit', limit))
+            _query_params.append(('data_asset_location__ilike', data_asset_location__ilike))
             
         # process the header parameters
         # process the form parameters

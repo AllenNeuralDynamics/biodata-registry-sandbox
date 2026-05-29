@@ -1776,7 +1776,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_acquisitions**
-> List[Acquisitions] get_acquisitions(offset=offset, limit=limit)
+> AcquisitionsPage get_acquisitions(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
 
 Get Acquisitions
 
@@ -1785,7 +1785,7 @@ Get Acquisitions
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.acquisitions import Acquisitions
+from biodata_registry_api_client.models.acquisitions_page import AcquisitionsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -1800,12 +1800,20 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
         # Get Acquisitions
-        api_response = api_instance.get_acquisitions(offset=offset, limit=limit)
+        api_response = api_instance.get_acquisitions(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
         print("The response of CoreApi->get_acquisitions:\n")
         pprint(api_response)
     except Exception as e:
@@ -1819,12 +1827,20 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
 
 ### Return type
 
-[**List[Acquisitions]**](Acquisitions.md)
+[**AcquisitionsPage**](AcquisitionsPage.md)
 
 ### Authorization
 
@@ -2046,7 +2062,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_data_assets**
-> List[DataAssets] get_data_assets(offset=offset, limit=limit)
+> DataAssetsPage get_data_assets(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike, location__ilike=location__ilike)
 
 Get Data Assets
 
@@ -2055,7 +2071,7 @@ Get Data Assets
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.data_assets import DataAssets
+from biodata_registry_api_client.models.data_assets_page import DataAssetsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -2070,12 +2086,22 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
+    location__ilike = 'location__ilike_example' # str |  (optional)
 
     try:
         # Get Data Assets
-        api_response = api_instance.get_data_assets(offset=offset, limit=limit)
+        api_response = api_instance.get_data_assets(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike, location__ilike=location__ilike)
         print("The response of CoreApi->get_data_assets:\n")
         pprint(api_response)
     except Exception as e:
@@ -2089,12 +2115,22 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
+ **location__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[DataAssets]**](DataAssets.md)
+[**DataAssetsPage**](DataAssetsPage.md)
 
 ### Authorization
 
@@ -2182,7 +2218,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_instruments**
-> List[Instruments] get_instruments(name=name, offset=offset, limit=limit)
+> InstrumentsPage get_instruments(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
 
 Get Instruments
 
@@ -2191,7 +2227,7 @@ Get Instruments
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.instruments import Instruments
+from biodata_registry_api_client.models.instruments_page import InstrumentsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -2206,13 +2242,21 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    name = 'name_example' # str |  (optional)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
 
     try:
         # Get Instruments
-        api_response = api_instance.get_instruments(name=name, offset=offset, limit=limit)
+        api_response = api_instance.get_instruments(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
         print("The response of CoreApi->get_instruments:\n")
         pprint(api_response)
     except Exception as e:
@@ -2226,13 +2270,21 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **name** | **str**|  | [optional] 
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[Instruments]**](Instruments.md)
+[**InstrumentsPage**](InstrumentsPage.md)
 
 ### Authorization
 
@@ -2387,7 +2439,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_processes**
-> List[Processes] get_processes(offset=offset, limit=limit)
+> ProcessesPage get_processes(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
 
 Get Processes
 
@@ -2396,7 +2448,7 @@ Get Processes
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.processes import Processes
+from biodata_registry_api_client.models.processes_page import ProcessesPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -2411,12 +2463,20 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
         # Get Processes
-        api_response = api_instance.get_processes(offset=offset, limit=limit)
+        api_response = api_instance.get_processes(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
         print("The response of CoreApi->get_processes:\n")
         pprint(api_response)
     except Exception as e:
@@ -2430,12 +2490,20 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
 
 ### Return type
 
-[**List[Processes]**](Processes.md)
+[**ProcessesPage**](ProcessesPage.md)
 
 ### Authorization
 
@@ -2523,7 +2591,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_quality_controls**
-> List[QualityControls] get_quality_controls(offset=offset, limit=limit)
+> QualityControlsPage get_quality_controls(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
 
 Get Quality Controls
 
@@ -2532,7 +2600,7 @@ Get Quality Controls
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.quality_controls import QualityControls
+from biodata_registry_api_client.models.quality_controls_page import QualityControlsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -2547,12 +2615,20 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
         # Get Quality Controls
-        api_response = api_instance.get_quality_controls(offset=offset, limit=limit)
+        api_response = api_instance.get_quality_controls(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
         print("The response of CoreApi->get_quality_controls:\n")
         pprint(api_response)
     except Exception as e:
@@ -2566,12 +2642,20 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
 
 ### Return type
 
-[**List[QualityControls]**](QualityControls.md)
+[**QualityControlsPage**](QualityControlsPage.md)
 
 ### Authorization
 
@@ -2659,7 +2743,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_schema_entities**
-> List[SchemaEntities] get_schema_entities(offset=offset, limit=limit)
+> SchemaEntitiesPage get_schema_entities(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
 
 Get Schema Entities
 
@@ -2668,7 +2752,7 @@ Get Schema Entities
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.schema_entities import SchemaEntities
+from biodata_registry_api_client.models.schema_entities_page import SchemaEntitiesPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -2683,12 +2767,21 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
 
     try:
         # Get Schema Entities
-        api_response = api_instance.get_schema_entities(offset=offset, limit=limit)
+        api_response = api_instance.get_schema_entities(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
         print("The response of CoreApi->get_schema_entities:\n")
         pprint(api_response)
     except Exception as e:
@@ -2702,12 +2795,21 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[SchemaEntities]**](SchemaEntities.md)
+[**SchemaEntitiesPage**](SchemaEntitiesPage.md)
 
 ### Authorization
 
@@ -2795,7 +2897,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_schemas**
-> List[Schemas] get_schemas(offset=offset, limit=limit)
+> SchemasPage get_schemas(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike, version=version)
 
 Get Schemas
 
@@ -2804,7 +2906,7 @@ Get Schemas
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.schemas import Schemas
+from biodata_registry_api_client.models.schemas_page import SchemasPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -2819,12 +2921,22 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
+    version = 'version_example' # str |  (optional)
 
     try:
         # Get Schemas
-        api_response = api_instance.get_schemas(offset=offset, limit=limit)
+        api_response = api_instance.get_schemas(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike, version=version)
         print("The response of CoreApi->get_schemas:\n")
         pprint(api_response)
     except Exception as e:
@@ -2838,12 +2950,22 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
+ **version** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[Schemas]**](Schemas.md)
+[**SchemasPage**](SchemasPage.md)
 
 ### Authorization
 
@@ -3199,7 +3321,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_specimen_procedures**
-> List[SpecimenProcedures] get_specimen_procedures(offset=offset, limit=limit)
+> SpecimenProceduresPage get_specimen_procedures(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
 
 Get Specimen Procedures
 
@@ -3208,7 +3330,7 @@ Get Specimen Procedures
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.specimen_procedures import SpecimenProcedures
+from biodata_registry_api_client.models.specimen_procedures_page import SpecimenProceduresPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -3223,12 +3345,20 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
         # Get Specimen Procedures
-        api_response = api_instance.get_specimen_procedures(offset=offset, limit=limit)
+        api_response = api_instance.get_specimen_procedures(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
         print("The response of CoreApi->get_specimen_procedures:\n")
         pprint(api_response)
     except Exception as e:
@@ -3242,12 +3372,20 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
 
 ### Return type
 
-[**List[SpecimenProcedures]**](SpecimenProcedures.md)
+[**SpecimenProceduresPage**](SpecimenProceduresPage.md)
 
 ### Authorization
 
@@ -3469,7 +3607,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_specimens**
-> List[Specimens] get_specimens(offset=offset, limit=limit)
+> SpecimensPage get_specimens(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
 
 Get Specimens
 
@@ -3478,7 +3616,7 @@ Get Specimens
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.specimens import Specimens
+from biodata_registry_api_client.models.specimens_page import SpecimensPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -3493,12 +3631,21 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
 
     try:
         # Get Specimens
-        api_response = api_instance.get_specimens(offset=offset, limit=limit)
+        api_response = api_instance.get_specimens(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
         print("The response of CoreApi->get_specimens:\n")
         pprint(api_response)
     except Exception as e:
@@ -3512,12 +3659,21 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[Specimens]**](Specimens.md)
+[**SpecimensPage**](SpecimensPage.md)
 
 ### Authorization
 
@@ -3806,7 +3962,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_subject_procedures**
-> List[SubjectProcedures] get_subject_procedures(offset=offset, limit=limit)
+> SubjectProceduresPage get_subject_procedures(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
 
 Get Subject Procedures
 
@@ -3815,7 +3971,7 @@ Get Subject Procedures
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.subject_procedures import SubjectProcedures
+from biodata_registry_api_client.models.subject_procedures_page import SubjectProceduresPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -3830,12 +3986,20 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
         # Get Subject Procedures
-        api_response = api_instance.get_subject_procedures(offset=offset, limit=limit)
+        api_response = api_instance.get_subject_procedures(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
         print("The response of CoreApi->get_subject_procedures:\n")
         pprint(api_response)
     except Exception as e:
@@ -3849,12 +4013,20 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
 
 ### Return type
 
-[**List[SubjectProcedures]**](SubjectProcedures.md)
+[**SubjectProceduresPage**](SubjectProceduresPage.md)
 
 ### Authorization
 
@@ -3875,7 +4047,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_subjects**
-> SubjectsResponse get_subjects(name=name, next_token=next_token, limit=limit)
+> SubjectsPage get_subjects(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
 
 Get Subjects
 
@@ -3884,7 +4056,7 @@ Get Subjects
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.subjects_response import SubjectsResponse
+from biodata_registry_api_client.models.subjects_page import SubjectsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -3899,13 +4071,21 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.CoreApi(api_client)
-    name = 'name_example' # str |  (optional)
     next_token = 'next_token_example' # str |  (optional)
-    limit = 100 # int |  (optional) (default to 100)
+    limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
 
     try:
         # Get Subjects
-        api_response = api_instance.get_subjects(name=name, next_token=next_token, limit=limit)
+        api_response = api_instance.get_subjects(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
         print("The response of CoreApi->get_subjects:\n")
         pprint(api_response)
     except Exception as e:
@@ -3919,13 +4099,21 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **name** | **str**|  | [optional] 
  **next_token** | **str**|  | [optional] 
- **limit** | **int**|  | [optional] [default to 100]
+ **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**SubjectsResponse**](SubjectsResponse.md)
+[**SubjectsPage**](SubjectsPage.md)
 
 ### Authorization
 

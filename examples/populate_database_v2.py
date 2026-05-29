@@ -154,7 +154,7 @@ for name, schema_definition in SCHEMA_DEFINITIONS.items():
     )
 
 schemas = core_api.get_schemas()
-schema_id_map = dict([(r.name, r.id) for r in schemas])
+schema_id_map = dict([(r.name, r.id) for r in schemas.results])
 
 def get_size_in_bytes(input_dict: dict) -> int:
     return len(json.dumps(input_dict).encode('utf-8'))
@@ -195,7 +195,7 @@ counter = 0
 total_records = len(filtered_records)
 registered_subjects = dict()
 registered_instruments = dict()
-for record in filtered_records[0:1000]:
+for record in filtered_records:
     counter += 1
     if counter % 100 == 0:
         print(f"On {counter} of {total_records}")
@@ -257,7 +257,6 @@ for record in filtered_records[0:1000]:
         registered_instrument_id = registered_instrument.id
         registered_instruments[instrument_name] = registered_instrument_id
     else:
-        # TODO: Cache things to avoid fetching from DB
         registered_instrument_id = registered_instruments[instrument_name]
     registered_data_asset = core_api.create_data_asset(
         DataAssetCreate(

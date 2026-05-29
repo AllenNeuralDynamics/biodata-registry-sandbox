@@ -16,9 +16,9 @@ class UsersPage(Page):
     results: Sequence[Users]
 
 class UsersFilter(PageFilter):
-    name__ilike: str | None = Field(default=None, max_length=254)
-    contact__ilike: str | None = Field(default=None, max_length=254)
-    class Constants:
+    name__ilike: str | None = None
+    contact__ilike: str | None = None
+    class Constants(Filter.Constants):
         model = Users
 
 class OrganizationCreate(SQLModel):
@@ -32,7 +32,7 @@ class OrganizationsPage(Page):
 
 class OrganizationsFilter(PageFilter):
     name__ilike: str | None = None
-    class Constants:
+    class Constants(Filter.Constants):
         model = Organizations
 
 class SpaceCreate(SQLModel):
@@ -50,7 +50,7 @@ class SpacesPage(Page):
 
 class SpacesFilter(PageFilter):
     name__ilike: str | None = None
-    class Constants:
+    class Constants(Filter.Constants):
         model = Spaces
 
 class SpaceAdminCreate(SQLModel):
@@ -65,7 +65,7 @@ class SpaceAdminsPage(Page):
     results: Sequence[SpaceAdmins]
 
 class SpaceAdminsFilter(PageFilter):
-    class Constants:
+    class Constants(Filter.Constants):
         model = SpaceAdmins
 
 class OrganizationAdminCreate(SQLModel):
@@ -80,7 +80,7 @@ class OrganizationAdminsPage(Page):
     results: Sequence[OrganizationAdmins]
 
 class OrganizationAdminsFilter(PageFilter):
-    class Constants:
+    class Constants(Filter.Constants):
         model = OrganizationAdmins
 
 class CollectionCreate(SQLModel):
@@ -99,5 +99,5 @@ class CollectionsPage(Page):
 class CollectionsFilter(PageFilter):
     name__ilike: str | None = None
     description__ilike: str | None = None
-    class Constants:
+    class Constants(Filter.Constants):
         model = Collections

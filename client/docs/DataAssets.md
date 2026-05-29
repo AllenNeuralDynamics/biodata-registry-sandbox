@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **created_at** | **datetime** |  | [optional] 
 **created_by** | **int** |  | [optional] 
 **updated_at** | **datetime** |  | [optional] 
-**last_updated_by** | **int** |  | [optional] 
+**updated_by** | **int** |  | [optional] 
 **name** | **str** |  | [optional] 
 **location** | **str** |  | [optional] 
 **external_links** | **Dict[str, object]** |  | [optional] 

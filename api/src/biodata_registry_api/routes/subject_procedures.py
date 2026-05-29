@@ -4,7 +4,7 @@ SubjectProcedures
 """
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from biodata_registry_api.models.crud.core import SubjectProceduresFilter, SubjectProceduresPage, SubjectProcedureCreate, SubjectProcedureUpdate
@@ -12,6 +12,7 @@ from biodata_registry_api.models.core import SubjectProcedures, Specimens
 from biodata_registry_api.routes import encode_next_token, decode_next_token
 
 from biodata_registry_api.session import get_session
+from fastapi_filter import FilterDepends
 
 router = APIRouter()
 
@@ -55,11 +56,11 @@ async def get_subject_procedure(
     operation_id="get_subject_procedures"
 )
 async def get_subject_procedures(
-        filter_query: SubjectProceduresFilter = Depends(),
+        next_token: str | None = Query(default=None),
+        limit: int = Query(default=10, le=100, ge=1),
+        filter_query: SubjectProceduresFilter = FilterDepends(SubjectProceduresFilter),
         session: AsyncSession = Depends(get_session),
 ):
-    next_token = filter_query.next_token
-    limit = filter_query.limit
     previous_id = decode_next_token(next_token)
     statement = select(SubjectProcedures).order_by(SubjectProcedures.id.asc())
     statement = filter_query.filter(statement)

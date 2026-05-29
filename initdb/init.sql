@@ -8,12 +8,12 @@ CREATE TABLE users (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	contact VARCHAR(254) NOT NULL, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	UNIQUE (contact)
 )
 
@@ -24,11 +24,11 @@ CREATE TABLE organizations (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	UNIQUE (name)
 )
 
@@ -39,13 +39,13 @@ CREATE TABLE collections (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	description VARCHAR(254) NOT NULL, 
 	owner_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(owner_id) REFERENCES users (id)
 )
 
@@ -56,11 +56,11 @@ CREATE TABLE schema_entities (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(50) NOT NULL, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	UNIQUE (name)
 )
 
@@ -71,12 +71,12 @@ CREATE TABLE spaces (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	organization_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(organization_id) REFERENCES organizations (id)
 )
 
@@ -87,12 +87,12 @@ CREATE TABLE organization_admins (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	user_id INTEGER, 
 	organization_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(user_id) REFERENCES users (id), 
 	FOREIGN KEY(organization_id) REFERENCES organizations (id)
 )
@@ -104,7 +104,7 @@ CREATE TABLE schemas (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(50) NOT NULL, 
 	version VARCHAR(50) NOT NULL, 
 	data JSONB, 
@@ -112,7 +112,7 @@ CREATE TABLE schemas (
 	PRIMARY KEY (id), 
 	CONSTRAINT unique_schema_name_version UNIQUE (name, version), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_entity_id) REFERENCES schema_entities (id)
 )
 
@@ -123,12 +123,12 @@ CREATE TABLE space_admins (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	user_id INTEGER, 
 	space_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(user_id) REFERENCES users (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
@@ -140,7 +140,7 @@ CREATE TABLE data_assets (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(254), 
 	location VARCHAR(254), 
 	external_links JSONB, 
@@ -150,7 +150,7 @@ CREATE TABLE data_assets (
 	PRIMARY KEY (id), 
 	CONSTRAINT unique_data_asset_name_space_id UNIQUE (name, space_id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
@@ -163,7 +163,7 @@ CREATE TABLE subjects (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	data JSONB, 
 	schema_id INTEGER, 
@@ -171,7 +171,7 @@ CREATE TABLE subjects (
 	PRIMARY KEY (id), 
 	CONSTRAINT unique_subject_name_space_id UNIQUE (name, space_id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
@@ -183,13 +183,13 @@ CREATE TABLE specimen_procedures (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
@@ -201,7 +201,7 @@ CREATE TABLE instruments (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	data JSONB, 
 	schema_id INTEGER, 
@@ -209,7 +209,7 @@ CREATE TABLE instruments (
 	PRIMARY KEY (id), 
 	CONSTRAINT unique_instrument_name_space_id UNIQUE (name, space_id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id)
 )
@@ -232,7 +232,7 @@ CREATE TABLE specimens (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	name VARCHAR(254) NOT NULL, 
 	data JSONB, 
 	schema_id INTEGER, 
@@ -240,7 +240,7 @@ CREATE TABLE specimens (
 	subject_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(subject_id) REFERENCES subjects (id)
@@ -254,14 +254,14 @@ CREATE TABLE subject_procedures (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	subject_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(subject_id) REFERENCES subjects (id)
@@ -275,7 +275,7 @@ CREATE TABLE acquisitions (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
@@ -283,7 +283,7 @@ CREATE TABLE acquisitions (
 	instrument_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(data_asset_id) REFERENCES data_assets (id), 
@@ -299,14 +299,14 @@ CREATE TABLE quality_controls (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	data_asset_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(data_asset_id) REFERENCES data_assets (id)
@@ -320,14 +320,14 @@ CREATE TABLE processes (
 	created_at TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL, 
 	created_by INTEGER, 
 	updated_at TIMESTAMP WITH TIME ZONE NOT NULL, 
-	last_updated_by INTEGER, 
+	updated_by INTEGER, 
 	data JSONB, 
 	schema_id INTEGER, 
 	space_id INTEGER, 
 	output_data_asset_id INTEGER, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(created_by) REFERENCES users (id), 
-	FOREIGN KEY(last_updated_by) REFERENCES users (id), 
+	FOREIGN KEY(updated_by) REFERENCES users (id), 
 	FOREIGN KEY(schema_id) REFERENCES schemas (id), 
 	FOREIGN KEY(space_id) REFERENCES spaces (id), 
 	FOREIGN KEY(output_data_asset_id) REFERENCES data_assets (id)
@@ -402,12 +402,48 @@ CREATE TABLE acquisition_specimens (
 ;
 CREATE INDEX ix_acquisition_specimens_r ON acquisition_specimens (specimen_id, acquisition_id);
 
+
+-- Handle created_at and updated_at fields
+
+
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = now();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+DO $$
+DECLARE
+    t text;
+BEGIN
+    FOR t IN
+        SELECT table_name
+        FROM information_schema.columns
+        WHERE column_name = 'updated_at'
+          AND table_schema = 'public'
+    LOOP
+        EXECUTE format('
+            CREATE TRIGGER trg_update_updated_at
+            BEFORE UPDATE ON %I
+            FOR EACH ROW
+            EXECUTE PROCEDURE update_updated_at_column()', t);
+    END LOOP;
+END;
+$$ language 'plpgsql';
+
+
 -- Views
 
 
 CREATE VIEW data_asset_view
 AS SELECT
     data_assets.id AS data_asset_id,
+    data_assets.created_at AS created_at,
+    data_assets.updated_at AS updated_at,
+    data_assets.created_by AS created_by,
+    data_assets.updated_by AS updated_by,
     acquisitions.id AS acquisition_id,
     instruments.id AS instrument_id,
     processes.id AS process_id,
@@ -456,33 +492,3 @@ LEFT JOIN LATERAL (
     WHERE subject_procedures.subject_id = acquisition_subjects.subject_id
 ) agg3 ON true
 ;
-
--- Add methods for timestamp management
-
-
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = now();
-    RETURN NEW;
-END;
-$$ language 'plpgsql';
-
-DO $$
-DECLARE
-    t text;
-BEGIN
-    FOR t IN
-        SELECT table_name
-        FROM information_schema.columns
-        WHERE column_name = 'updated_at'
-          AND table_schema = 'public'
-    LOOP
-        EXECUTE format('
-            CREATE TRIGGER trg_update_updated_at
-            BEFORE UPDATE ON %I
-            FOR EACH ROW
-            EXECUTE PROCEDURE update_updated_at_column()', t);
-    END LOOP;
-END;
-$$ language 'plpgsql';

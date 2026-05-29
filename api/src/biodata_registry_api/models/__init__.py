@@ -23,4 +23,4 @@ class BaseTable(SQLModel):
         sa_column_kwargs={"onupdate": func.now()},
         sa_type=TIMESTAMP(timezone=True),
     )
-    last_updated_by: int | None = Field(default=None, foreign_key="users.id")
+    updated_by: int | None = Field(default=None, foreign_key="users.id")

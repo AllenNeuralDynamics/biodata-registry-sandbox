@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, Field
 from typing import Dict, Any, List, Sequence
+from fastapi_filter.contrib.sqlalchemy import Filter
 
 from biodata_registry_api.models.core import (
     Subjects,
@@ -27,7 +28,7 @@ class SchemaEntitiesPage(Page):
 
 class SchemaEntitiesFilter(PageFilter):
     name__ilike: str | None = None
-    class Constants:
+    class Constants(Filter.Constants):
         model = SchemaEntities
 
 class SchemaCreate(SQLModel):
@@ -51,8 +52,8 @@ class SchemasPage(Page):
 
 class SchemasFilter(PageFilter):
     name__ilike: str | None = None
-    version: str | None = Field(default=None, max_length=50)
-    class Constants:
+    version: str | None = None
+    class Constants(Filter.Constants):
         model = Schemas
 
 class DataAssetCreate(SQLModel):
@@ -93,7 +94,7 @@ class DataAssetsPage(Page):
 class DataAssetsFilter(PageFilter):
     name__ilike: str | None = None
     location__ilike: str | None = None
-    class Constants:
+    class Constants(Filter.Constants):
         model = DataAssets
 
 class SubjectCreate(SQLModel):
@@ -125,7 +126,7 @@ class SubjectsPage(Page):
 
 class SubjectsFilter(PageFilter):
     name__ilike: str | None = None
-    class Constants:
+    class Constants(Filter.Constants):
         model = Subjects
 
 class SpecimenCreate(SQLModel):
@@ -163,7 +164,7 @@ class SpecimensPage(Page):
 
 class SpecimensFilter(PageFilter):
     name__ilike: str | None = None
-    class Constants:
+    class Constants(Filter.Constants):
         model = Specimens
 
 class SpecimenProcedureCreate(SQLModel):
@@ -192,7 +193,7 @@ class SpecimenProceduresPage(Page):
     results: Sequence[SpecimenProcedures]
 
 class SpecimenProceduresFilter(PageFilter):
-    class Constants:
+    class Constants(Filter.Constants):
         model = SpecimenProcedures
 
 class SubjectProcedureCreate(SQLModel):
@@ -227,7 +228,7 @@ class SubjectProceduresPage(Page):
     results: Sequence[SubjectProcedures]
 
 class SubjectProceduresFilter(PageFilter):
-    class Constants:
+    class Constants(Filter.Constants):
         model = SubjectProcedures
 
 class InstrumentCreate(SQLModel):
@@ -259,7 +260,7 @@ class InstrumentsPage(Page):
 
 class InstrumentsFilter(PageFilter):
     name__ilike: str | None = None
-    class Constants:
+    class Constants(Filter.Constants):
         model = Instruments
 
 class AcquisitionCreate(SQLModel):
@@ -300,7 +301,7 @@ class AcquisitionsPage(Page):
     results: Sequence[Acquisitions]
 
 class AcquisitionsFilter(PageFilter):
-    class Constants:
+    class Constants(Filter.Constants):
         model = Acquisitions
 
 class QualityControlCreate(SQLModel):
@@ -335,7 +336,7 @@ class QualityControlsPage(Page):
     results: Sequence[QualityControls]
 
 class QualityControlsFilter(PageFilter):
-    class Constants:
+    class Constants(Filter.Constants):
         model = QualityControls
 
 class ProcessCreate(SQLModel):
@@ -370,5 +371,5 @@ class ProcessesPage(Page):
     results: Sequence[Processes]
 
 class ProcessesFilter(PageFilter):
-    class Constants:
+    class Constants(Filter.Constants):
         model = Processes

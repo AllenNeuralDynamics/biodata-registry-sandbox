@@ -33,9 +33,9 @@ class Organizations(BaseModel):
     created_at: Optional[datetime] = None
     created_by: Optional[StrictInt] = None
     updated_at: Optional[datetime] = None
-    last_updated_by: Optional[StrictInt] = None
+    updated_by: Optional[StrictInt] = None
     name: Annotated[str, Field(strict=True, max_length=254)]
-    __properties: ClassVar[List[str]] = ["id", "created_at", "created_by", "updated_at", "last_updated_by", "name"]
+    __properties: ClassVar[List[str]] = ["id", "created_at", "created_by", "updated_at", "updated_by", "name"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -86,10 +86,10 @@ class Organizations(BaseModel):
         if self.created_by is None and "created_by" in self.model_fields_set:
             _dict['created_by'] = None
 
-        # set to None if last_updated_by (nullable) is None
+        # set to None if updated_by (nullable) is None
         # and model_fields_set contains the field
-        if self.last_updated_by is None and "last_updated_by" in self.model_fields_set:
-            _dict['last_updated_by'] = None
+        if self.updated_by is None and "updated_by" in self.model_fields_set:
+            _dict['updated_by'] = None
 
         return _dict
 
@@ -107,7 +107,7 @@ class Organizations(BaseModel):
             "created_at": obj.get("created_at"),
             "created_by": obj.get("created_by"),
             "updated_at": obj.get("updated_at"),
-            "last_updated_by": obj.get("last_updated_by"),
+            "updated_by": obj.get("updated_by"),
             "name": obj.get("name")
         })
         return _obj

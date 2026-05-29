@@ -51,10 +51,10 @@ def dump_sql(filename: str = "init.sql"):
 
     from biodata_registry_api.models.views import data_asset_view_statement
     with open(filename, "a") as f:
-        f.write("\n-- Views\n\n")
-        f.write(data_asset_view_statement)
-        f.write("\n-- Add methods for timestamp management\n\n")
+        f.write("\n\n-- Handle created_at and updated_at fields\n\n")
         f.write(add_auto_update_timestamps)
+        f.write("\n\n-- Views\n\n")
+        f.write(data_asset_view_statement)
 
 
 if __name__ == "__main__":

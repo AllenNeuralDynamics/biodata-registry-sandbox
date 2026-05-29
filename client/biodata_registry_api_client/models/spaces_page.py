@@ -19,18 +19,18 @@ import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from biodata_registry_api_client.models.subjects import Subjects
+from biodata_registry_api_client.models.spaces import Spaces
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
-class SubjectsResponse(BaseModel):
+class SpacesPage(BaseModel):
     """
-    SubjectsResponse
+    SpacesPage
     """ # noqa: E501
-    next_token: Optional[StrictStr]
-    has_more: StrictBool
-    results: List[Subjects]
+    next_token: Optional[StrictStr] = None
+    has_more: Optional[StrictBool] = False
+    results: List[Spaces]
     __properties: ClassVar[List[str]] = ["next_token", "has_more", "results"]
 
     model_config = ConfigDict(
@@ -51,7 +51,7 @@ class SubjectsResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of SubjectsResponse from a JSON string"""
+        """Create an instance of SpacesPage from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -88,7 +88,7 @@ class SubjectsResponse(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of SubjectsResponse from a dict"""
+        """Create an instance of SpacesPage from a dict"""
         if obj is None:
             return None
 
@@ -97,8 +97,8 @@ class SubjectsResponse(BaseModel):
 
         _obj = cls.model_validate({
             "next_token": obj.get("next_token"),
-            "has_more": obj.get("has_more"),
-            "results": [Subjects.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None
+            "has_more": obj.get("has_more") if obj.get("has_more") is not None else False,
+            "results": [Spaces.from_dict(_item) for _item in obj["results"]] if obj.get("results") is not None else None
         })
         return _obj
 

@@ -35,6 +35,10 @@ class TestDataAssetView(unittest.TestCase):
         model = DataAssetView()
         if include_optional:
             return DataAssetView(
+                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                created_by = 56,
+                updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
+                updated_by = 56,
                 data_asset_id = 56,
                 acquisition_id = 56,
                 process_id = 56,

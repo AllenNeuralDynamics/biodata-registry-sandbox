@@ -2,9 +2,8 @@
 Auto-generated module to handle endpoint responses for
 Spaces
 """
-from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from biodata_registry_api.models.crud.admin import SpaceCreate, SpaceUpdate, SpacesPage, SpacesFilter
@@ -12,6 +11,7 @@ from biodata_registry_api.models.admin import Spaces
 
 from biodata_registry_api.session import get_session
 from biodata_registry_api.routes import encode_next_token, decode_next_token
+from fastapi_filter import FilterDepends
 
 router = APIRouter()
 
@@ -55,11 +55,11 @@ async def get_space(
     operation_id="get_spaces"
 )
 async def get_spaces(
-        filter_query: SpacesFilter = Depends(),
+        next_token: str | None = Query(default=None),
+        limit: int = Query(default=10, le=100, ge=1),
+        filter_query: SpacesFilter = FilterDepends(SpacesFilter),
         session: AsyncSession = Depends(get_session),
 ):
-    next_token = filter_query.next_token
-    limit = filter_query.limit
     previous_id = decode_next_token(next_token)
     statement = select(Spaces).order_by(Spaces.id.asc())
     statement = filter_query.filter(statement)

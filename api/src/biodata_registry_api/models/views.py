@@ -68,7 +68,7 @@ class DataAssetView(SQLModel, table=True):
     created_at: datetime | None = Field(default=None)
     created_by: int | None = Field(default=None)
     updated_at: datetime | None = Field(default=None)
-    last_updated_by: int | None = Field(default=None)
+    updated_by: int | None = Field(default=None)
     data_asset_id: int | None = Field(
         default=None, primary_key=True
     )
