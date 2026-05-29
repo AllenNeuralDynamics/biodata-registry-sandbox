@@ -33,10 +33,10 @@ except ImportError:
         return iterable
 
 THIS_DIR = Path(__file__).resolve().parent
-SCHEMA_DIR = THIS_DIR / ".." / ".." / "examples" / "schema_definitions"
+SCHEMA_DIR = THIS_DIR / ".." / ".." / ".." / "examples" / "schema_definitions"
 
 DOCDB_RECORDS_FILE = (
-        THIS_DIR / ".." / ".." / "examples" / "records" / "docdb_records_10_percent_sample.json.gz"
+        THIS_DIR / ".." / ".." / ".." / "examples" / "records" / "docdb_records_10_percent_sample.json.gz"
 )
 
 SCHEMA_DEFINITIONS = {
@@ -147,14 +147,29 @@ for name, schema_definition in SCHEMA_DEFINITIONS.items():
     )
 
 schemas = core_api.get_schemas()
-schema_id_map = dict([(r.name, r.id) for r in schemas])
+schema_id_map = dict([(r.name, r.id) for r in schemas.results])
 
 with gzip.open(DOCDB_RECORDS_FILE, 'rt', encoding='utf-8') as f:
     docdb_records = json.load(f)
 
+def get_size_in_bytes(input_dict: dict) -> int:
+    return len(json.dumps(input_dict).encode('utf-8'))
+
+## There are 3 qc metrics with values that are causing integer overflow errors
+def fix_qc_metric(docdb_record: dict):
+    if docdb_record["name"] == "behavior_705599_2024-06-27_12-22-52_processed_2025-12-11_07-06-33":
+        docdb_record["quality_control"]["metrics"][49]["value"]["t_slow"][0] = None
+    elif docdb_record["name"] == "behavior_775745_2025-03-17_09-28-54_processed_2025-11-26_09-01-26":
+        docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1] = None
+    elif docdb_record["name"] == "behavior_775745_2025-03-17_09-28-54_processed_2025-12-17_11-47-47":
+        docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1] = None
+    else:
+        pass
+
 names_seen = set()
 filtered_records = []
 for record in docdb_records:
+    size_in_bytes = get_size_in_bytes(record)
     if ((
             record.get("subject") is not None and record["subject"].get("schema_version") == "2.2.1"
     ) and (
@@ -172,8 +187,9 @@ for record in docdb_records:
     )):
         record_name = record["name"]
         dd_name = record["data_description"]["name"]
-        if record_name == dd_name and record_name not in names_seen:
+        if record_name == dd_name and record_name not in names_seen and size_in_bytes < 1024*100:
             names_seen.add(record_name)
+            fix_qc_metric(record)
             filtered_records.append(record)
 
 
@@ -243,7 +259,6 @@ for record in tqdm(records_to_load, desc="Populating registry", unit="record"):
         registered_instrument_id = registered_instrument.id
         registered_instruments[instrument_name] = registered_instrument_id
     else:
-        # TODO: Cache things to avoid fetching from DB
         registered_instrument_id = registered_instruments[instrument_name]
     registered_data_asset = core_api.create_data_asset(
         DataAssetCreate(
@@ -287,4 +302,3 @@ for record in tqdm(records_to_load, desc="Populating registry", unit="record"):
             data=processes
         )
     )
-

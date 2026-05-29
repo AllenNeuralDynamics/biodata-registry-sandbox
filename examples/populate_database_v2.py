@@ -28,9 +28,11 @@ import re
 
 SCHEMA_DIR = Path("../examples/schema_definitions")
 DOCDB_RECORDS_FILE = Path(
-    "../examples/records/docdb_records_10_percent_sample.json.gz"
+    "/allen/aind/scratch/jon.young/metadata_v2_records_20260324/data_assets.json"
 )
 
+with open(DOCDB_RECORDS_FILE, 'r') as f:
+    docdb_records = json.load(f)
 
 ## There are 3 qc metrics with values that are causing integer overflow errors
 def fix_qc_metric(docdb_record: dict):
@@ -90,7 +92,7 @@ SCHEMA_DEFINITIONS = {
 }
 
 configuration = Configuration(
-    host = "http://localhost:5000"
+    host = "http://aind-biodata-registry:8080"
 )
 
 api_client = ApiClient(configuration)
@@ -158,9 +160,6 @@ schema_id_map = dict([(r.name, r.id) for r in schemas.results])
 
 def get_size_in_bytes(input_dict: dict) -> int:
     return len(json.dumps(input_dict).encode('utf-8'))
-
-with gzip.open(DOCDB_RECORDS_FILE, 'rt', encoding='utf-8') as f:
-    docdb_records = json.load(f)
 
 names_seen = set()
 filtered_records = []
