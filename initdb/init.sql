@@ -2,7 +2,6 @@
 
 \c registry;
 
-
 CREATE TABLE users (
 	id SERIAL NOT NULL, 
 	name VARCHAR(254) NOT NULL, 
@@ -23,8 +22,8 @@ CREATE TABLE organizations (
 ;
 
 CREATE TABLE schema_entities (
-	name VARCHAR(50) NOT NULL, 
-	id SERIAL NOT NULL, 
+	name VARCHAR(50) NOT NULL,
+	id SERIAL NOT NULL,
 	PRIMARY KEY (id), 
 	UNIQUE (name)
 )
@@ -153,6 +152,8 @@ CREATE TABLE collection_data_assets (
 
 ;
 
+CREATE INDEX collection_data_assets_index ON collection_data_assets (data_asset_id);
+
 CREATE TABLE specimens (
 	id SERIAL NOT NULL, 
 	name VARCHAR(254) NOT NULL, 
@@ -168,6 +169,8 @@ CREATE TABLE specimens (
 
 ;
 
+CREATE INDEX specimens_index ON specimens (name, subject_id);
+
 CREATE TABLE subject_procedures (
 	id SERIAL NOT NULL, 
 	data JSONB, 
@@ -181,6 +184,8 @@ CREATE TABLE subject_procedures (
 )
 
 ;
+
+CREATE INDEX subject_procedures_index ON subject_procedures (subject_id);
 
 CREATE TABLE acquisitions (
 	id SERIAL NOT NULL, 
@@ -198,6 +203,8 @@ CREATE TABLE acquisitions (
 
 ;
 
+CREATE INDEX acquisitions_index ON acquisitions (data_asset_id, instrument_id);
+
 CREATE TABLE quality_controls (
 	id SERIAL NOT NULL, 
 	data JSONB, 
@@ -211,6 +218,8 @@ CREATE TABLE quality_controls (
 )
 
 ;
+
+CREATE INDEX quality_controls_index ON quality_controls (data_asset_id);
 
 CREATE TABLE processes (
 	id SERIAL NOT NULL, 
@@ -226,6 +235,8 @@ CREATE TABLE processes (
 
 ;
 
+CREATE INDEX processes_index ON processes (output_data_asset_id);
+
 CREATE TABLE process_inputs (
 	data_asset_id INTEGER NOT NULL, 
 	process_id INTEGER NOT NULL, 
@@ -235,6 +246,8 @@ CREATE TABLE process_inputs (
 )
 
 ;
+
+CREATE INDEX process_inputs_index ON process_inputs (process_id);
 
 CREATE TABLE subject_procedure_outputs (
 	specimen_id INTEGER NOT NULL, 
@@ -246,6 +259,8 @@ CREATE TABLE subject_procedure_outputs (
 
 ;
 
+CREATE INDEX subject_procedure_outputs_index ON subject_procedure_outputs (subject_procedure_id);
+
 CREATE TABLE specimen_procedure_inputs (
 	specimen_id INTEGER NOT NULL, 
 	specimen_procedure_id INTEGER NOT NULL, 
@@ -255,6 +270,8 @@ CREATE TABLE specimen_procedure_inputs (
 )
 
 ;
+
+CREATE INDEX specimen_procedure_inputs_index ON specimen_procedure_inputs (specimen_procedure_id);
 
 CREATE TABLE specimen_procedure_outputs (
 	specimen_id INTEGER NOT NULL, 
@@ -266,6 +283,8 @@ CREATE TABLE specimen_procedure_outputs (
 
 ;
 
+CREATE INDEX specimen_procedure_outputs_index ON specimen_procedure_outputs (specimen_procedure_id);
+
 CREATE TABLE acquisition_subjects (
 	acquisition_id INTEGER NOT NULL, 
 	subject_id INTEGER NOT NULL, 
@@ -276,6 +295,8 @@ CREATE TABLE acquisition_subjects (
 
 ;
 
+CREATE INDEX acquisition_subjects_index ON acquisition_subjects (subject_id);
+
 CREATE TABLE acquisition_specimens (
 	acquisition_id INTEGER NOT NULL, 
 	specimen_id INTEGER NOT NULL, 
@@ -285,5 +306,44 @@ CREATE TABLE acquisition_specimens (
 )
 
 ;
-CREATE VIEW data_asset_view AS SELECT data_assets.id AS data_asset_id, acquisitions.id AS acquisition_id, subjects.id AS subject_id, processes.id AS process_id, subject_procedures.id AS subject_procedure_id, quality_controls.id AS quality_control_id, instruments.id AS instrument_id, processes.data AS processes_data, acquisitions.data AS acquisition_data, instruments.name AS instrument_name, instruments.data AS instrument_data, data_assets.location AS data_asset_location, data_assets.name AS data_asset_name, data_assets.data AS data_asset_data, data_assets.external_links AS data_asset_external_links, subjects.name AS subject_name, subjects.data AS subject_data, subject_procedures.data AS subject_procedures_data, quality_controls.data AS quality_control_data 
-FROM data_assets LEFT OUTER JOIN acquisitions ON data_assets.id = acquisitions.data_asset_id LEFT OUTER JOIN instruments ON instruments.id = acquisitions.instrument_id LEFT OUTER JOIN quality_controls ON data_assets.id = quality_controls.data_asset_id LEFT OUTER JOIN processes ON data_assets.id = processes.output_data_asset_id JOIN acquisition_subjects ON acquisitions.id = acquisition_subjects.acquisition_id JOIN subjects ON subjects.id = acquisition_subjects.subject_id LEFT OUTER JOIN subject_procedures ON subject_procedures.subject_id = subjects.id;
+
+CREATE INDEX acquisition_specimens_index ON acquisition_specimens (specimen_id);
+
+CREATE VIEW data_asset_view
+AS SELECT
+    data_assets.id AS data_asset_id,
+    acquisitions.id AS acquisition_id,
+    instruments.id AS instrument_id,
+    processes.id AS process_id,
+    data_assets.name AS data_asset_name,
+    data_assets.location AS data_asset_location,
+    data_assets.external_links AS data_asset_external_links,
+    instruments.name AS instrument_name,
+    data_assets.data AS data_asset_data,
+    acquisitions.data AS acquisition_data,
+    processes.data AS processes_data,
+    instruments.data AS instrument_data,
+    agg1.items as quality_control_metrics,
+    agg2.items as subjects,
+    agg3.items as subject_procedures
+FROM data_assets
+LEFT OUTER JOIN acquisitions ON data_assets.id = acquisitions.data_asset_id
+LEFT OUTER JOIN instruments ON instruments.id = acquisitions.instrument_id
+LEFT OUTER JOIN processes ON data_assets.id = processes.output_data_asset_id
+LEFT JOIN LATERAL (
+    SELECT COALESCE(jsonb_agg(jsonb_build_object('quality_control_id', quality_controls.id, 'data', quality_controls.data)), '[]') as items
+    FROM quality_controls
+    WHERE quality_controls.data_asset_id = data_assets.id
+) agg1 ON true
+JOIN acquisition_subjects ON acquisitions.id = acquisition_subjects.acquisition_id
+LEFT JOIN LATERAL (
+    SELECT COALESCE(jsonb_agg(jsonb_build_object('subject_id', subjects.id, 'data', subjects.data)), '[]') as items
+    FROM subjects
+    WHERE subjects.id = acquisition_subjects.subject_id
+) agg2 ON true
+LEFT JOIN LATERAL (
+    SELECT COALESCE(jsonb_agg(jsonb_build_object('subject_id', subject_procedures.subject_id, 'subject_procedures_id',  subject_procedures.id,'data', subject_procedures.data)), '[]') as items
+    FROM subject_procedures
+    WHERE subject_procedures.subject_id = acquisition_subjects.subject_id
+) agg3 ON true
+;

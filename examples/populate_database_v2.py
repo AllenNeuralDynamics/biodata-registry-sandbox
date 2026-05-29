@@ -30,6 +30,22 @@ SCHEMA_DIR = Path("../examples/schema_definitions")
 DOCDB_RECORDS_FILE = Path(
     "../examples/records/docdb_records_10_percent_sample.json.gz"
 )
+
+
+## There are 3 qc metrics with values that are causing integer overflow errors
+def fix_qc_metric(docdb_record: dict):
+    if docdb_record["name"] == "behavior_705599_2024-06-27_12-22-52_processed_2025-12-11_07-06-33":
+        print(docdb_record["name"], docdb_record["quality_control"]["metrics"][49]["value"]["t_slow"][0])
+        docdb_record["quality_control"]["metrics"][49]["value"]["t_slow"][0] = None
+    elif docdb_record["name"] == "behavior_775745_2025-03-17_09-28-54_processed_2025-11-26_09-01-26":
+        print(docdb_record["name"], docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1])
+        docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1] = None
+    elif docdb_record["name"] == "behavior_775745_2025-03-17_09-28-54_processed_2025-12-17_11-47-47":
+        print(docdb_record["name"], docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1])
+        docdb_record["quality_control"]["metrics"][54]["value"]["t_slow"][1] = None
+    else:
+        pass
+
 SCHEMA_DEFINITIONS = {
     "acquisition": {
         "filename": "acquisition_schema.json",
@@ -140,12 +156,16 @@ for name, schema_definition in SCHEMA_DEFINITIONS.items():
 schemas = core_api.get_schemas()
 schema_id_map = dict([(r.name, r.id) for r in schemas])
 
+def get_size_in_bytes(input_dict: dict) -> int:
+    return len(json.dumps(input_dict).encode('utf-8'))
+
 with gzip.open(DOCDB_RECORDS_FILE, 'rt', encoding='utf-8') as f:
     docdb_records = json.load(f)
 
 names_seen = set()
 filtered_records = []
 for record in docdb_records:
+    size_in_bytes = get_size_in_bytes(record)
     if ((
             record.get("subject") is not None and record["subject"].get("schema_version") == "2.2.1"
     ) and (
@@ -163,8 +183,9 @@ for record in docdb_records:
     )):
         record_name = record["name"]
         dd_name = record["data_description"]["name"]
-        if record_name == dd_name and record_name not in names_seen:
+        if record_name == dd_name and record_name not in names_seen and size_in_bytes < 1024*100:
             names_seen.add(record_name)
+            fix_qc_metric(record)
             filtered_records.append(record)
 
 
@@ -172,6 +193,8 @@ subjects_seen = set()
 instruments_seen = set()
 counter = 0
 total_records = len(filtered_records)
+registered_subjects = dict()
+registered_instruments = dict()
 for record in filtered_records:
     counter += 1
     if counter % 100 == 0:
@@ -207,18 +230,20 @@ for record in filtered_records:
                 data=subject
             )
         )
+        registered_subject_id = registered_subject.id
+        registered_subjects[subject["subject_id"]] = registered_subject_id
         for subject_procedure in subject_procedures:
             registered_subject_procedures = core_api.create_subject_procedure(
                 SubjectProcedureCreate(
                     space_id=1,
                     schema_id=schema_id_map["subject_procedures"],
-                    subject_id=registered_subject.id,
+                    subject_id=registered_subject_id,
                     data=subject_procedures,
                 )
             )
     else:
         # TODO: Cache things to avoid fetching from DB
-        registered_subject = core_api.get_subjects(name=subject_id)[0]
+        registered_subject_id = registered_subjects[subject_id]
     if instrument_name not in instruments_seen:
         instruments_seen.add(instrument_name)
         registered_instrument = core_api.create_instrument(
@@ -229,37 +254,42 @@ for record in filtered_records:
                 data=instrument
             )
         )
+        registered_instrument_id = registered_instrument.id
+        registered_instruments[instrument_name] = registered_instrument_id
     else:
         # TODO: Cache things to avoid fetching from DB
-        registered_instrument = core_api.get_instruments(name=instrument_name)[0]
+        registered_instrument_id = registered_instruments[instrument_name]
     registered_data_asset = core_api.create_data_asset(
         DataAssetCreate(
             space_id=1,
             schema_id=schema_id_map["data_description"],
+            external_links=external_links,
             location=location,
             name=name,
             data=data_description
         )
     )
+    registered_data_asset_id = registered_data_asset.id
     registered_acquisition = core_api.create_acquisition(
         AcquisitionCreate(
             space_id=1,
             schema_id=schema_id_map["acquisition"],
-            data_asset_id=registered_data_asset.id,
-            instrument_id=registered_instrument.id,
+            data_asset_id=registered_data_asset_id,
+            instrument_id=registered_instrument_id,
             data=acquisition
         )
     )
+    registered_acquisition_id = registered_acquisition.id
     add_acquisition_response = core_api.put_acquisition_subject(
-        id=registered_acquisition.id,
-        subject_id=registered_subject.id,
+        id=registered_acquisition_id,
+        subject_id=registered_subject_id,
     )
     for quality_control_metric in quality_control_metrics:
         registered_quality_control = core_api.create_quality_control(
             QualityControlCreate(
                 space_id=1,
                 schema_id=schema_id_map["quality_control"],
-                data_asset_id=registered_data_asset.id,
+                data_asset_id=registered_data_asset_id,
                 data=quality_control_metric
             )
         )
@@ -267,7 +297,7 @@ for record in filtered_records:
         ProcessCreate(
             space_id=1,
             schema_id=schema_id_map["processing"],
-            output_data_asset_id=registered_data_asset.id,
+            output_data_asset_id=registered_data_asset_id,
             data=processes
         )
     )

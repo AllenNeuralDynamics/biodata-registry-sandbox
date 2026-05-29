@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel, select, Field, Column
 from sqlalchemy_utils.view import create_view
 from typing import Dict, Any, List
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.dialects.postgresql import JSONB, JSON
 from biodata_registry_api.models.core import Acquisitions, DataAssets, Subjects, QualityControls, Instruments, Processes, SubjectProcedures
 from biodata_registry_api.models.link_tables import AcquisitionSubjects
 
@@ -53,16 +53,10 @@ class DataAssetView(SQLModel, table=True):
     acquisition_id: int | None = Field(
         default=None, primary_key=True
     )
-    subject_id: int | None = Field(
-        default=None, primary_key=True
-    )
     process_id: int | None = Field(
         default=None, primary_key=True
     )
-    subject_procedure_id: int | None = Field(
-        default=None, primary_key=True
-    )
-    quality_control_id: int | None = Field(
+    instrument_id: int | None = Field(
         default=None, primary_key=True
     )
     acquisition_data: Dict[str, Any] = Field(
@@ -88,16 +82,15 @@ class DataAssetView(SQLModel, table=True):
         default_factory=dict,
         sa_column=Column(JSONB)
     )
-    subject_name: str | None = Field(default=None, max_length=254)
-    subject_data: Dict[str, Any] = Field(
-        default_factory=dict,
-        sa_column=Column(JSONB)
-    )
-    subject_procedures_data: List[Dict[str, Any]] = Field(
+    subjects: List[Dict[str, Any]] = Field(
         default_factory=list,
-        sa_column=Column(JSONB)
+        sa_column=Column(JSON)
     )
-    quality_control_data: Dict[str, Any] = Field(
-        default_factory=dict,
-        sa_column=Column(JSONB)
+    subject_procedures: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        sa_column=Column(JSON)
+    )
+    quality_control_metrics: List[Dict[str, Any]] = Field(
+        default_factory=list,
+        sa_column=Column(JSON)
     )
