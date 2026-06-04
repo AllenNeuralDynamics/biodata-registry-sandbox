@@ -23,7 +23,8 @@ dependencies = [
     'pydantic>=2.0',
     'pydantic-xml',
     'asyncpg',
-    'sqlalchemy-utils'
+    'sqlalchemy-utils',
+    'fastapi-filter'
 ]
 
 [project.optional-dependencies]

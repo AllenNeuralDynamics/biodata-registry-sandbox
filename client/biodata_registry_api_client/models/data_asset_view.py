@@ -17,6 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
+from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
@@ -28,6 +29,10 @@ class DataAssetView(BaseModel):
     """
     DataAssetView
     """ # noqa: E501
+    created_at: Optional[datetime] = None
+    created_by: Optional[StrictInt] = None
+    updated_at: Optional[datetime] = None
+    updated_by: Optional[StrictInt] = None
     data_asset_id: Optional[StrictInt] = None
     acquisition_id: Optional[StrictInt] = None
     process_id: Optional[StrictInt] = None
@@ -43,7 +48,7 @@ class DataAssetView(BaseModel):
     subjects: Optional[List[Optional[Dict[str, Any]]]] = None
     subject_procedures: Optional[List[Optional[Dict[str, Any]]]] = None
     quality_control_metrics: Optional[List[Optional[Dict[str, Any]]]] = None
-    __properties: ClassVar[List[str]] = ["data_asset_id", "acquisition_id", "process_id", "instrument_id", "acquisition_data", "processes_data", "instrument_name", "instrument_data", "data_asset_location", "data_asset_name", "data_asset_data", "data_asset_external_links", "subjects", "subject_procedures", "quality_control_metrics"]
+    __properties: ClassVar[List[str]] = ["created_at", "created_by", "updated_at", "updated_by", "data_asset_id", "acquisition_id", "process_id", "instrument_id", "acquisition_data", "processes_data", "instrument_name", "instrument_data", "data_asset_location", "data_asset_name", "data_asset_data", "data_asset_external_links", "subjects", "subject_procedures", "quality_control_metrics"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -84,6 +89,26 @@ class DataAssetView(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if created_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.created_at is None and "created_at" in self.model_fields_set:
+            _dict['created_at'] = None
+
+        # set to None if created_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.created_by is None and "created_by" in self.model_fields_set:
+            _dict['created_by'] = None
+
+        # set to None if updated_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.updated_at is None and "updated_at" in self.model_fields_set:
+            _dict['updated_at'] = None
+
+        # set to None if updated_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.updated_by is None and "updated_by" in self.model_fields_set:
+            _dict['updated_by'] = None
+
         # set to None if data_asset_id (nullable) is None
         # and model_fields_set contains the field
         if self.data_asset_id is None and "data_asset_id" in self.model_fields_set:
@@ -131,6 +156,10 @@ class DataAssetView(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "created_at": obj.get("created_at"),
+            "created_by": obj.get("created_by"),
+            "updated_at": obj.get("updated_at"),
+            "updated_by": obj.get("updated_by"),
             "data_asset_id": obj.get("data_asset_id"),
             "acquisition_id": obj.get("acquisition_id"),
             "process_id": obj.get("process_id"),

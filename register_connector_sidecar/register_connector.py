@@ -26,31 +26,40 @@ while not connected:
         sleep(5)
 
 print("Connector is up! Registering json...")
-content = {
-  "name": "registry-connector",
-  "config": {
-    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-    "database.hostname": PG_HOST,
-    "database.port": PG_PORT,
-    "database.user": PG_USER,
-    "database.password": PG_PASSWORD,
-    "database.dbname": PG_DBNAME,
-    "topic.prefix": "registry",
-    "slot.name": "registry_slot",
-    "publication.autocreate.mode": "filtered"
-  }
-}
+try:
+    content = {
+      "name": "registry-connector",
+      "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "database.hostname": PG_HOST,
+        "database.port": PG_PORT,
+        "database.user": PG_USER,
+        "database.password": PG_PASSWORD,
+        "database.dbname": PG_DBNAME,
+        "topic.prefix": "registry",
+        "slot.name": "registry_slot",
+        "publication.autocreate.mode": "filtered"
+      }
+    }
 
-headers = {"Content-Type": "application/json"}
-req = urllib.request.Request(
-    CONNECT_URL,
-    headers=headers,
-    data=json.dumps(content).encode('utf-8'),
-    method='POST'
-)
+    headers = {"Content-Type": "application/json"}
+    req = urllib.request.Request(
+        CONNECT_URL,
+        headers=headers,
+        data=json.dumps(content).encode('utf-8'),
+        method='POST'
+    )
 
-with urllib.request.urlopen(req) as response:
-    result = json.loads(response.read().decode('utf-8'))
-    print(result)
+    with urllib.request.urlopen(req) as response:
+        result = json.loads(response.read().decode('utf-8'))
+        print(result)
 
-print("Finished registering connector!")
+    print("Finished registering connector!")
+except urllib.error.HTTPError as e:
+    if e.code == 409:
+        print(
+            "Connector is likely already running!"
+        )
+    else:
+        raise e
+

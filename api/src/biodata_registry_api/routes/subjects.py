@@ -4,12 +4,14 @@ Subjects
 """
 from typing import List
 
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.core import Subjects, SubjectCreate, SubjectUpdate, Acquisitions
-
+from biodata_registry_api.models.core import Subjects, Acquisitions
+from biodata_registry_api.models.crud.core import SubjectCreate, SubjectUpdate, SubjectsPage, SubjectsFilter
 from biodata_registry_api.session import get_session
+from biodata_registry_api.routes import encode_next_token, decode_next_token
+from fastapi_filter import FilterDepends
 
 router = APIRouter()
 
@@ -49,20 +51,29 @@ async def get_subject(
 @router.get(
     "/subjects",
     tags=["core"],
-    response_model=List[Subjects],
+    response_model=SubjectsPage,
     operation_id="get_subjects"
 )
 async def get_subjects(
-        name: str | None = Query(default=None),
-        offset: int = Query(default=0),
-        limit: int = Query(default=10, le=1000),
+        next_token: str | None = Query(default=None),
+        limit: int = Query(default=10, le=100, ge=1),
+        filter_query: SubjectsFilter = FilterDepends(SubjectsFilter),
         session: AsyncSession = Depends(get_session),
 ):
-    statement = select(Subjects).offset(offset).limit(limit)
-    if name is not None:
-        statement = statement.where(Subjects.name == name)
+    previous_id = decode_next_token(next_token)
+    statement = select(Subjects).order_by(Subjects.id.asc())
+    statement = filter_query.filter(statement)
+    if previous_id is not None:
+        statement = statement.where(Subjects.id > previous_id)
+    statement = statement.limit(limit)
     rows = await session.exec(statement)
-    return rows.all()
+    items = rows.all()
+    next_token = None if not items else encode_next_token(items[-1].id)
+    return SubjectsPage(
+        next_token=next_token,
+        has_more=len(items) == limit,
+        results=items
+    )
 
 @router.delete(
     "/subject",

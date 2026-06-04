@@ -4,13 +4,15 @@ SpecimenProcedures
 """
 from typing import List
 
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from biodata_registry_api.models.core import SpecimenProcedures, SpecimenProcedureCreate, SpecimenProcedureUpdate, \
-    Specimens
+from biodata_registry_api.models.crud.core import SpecimenProcedureCreate, SpecimenProcedureUpdate, SpecimenProceduresFilter, SpecimenProceduresPage
+from biodata_registry_api.models.core import SpecimenProcedures, Specimens
+from biodata_registry_api.routes import encode_next_token, decode_next_token
 
 from biodata_registry_api.session import get_session
+from fastapi_filter import FilterDepends
 
 router = APIRouter()
 
@@ -50,18 +52,29 @@ async def get_specimen_procedure(
 @router.get(
     "/specimen_procedures",
     tags=["core"],
-    response_model=List[SpecimenProcedures],
+    response_model=SpecimenProceduresPage,
     operation_id="get_specimen_procedures"
 )
 async def get_specimen_procedures(
-        offset: int = Query(default=0),
-        limit: int = Query(default=10, le=1000),
+        next_token: str | None = Query(default=None),
+        limit: int = Query(default=10, le=100, ge=1),
+        filter_query: SpecimenProceduresFilter = FilterDepends(SpecimenProceduresFilter),
         session: AsyncSession = Depends(get_session),
 ):
-    rows = await session.exec(
-        select(SpecimenProcedures).offset(offset).limit(limit)
+    previous_id = decode_next_token(next_token)
+    statement = select(SpecimenProcedures).order_by(SpecimenProcedures.id.asc())
+    statement = filter_query.filter(statement)
+    if previous_id is not None:
+        statement = statement.where(SpecimenProcedures.id > previous_id)
+    statement = statement.limit(limit)
+    rows = await session.exec(statement)
+    items = rows.all()
+    next_token = None if not items else encode_next_token(items[-1].id)
+    return SpecimenProceduresPage(
+        next_token=next_token,
+        has_more=len(items) == limit,
+        results=items
     )
-    return rows.all()
 
 @router.delete(
     "/specimen_procedure",

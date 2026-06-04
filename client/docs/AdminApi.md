@@ -978,7 +978,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_collections**
-> List[Collections] get_collections(offset=offset, limit=limit)
+> CollectionsPage get_collections(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike, description__ilike=description__ilike)
 
 Get Collections
 
@@ -987,7 +987,7 @@ Get Collections
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.collections import Collections
+from biodata_registry_api_client.models.collections_page import CollectionsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -1002,12 +1002,22 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.AdminApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
+    description__ilike = 'description__ilike_example' # str |  (optional)
 
     try:
         # Get Collections
-        api_response = api_instance.get_collections(offset=offset, limit=limit)
+        api_response = api_instance.get_collections(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike, description__ilike=description__ilike)
         print("The response of AdminApi->get_collections:\n")
         pprint(api_response)
     except Exception as e:
@@ -1021,12 +1031,22 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
+ **description__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[Collections]**](Collections.md)
+[**CollectionsPage**](CollectionsPage.md)
 
 ### Authorization
 
@@ -1181,7 +1201,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_organization_admins**
-> List[OrganizationAdmins] get_organization_admins(offset=offset, limit=limit)
+> OrganizationAdminsPage get_organization_admins(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
 
 Get Organization Admins
 
@@ -1190,7 +1210,7 @@ Get Organization Admins
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.organization_admins import OrganizationAdmins
+from biodata_registry_api_client.models.organization_admins_page import OrganizationAdminsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -1205,12 +1225,20 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.AdminApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
         # Get Organization Admins
-        api_response = api_instance.get_organization_admins(offset=offset, limit=limit)
+        api_response = api_instance.get_organization_admins(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
         print("The response of AdminApi->get_organization_admins:\n")
         pprint(api_response)
     except Exception as e:
@@ -1224,12 +1252,20 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
 
 ### Return type
 
-[**List[OrganizationAdmins]**](OrganizationAdmins.md)
+[**OrganizationAdminsPage**](OrganizationAdminsPage.md)
 
 ### Authorization
 
@@ -1250,7 +1286,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_organizations**
-> List[Organizations] get_organizations(offset=offset, limit=limit)
+> OrganizationsPage get_organizations(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
 
 Get Organizations
 
@@ -1259,7 +1295,7 @@ Get Organizations
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.organizations import Organizations
+from biodata_registry_api_client.models.organizations_page import OrganizationsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -1274,12 +1310,21 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.AdminApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
 
     try:
         # Get Organizations
-        api_response = api_instance.get_organizations(offset=offset, limit=limit)
+        api_response = api_instance.get_organizations(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
         print("The response of AdminApi->get_organizations:\n")
         pprint(api_response)
     except Exception as e:
@@ -1293,12 +1338,21 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[Organizations]**](Organizations.md)
+[**OrganizationsPage**](OrganizationsPage.md)
 
 ### Authorization
 
@@ -1453,7 +1507,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_space_admins**
-> List[SpaceAdmins] get_space_admins(offset=offset, limit=limit)
+> SpaceAdminsPage get_space_admins(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
 
 Get Space Admins
 
@@ -1462,7 +1516,7 @@ Get Space Admins
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.space_admins import SpaceAdmins
+from biodata_registry_api_client.models.space_admins_page import SpaceAdminsPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -1477,12 +1531,20 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.AdminApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
 
     try:
         # Get Space Admins
-        api_response = api_instance.get_space_admins(offset=offset, limit=limit)
+        api_response = api_instance.get_space_admins(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte)
         print("The response of AdminApi->get_space_admins:\n")
         pprint(api_response)
     except Exception as e:
@@ -1496,12 +1558,20 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
 
 ### Return type
 
-[**List[SpaceAdmins]**](SpaceAdmins.md)
+[**SpaceAdminsPage**](SpaceAdminsPage.md)
 
 ### Authorization
 
@@ -1522,7 +1592,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_spaces**
-> List[Spaces] get_spaces(offset=offset, limit=limit)
+> SpacesPage get_spaces(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
 
 Get Spaces
 
@@ -1531,7 +1601,7 @@ Get Spaces
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.spaces import Spaces
+from biodata_registry_api_client.models.spaces_page import SpacesPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -1546,12 +1616,21 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.AdminApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
 
     try:
         # Get Spaces
-        api_response = api_instance.get_spaces(offset=offset, limit=limit)
+        api_response = api_instance.get_spaces(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike)
         print("The response of AdminApi->get_spaces:\n")
         pprint(api_response)
     except Exception as e:
@@ -1565,12 +1644,21 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[Spaces]**](Spaces.md)
+[**SpacesPage**](SpacesPage.md)
 
 ### Authorization
 
@@ -1658,7 +1746,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_users**
-> List[Users] get_users(offset=offset, limit=limit)
+> UsersPage get_users(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike, contact__ilike=contact__ilike)
 
 Get Users
 
@@ -1667,7 +1755,7 @@ Get Users
 
 ```python
 import biodata_registry_api_client
-from biodata_registry_api_client.models.users import Users
+from biodata_registry_api_client.models.users_page import UsersPage
 from biodata_registry_api_client.rest import ApiException
 from pprint import pprint
 
@@ -1682,12 +1770,22 @@ configuration = biodata_registry_api_client.Configuration(
 with biodata_registry_api_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = biodata_registry_api_client.AdminApi(api_client)
-    offset = 0 # int |  (optional) (default to 0)
+    next_token = 'next_token_example' # str |  (optional)
     limit = 10 # int |  (optional) (default to 10)
+    created_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    created_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lt = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__gte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    updated_at__lte = '2013-10-20T19:20:30+01:00' # datetime |  (optional)
+    name__ilike = 'name__ilike_example' # str |  (optional)
+    contact__ilike = 'contact__ilike_example' # str |  (optional)
 
     try:
         # Get Users
-        api_response = api_instance.get_users(offset=offset, limit=limit)
+        api_response = api_instance.get_users(next_token=next_token, limit=limit, created_at__gt=created_at__gt, created_at__lt=created_at__lt, created_at__gte=created_at__gte, created_at__lte=created_at__lte, updated_at__gt=updated_at__gt, updated_at__lt=updated_at__lt, updated_at__gte=updated_at__gte, updated_at__lte=updated_at__lte, name__ilike=name__ilike, contact__ilike=contact__ilike)
         print("The response of AdminApi->get_users:\n")
         pprint(api_response)
     except Exception as e:
@@ -1701,12 +1799,22 @@ with biodata_registry_api_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **offset** | **int**|  | [optional] [default to 0]
+ **next_token** | **str**|  | [optional] 
  **limit** | **int**|  | [optional] [default to 10]
+ **created_at__gt** | **datetime**|  | [optional] 
+ **created_at__lt** | **datetime**|  | [optional] 
+ **created_at__gte** | **datetime**|  | [optional] 
+ **created_at__lte** | **datetime**|  | [optional] 
+ **updated_at__gt** | **datetime**|  | [optional] 
+ **updated_at__lt** | **datetime**|  | [optional] 
+ **updated_at__gte** | **datetime**|  | [optional] 
+ **updated_at__lte** | **datetime**|  | [optional] 
+ **name__ilike** | **str**|  | [optional] 
+ **contact__ilike** | **str**|  | [optional] 
 
 ### Return type
 
-[**List[Users]**](Users.md)
+[**UsersPage**](UsersPage.md)
 
 ### Authorization
 

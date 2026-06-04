@@ -5,6 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**created_at** | **datetime** |  | [optional] 
+**created_by** | **int** |  | [optional] 
+**updated_at** | **datetime** |  | [optional] 
+**updated_by** | **int** |  | [optional] 
 **data_asset_id** | **int** |  | [optional] 
 **acquisition_id** | **int** |  | [optional] 
 **process_id** | **int** |  | [optional] 

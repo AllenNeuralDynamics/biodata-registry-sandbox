@@ -23,8 +23,24 @@ api_client = ApiClient(configuration)
 core_api = CoreApi(api_client)
 views_api = ViewsApi(api_client)
 
-subject_data = core_api.get_subjects(limit=1)
-data_asset_view = views_api.get_data_asset_view(data_asset_id=1)
+subject_data = core_api.get_subject(id=1)
+data_asset_view = views_api.get_data_asset_view(
+    data_asset_name__ilike="behavior_774600",
+    limit=10
+)
+
+# TODO: Write own paginate method in client library
+all_rows = data_asset_view.results
+while data_asset_view.has_more:
+    data_asset_view = views_api.get_data_asset_view(
+        data_asset_name__ilike="behavior_774600",
+        next_token=data_asset_view.next_token,
+        limit=10
+    )
+    all_rows.extend(data_asset_view.results)
+
+for row in all_rows:
+    print(row.data_asset_name)
 
 # TODO: Put these behind the api in the future instead of allowing people
 #  direct access
@@ -55,6 +71,7 @@ with MongoClient(
     db = mongodb_client["metadata"]
     opts = CodecOptions(uuid_representation=UuidRepresentation.STANDARD)
     collection = db.get_collection("data_assets", codec_options=opts)
+    collection_count = collection.count_documents({})
     mongodb_results = collection.find({"data_asset_id": 2}).to_list()
 
 print(mongodb_results[0]["subjects"])
